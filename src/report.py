@@ -33,7 +33,7 @@ def generate_markdown_report(
         "",
         f"**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  ",
         f"**Benchmark:** {meta.get('name', 'IRT Deliberation Benchmark')}  ",
-        f"**Model:** `{model_cfg.get('agent_model', 'meta-llama/Llama-3.3-70B-Instruct-Turbo')}`  ",
+        f"**Model:** `{model_cfg.get('agent_model', 'openai/gpt-oss-120b')}`  ",
         f"**Trials per Item:** {delib_cfg.get('trials_per_item', 5)}  ",
         "",
         "---",

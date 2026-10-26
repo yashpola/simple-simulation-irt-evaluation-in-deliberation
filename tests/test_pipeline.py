@@ -127,9 +127,9 @@ def test_missing_env_credentials_raises_error(monkeypatch: pytest.MonkeyPatch) -
 
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     with pytest.raises(ValueError, match="OPENAI_API_KEY"):
-        OpenAIClient(model="meta-llama/Llama-3.3-70B-Instruct-Turbo")
+        OpenAIClient(model="openai/gpt-oss-120b")
 
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
     monkeypatch.delenv("OPENAI_BASE_URL", raising=False)
     with pytest.raises(ValueError, match="OPENAI_BASE_URL"):
-        OpenAIClient(model="meta-llama/Llama-3.3-70B-Instruct-Turbo")
+        OpenAIClient(model="openai/gpt-oss-120b")

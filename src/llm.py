@@ -119,9 +119,10 @@ def resolve_fallback_model(is_judge: bool = False) -> Optional[str]:
     return (
         os.environ.get("AGENT_MODEL")
         or os.environ.get("DEFAULT_AGENT_MODEL")
+        or os.environ.get("MODEL_GPT_OSS")
         or os.environ.get("MODEL_LLAMA")
         or os.environ.get("MODEL_GEMMA")
-        or "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+        or "openai/gpt-oss-120b"
     )
 
 
@@ -131,7 +132,7 @@ def get_llm_client(
 ) -> OpenAIClient:
     """Factory function returning configured OpenAIClient reading endpoint credentials directly from .env."""
     fallback_model = resolve_fallback_model(is_judge=is_judge)
-    model = config.get("agent_model") or fallback_model or "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+    model = config.get("agent_model") or fallback_model or "openai/gpt-oss-120b"
 
     return OpenAIClient(
         model=model,

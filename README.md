@@ -227,9 +227,8 @@ OPENAI_API_KEY=your-api-key-here
 OPENAI_BASE_URL=https://api.together.xyz/v1
 
 # Default models (used directly or as fallback if config.json model is unavailable)
-MODEL_LLAMA=meta-llama/Llama-3.3-70B-Instruct-Turbo
-MODEL_GEMMA=meta-llama/Llama-3.3-70B-Instruct-Turbo
-AGENT_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo
+AGENT_MODEL=openai/gpt-oss-120b
+MODEL_GPT_OSS=openai/gpt-oss-120b
 ```
 
 ### Running Unit & Integration Tests
@@ -270,7 +269,7 @@ To customize parameters such as the number of trials or models, update your conf
 ```json
 {
   "model_config": {
-    "agent_model": "meta-llama/Llama-3.3-70B-Instruct-Turbo"
+    "agent_model": "openai/gpt-oss-120b"
   },
   "deliberation_config": {
     "turns_per_item": 4,

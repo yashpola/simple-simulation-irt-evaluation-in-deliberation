@@ -137,7 +137,7 @@ flowchart TD
 
 ## 7. Strict Coding Guidelines for Reproduction
 
-To allow autonomous agents or researchers to reproduce this codebase reliably, the repository strictly enforces six architectural guidelines:
+To allow autonomous agents or researchers to reproduce this codebase reliably, the repository strictly enforces seven architectural guidelines:
 
 ### Guideline 1: Strict Typing with Built-in Types (No Pydantic)
 - All data schemas must use Python built-in `typing.TypedDict` (no heavy validation libraries like Pydantic).
@@ -166,6 +166,10 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
 ### Guideline 6: Dynamic Output Directory Indexing
 - Every execution dynamically discovers existing `data/expXXX/` directories and writes to the next incremented index (e.g., `data/exp000/`, `data/exp001/`). Past runs are never overwritten.
 
+### Guideline 7: Documentation Transparency for Code Defaults (Hygiene)
+- Any default configurations, parameter values, or fallback behaviors embedded in Python logic (e.g., fallback model `openai/gpt-oss-120b` in `src/llm.py`, default inference temperature/max_tokens, default seeds, or fallback directory resolutions) MUST be explicitly mentioned in `README.md`.
+- No hidden or undocumented assumptions: If code logic assumes or falls back to a specific default value when an environment variable or config field is omitted, that default must be documented prominently in the README setup instructions to maintain clean engineering hygiene and reproducibility.
+
 ---
 
 ## 8. Configuration Specification (`data/config.json`)
@@ -178,7 +182,7 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
     "version": "2.0.0"
   },
   "model_config": {
-    "agent_model": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+    "agent_model": "openai/gpt-oss-120b",
     "temperature": 0.7,
     "max_tokens": 512
   },
@@ -248,9 +252,8 @@ python3 -m src.main --help
 ```env
 OPENAI_API_KEY=your-api-key
 OPENAI_BASE_URL=https://api.together.xyz/v1
-MODEL_LLAMA=meta-llama/Llama-3.3-70B-Instruct-Turbo
-MODEL_GEMMA=meta-llama/Llama-3.3-70B-Instruct-Turbo
-AGENT_MODEL=meta-llama/Llama-3.3-70B-Instruct-Turbo
+AGENT_MODEL=openai/gpt-oss-120b
+MODEL_GPT_OSS=openai/gpt-oss-120b
 ```
 
 ---
