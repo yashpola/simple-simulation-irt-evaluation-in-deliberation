@@ -167,7 +167,7 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
 - Every execution dynamically discovers existing `data/expXXX/` directories and writes to the next incremented index (e.g., `data/exp000/`, `data/exp001/`). Past runs are never overwritten.
 
 ### Guideline 7: Documentation Transparency for Code Defaults (Hygiene)
-- Any default configurations, parameter values, or fallback behaviors embedded in Python logic (e.g., fallback model `openai/gpt-oss-120b` in `src/llm.py`, default inference temperature/max_tokens, default seeds, or fallback directory resolutions) MUST be explicitly mentioned in `README.md`.
+- Any default configurations, parameter values, or fallback behaviors embedded in Python logic (e.g., fallback model `openai/gpt-oss-120b` in `src/llm.py`, default inference temperature/max_tokens, option shuffling seeds like `mcq_option_order_seed`, or fallback directory resolutions) MUST be explicitly mentioned in `README.md`.
 - No hidden or undocumented assumptions: If code logic assumes or falls back to a specific default value when an environment variable or config field is omitted, that default must be documented prominently in the README setup instructions to maintain clean engineering hygiene and reproducibility.
 
 ---
@@ -205,7 +205,7 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
   "deliberation_config": {
     "turns_per_item": 4,
     "trials_per_item": 5,
-    "seed": 42,
+    "mcq_option_order_seed": 42,
     "dyads": [
       {
         "id": "D1",

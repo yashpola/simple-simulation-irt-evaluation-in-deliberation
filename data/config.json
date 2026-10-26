@@ -30,7 +30,7 @@
   "deliberation_config": {
     "turns_per_item": 4,
     "trials_per_item": 5,
-    "seed": 42,
+    "mcq_option_order_seed": 42,
     "dyads": [
       {
         "id": "D1",

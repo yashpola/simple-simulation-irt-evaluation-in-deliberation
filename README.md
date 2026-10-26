@@ -99,14 +99,14 @@ This framework combines **Classical Test Theory (CTT)** for direct empirical sta
 
 ### Metric Interpretability & Range Reference Guide
 
-| Metric | Symbol | Theoretical Range | Practical Solver Range | Interpretation & Standard Thresholds |
-| :--- | :---: | :---: | :---: | :--- |
-| **CTT Difficulty (Pass Rate)** | $p_i$ | $[0.0, 1.0]$ | $[0.0, 1.0]$ | **Proportion of examinees reaching consensus / selecting Option A.**<br>• $p > 0.80$: Very easy / low resistance dilemma.<br>• $0.20 \le p \le 0.80$: Optimal diagnostic range (maximal item variance).<br>• $p < 0.20$: Very difficult / high-friction polarization trap.<br>*(Note: In psychometrics, higher $p$ = easier item).* |
-| **CTT Item Discrimination** | $D$ (27% split) | $[-1.0, +1.0]$ | $[-1.0, +1.0]$ | **Kelley's Upper-Lower Discrimination Index** ($P_{\text{top}} - P_{\text{bottom}}$).<br>• $D \ge 0.40$: Excellent discrimination.<br>• $0.30 \le D \le 0.39$: Good discrimination.<br>• $0.20 \le D \le 0.29$: Acceptable discrimination.<br>• $0.0 \le D < 0.20$: Poor discrimination.<br>• $D < 0.0$: Defective item (vulnerable groups pass more often than skilled groups). |
-| **Distractor-to-Correct Ratio** | $\text{DCR}_k$ | $[0.0, +\infty)$ | $[0.0, +\infty)$ | **Relative attractiveness of cognitive heuristic $k$ vs. Option A.**<br>• $\text{DCR} = 0.0$: Completely unselected / ineffective distractor.<br>• $0.0 < \text{DCR} < 1.0$: Subdominant trap (Option A chosen more often).<br>• $\text{DCR} = 1.0$: Parity trap (equal frequency to compromise).<br>• $\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic out-competes compromise). |
-| **IRT Latent Deliberative Ability** | $\theta$ | $(-\infty, +\infty)$ | $[-4.0, +4.0]$ | **Standardized capability of an examinee (dyad or individual persona).**<br>• $\theta > +1.0$: High deliberative ability (readily adopts integrative compromises).<br>• $-0.5 \le \theta \le +0.5$: Average deliberative capacity.<br>• $\theta < -1.0$: Low deliberative ability (highly vulnerable to polarization/traps). |
-| **IRT Item Difficulty** | $b_i$ | $(-\infty, +\infty)$ | $[-4.0, +4.0]$ | **Latent ability $\theta$ required for a 50% probability of compromise.**<br>• $b < -1.0$: Low intrinsic difficulty (readily resolved).<br>• $-1.0 \le b \le +1.0$: Moderate difficulty.<br>• $b > +1.0$: High intrinsic difficulty (requires advanced deliberative skill). |
-| **IRT Item Discrimination** | $a_i$ | $(0, +\infty)$ | $[0.1, 4.0]$ | **Steepness of Item Characteristic Curve (ICC) at $\theta = b_i$.**<br>• $a < 0.65$: Low discrimination (weak diagnostic power).<br>• $0.65 \le a \le 1.34$: Moderate discrimination.<br>• $1.35 \le a \le 1.69$: High discrimination.<br>• $a \ge 1.70$: Very high discrimination (cleanly separates ability tiers). |
+| Metric                              |     Symbol      |  Theoretical Range   | Practical Solver Range | Interpretation & Standard Thresholds                                                                                                                                                                                                                                                                                                                                                    |
+| :---------------------------------- | :-------------: | :------------------: | :--------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **CTT Difficulty (Pass Rate)**      |      $p_i$      |     $[0.0, 1.0]$     |      $[0.0, 1.0]$      | **Proportion of examinees reaching consensus / selecting Option A.**<br>• $p > 0.80$: Very easy / low resistance dilemma.<br>• $0.20 \le p \le 0.80$: Optimal diagnostic range (maximal item variance).<br>• $p < 0.20$: Very difficult / high-friction polarization trap.<br>_(Note: In psychometrics, higher $p$ = easier item)._                                                     |
+| **CTT Item Discrimination**         | $D$ (27% split) |    $[-1.0, +1.0]$    |     $[-1.0, +1.0]$     | **Kelley's Upper-Lower Discrimination Index** ($P_{\text{top}} - P_{\text{bottom}}$).<br>• $D \ge 0.40$: Excellent discrimination.<br>• $0.30 \le D \le 0.39$: Good discrimination.<br>• $0.20 \le D \le 0.29$: Acceptable discrimination.<br>• $0.0 \le D < 0.20$: Poor discrimination.<br>• $D < 0.0$: Defective item (vulnerable groups pass more often than skilled groups).        |
+| **Distractor-to-Correct Ratio**     | $\text{DCR}_k$  |   $[0.0, +\infty)$   |    $[0.0, +\infty)$    | **Relative attractiveness of cognitive heuristic $k$ vs. Option A.**<br>• $\text{DCR} = 0.0$: Completely unselected / ineffective distractor.<br>• $0.0 < \text{DCR} < 1.0$: Subdominant trap (Option A chosen more often).<br>• $\text{DCR} = 1.0$: Parity trap (equal frequency to compromise).<br>• $\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic out-competes compromise). |
+| **IRT Latent Deliberative Ability** |    $\theta$     | $(-\infty, +\infty)$ |     $[-4.0, +4.0]$     | **Standardized capability of an examinee (dyad or individual persona).**<br>• $\theta > +1.0$: High deliberative ability (readily adopts integrative compromises).<br>• $-0.5 \le \theta \le +0.5$: Average deliberative capacity.<br>• $\theta < -1.0$: Low deliberative ability (highly vulnerable to polarization/traps).                                                            |
+| **IRT Item Difficulty**             |      $b_i$      | $(-\infty, +\infty)$ |     $[-4.0, +4.0]$     | **Latent ability $\theta$ required for a 50% probability of compromise.**<br>• $b < -1.0$: Low intrinsic difficulty (readily resolved).<br>• $-1.0 \le b \le +1.0$: Moderate difficulty.<br>• $b > +1.0$: High intrinsic difficulty (requires advanced deliberative skill).                                                                                                             |
+| **IRT Item Discrimination**         |      $a_i$      |    $(0, +\infty)$    |      $[0.1, 4.0]$      | **Steepness of Item Characteristic Curve (ICC) at $\theta = b_i$.**<br>• $a < 0.65$: Low discrimination (weak diagnostic power).<br>• $0.65 \le a \le 1.34$: Moderate discrimination.<br>• $1.35 \le a \le 1.69$: High discrimination.<br>• $a \ge 1.70$: Very high discrimination (cleanly separates ability tiers).                                                                   |
 
 ---
 
@@ -132,14 +132,15 @@ Using a **2-Parameter Logistic (2PL) Model** fitted via regularized Maximum Like
 
 $$P(Y_{ji} = 1 \mid \theta_j, a_i, b_i) = \frac{1}{1 + e^{-a_i (\theta_j - b_i)}}$$
 
-* $Y_{ji} \in \{0, 1\}$: Binary outcome of examinee $j$ on dilemma $i$.
-* $\theta_j$: Latent deliberative competence parameter.
-* $b_i$: Dilemma difficulty threshold where $P(Y=1) = 0.50$.
-* $a_i$: Dilemma discrimination (slope).
+- $Y_{ji} \in \{0, 1\}$: Binary outcome of examinee $j$ on dilemma $i$.
+- $\theta_j$: Latent deliberative competence parameter.
+- $b_i$: Dilemma difficulty threshold where $P(Y=1) = 0.50$.
+- $a_i$: Dilemma discrimination (slope).
 
 #### Dyadic vs. Individual Ability ($\theta$)
-* **Collective Dyadic $\theta$**: Measures joint communicative convergence (both agents must vote for Option A). Captures emergent dyadic friction or harmony.
-* **Individual Persona $\theta$**: Measures each citizen persona's independent baseline propensity to choose integrative compromises across dilemmas, as well as **partner conditioning effects** (how an individual's $\theta$ changes when paired with different demographic counterparts).
+
+- **Collective Dyadic $\theta$**: Measures joint communicative convergence (both agents must vote for Option A). Captures emergent dyadic friction or harmony.
+- **Individual Persona $\theta$**: Measures each citizen persona's independent baseline propensity to choose integrative compromises across dilemmas, as well as **partner conditioning effects** (how an individual's $\theta$ changes when paired with different demographic counterparts).
 
 ---
 
@@ -147,16 +148,16 @@ $$P(Y_{ji} = 1 \mid \theta_j, a_i, b_i) = \frac{1}{1 + e^{-a_i (\theta_j - b_i)}
 
 Direct 1:1 correspondence between each implemented metric and its underlying foundational literature:
 
-* **IRT Parameters ($\theta_j, b_i, a_i$)**:  
-  **[The Basics of Item Response Theory](https://eric.ed.gov/?id=ED458219)** — *Frank B. Baker (ERIC Clearinghouse on Assessment and Evaluation, 2001)*.  
+- **IRT Parameters ($\theta_j, b_i, a_i$)**:  
+  **[The Basics of Item Response Theory](https://eric.ed.gov/?id=ED458219)** — _Frank B. Baker (ERIC Clearinghouse on Assessment and Evaluation, 2001)_.  
   Underlying source for the 2-Parameter Logistic (2PL) model, Item Characteristic Curves (ICCs), and the standard discrimination ($a_i$) classification scale.
 
-* **CTT Item Discrimination ($D$)**:  
-  **[The Selection of Upper and Lower Groups for the Validation of Test Items](https://doi.org/10.1037/h0057123)** — *Truman L. Kelley (Journal of Educational Psychology, 1939)* & **[Essentials of Educational Measurement](https://archive.org/details/essentialsofeduc0000ebel)** — *Robert L. Ebel & David A. Frisbie (Prentice-Hall, 1991)*.  
+- **CTT Item Discrimination ($D$)**:  
+  **[The Selection of Upper and Lower Groups for the Validation of Test Items](https://doi.org/10.1037/h0057123)** — _Truman L. Kelley (Journal of Educational Psychology, 1939)_ & **[Essentials of Educational Measurement](https://archive.org/details/essentialsofeduc0000ebel)** — _Robert L. Ebel & David A. Frisbie (Prentice-Hall, 1991)_.  
   Underlying mathematical proof for the optimal 27% upper-and-lower split and the standard empirical diagnostic thresholds for $D$.
 
-* **Distractor-to-Correct Ratio ($\text{DCR}_k$)**:  
-  **[Developing and Validating Multiple-Choice Test Items](https://www.routledge.com/Developing-and-Validating-Multiple-Choice-Test-Items/Haladyna-Rodriguez/p/book/9780415996075)** — *Thomas M. Haladyna (Routledge, 2004)*.  
+- **Distractor-to-Correct Ratio ($\text{DCR}_k$)**:  
+  **[Developing and Validating Multiple-Choice Test Items](https://www.routledge.com/Developing-and-Validating-Multiple-Choice-Test-Items/Haladyna-Rodriguez/p/book/9780415996075)** — _Thomas M. Haladyna (Routledge, 2004)_.  
   Underlying methodology for evaluating distractor plausibility, distractor functioning, and calculating selection ratios relative to Option A.
 
 ---
@@ -239,7 +240,7 @@ python3 -m pytest tests -v
 
 ### Running a Simulation Experiment
 
-All experimental parameters (models, turns, trials, dyads, items, and seed) are configured centrally in `data/config.json`. The CLI accepts **only** the path to the configuration file.
+All experimental parameters (models, turns, trials, dyads, items, and `mcq_option_order_seed`) are configured centrally in `data/config.json`. The CLI accepts **only** the path to the configuration file.
 
 Run with default configuration (`data/config.json`):
 
@@ -274,13 +275,34 @@ To customize parameters such as the number of trials or models, update your conf
   "deliberation_config": {
     "turns_per_item": 4,
     "trials_per_item": 5,
-    "seed": 42
+    "mcq_option_order_seed": 42
   }
 }
 ```
 
 ---
 
-## 7. License
+## 7. Built-in Code Defaults & Fallback Reference
+
+All default parameters, fallback chains, and optimization bounds hardcoded within Python logic are documented below:
+
+| Module / Scope                                  | Parameter                    | Code Default / Fallback                          | Behavior & Purpose                                                                                                                                                                                                |
+| :---------------------------------------------- | :--------------------------- | :----------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Model Resolution** (`src/llm.py`)             | `agent_model`                | `"openai/gpt-oss-120b"`                          | Read from `config.json`. If missing or unavailable on endpoint, falls back through `.env`: `AGENT_MODEL` $\rightarrow$ `DEFAULT_AGENT_MODEL` $\rightarrow$ `MODEL_GPT_OSS` $\rightarrow$ `"openai/gpt-oss-120b"`. |
+| **API Credentials** (`src/llm.py`)              | `api_key`, `base_url`        | **No fallback**                                  | Strictly read from `OPENAI_API_KEY` and `OPENAI_BASE_URL` in `.env`. Fails fast with `ValueError` if either is missing.                                                                                           |
+| **Dialogue Turns** (`src/deliberation.py`)      | `temperature` / `max_tokens` | `0.7` / `512`                                    | Balanced exploratory sampling for multi-turn citizen dialogue.                                                                                                                                                    |
+| **Secret Ballot** (`src/ballot.py`)             | `temperature` / `max_tokens` | `0.3` / `32`                                     | Low temperature ensures deterministic single-letter option voting.                                                                                                                                                |
+| **Ballot Fallback** (`src/ballot.py`)           | Parsed Letter                | `"A"`                                            | If an LLM response cannot be parsed via regex into A/B/C/D, defensively defaults to `"A"` to prevent crash.                                                                                                       |
+| **Simulation Matrix** (`src/main.py`)           | `turns_per_item`             | `4`                                              | 4 alternating dialogue turns per session (2 turns per persona).                                                                                                                                                   |
+| **Simulation Matrix** (`src/main.py`)           | `trials_per_item`            | `5`                                              | 5 independent trials per item-dyad combination (60 total sessions across benchmark).                                                                                                                              |
+| **Option Shuffling Seed** (`src/main.py`)       | `mcq_option_order_seed`      | `42` (legacy fallback: `seed`)                   | Base pseudo-random seed for shuffling multiple-choice ballot option presentation order (A/B/C/D) to mitigate LLM position bias.                                                                                   |
+| **Output Directory** (`src/main.py`)            | `output_dir`                 | `data/expXXX/`                                   | Auto-detects highest existing `expXXX` and increments to the next index (starts at `exp000`).                                                                                                                     |
+| **IRT Regularization** (`src/psychometrics.py`) | L2 Priors ($\lambda$)        | `0.5` ($\theta, b$), `0.5` ($a - 1$)             | Regularizes maximum likelihood estimation against overfitting on small samples.                                                                                                                                   |
+| **IRT Optimization** (`src/psychometrics.py`)   | Parameter Bounds             | $\theta, b \in [-4.0, +4.0]$, $a \in [0.1, 4.0]$ | Bounded L-BFGS-B optimization (`maxiter=500, ftol=1e-6`).                                                                                                                                                         |
+| **CTT Group Split** (`src/psychometrics.py`)    | Upper/Lower Ratio            | 27%                                              | Truman Kelley's optimal top/bottom 27% split (`math.ceil(0.27 * N)`).                                                                                                                                             |
+
+---
+
+## 8. License
 
 This repository is distributed under the MIT License. See [LICENSE](LICENSE) for details.

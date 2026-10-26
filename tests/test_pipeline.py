@@ -30,7 +30,7 @@ def test_full_experiment_pipeline(tmp_path: Path) -> None:
     with open("data/config.json", "r", encoding="utf-8") as f:
         test_cfg = json.load(f)
     test_cfg["deliberation_config"]["trials_per_item"] = 1
-    test_cfg["deliberation_config"]["seed"] = 101
+    test_cfg["deliberation_config"]["mcq_option_order_seed"] = 101
     test_cfg["output_dir"] = str(output_dir)
 
     test_cfg_path = tmp_path / "test_config.json"

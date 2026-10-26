@@ -106,7 +106,7 @@ def execute_simulation_run(
     trials_per_item = delib_cfg.get("trials_per_item", 5)
     dyads = delib_cfg.get("dyads", [])
     turns_per_item = delib_cfg.get("turns_per_item", 4)
-    seed = delib_cfg.get("seed", 42)
+    mcq_option_order_seed = delib_cfg.get("mcq_option_order_seed", delib_cfg.get("seed", 42))
 
     # 3. Load standardized test battery
     items = load_policy_battery_items(config.get("items", []))
@@ -159,7 +159,7 @@ def execute_simulation_run(
                     dyad_id=dyad.get("id", "D1"),
                     trial_index=trial_idx,
                     transcript_summary=transcript_summary,
-                    seed=(seed + current_step * 17)
+                    mcq_option_order_seed=(mcq_option_order_seed + current_step * 17)
                 )
                 all_ballots.append(ballot_record)
 

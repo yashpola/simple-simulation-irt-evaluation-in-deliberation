@@ -1,8 +1,23 @@
 """Unit tests for secret ballot parser and option display randomization."""
 
 import random
-from src.ballot import parse_ballot_choice, prepare_randomized_ballot
-from src.schemas import PolicyItem
+from typing import Optional
+from src.ballot import parse_ballot_choice, prepare_randomized_ballot, administer_dyad_ballot
+from src.llm import BaseLLMClient
+from src.schemas import PolicyItem, MasterConfig
+
+
+class DummyBallotClient(BaseLLMClient):
+    """Test client for ballot evaluation."""
+
+    def generate(
+        self,
+        prompt: str,
+        system_prompt: Optional[str] = None,
+        temperature: float = 0.7,
+        max_tokens: int = 512,
+    ) -> str:
+        return "Option A"
 
 
 def test_parse_ballot_choice_exact():
@@ -63,3 +78,57 @@ def test_prepare_randomized_ballot_mappings():
     # Validate formatted text contains all option descriptions
     for _, desc in item["ballot"]["options"].items():
         assert desc in formatted_text
+
+
+def test_administer_dyad_ballot_seed_parameter_compatibility():
+    item: PolicyItem = {
+        "item_id": "TEST_01",
+        "title": "Test Item",
+        "topic_prompt": "Prompt context",
+        "ballot": {
+            "prompt": "Choose one",
+            "options": {
+                "A": "Integrative Compromise",
+                "B": "Status Quo",
+                "C": "Zero Sum",
+                "D": "Scapegoat"
+            },
+            "correct_key": "A"
+        }
+    }
+    cfg: MasterConfig = {
+        "model_config": {"agent_model": "mock"},
+        "user_prompts": {
+            "secret_ballot": "{formatted_options}"
+        }
+    }
+    client = DummyBallotClient()
+
+    # Calling with mcq_option_order_seed vs legacy seed produces identical mappings
+    res_new = administer_dyad_ballot(
+        client=client,
+        config=cfg,
+        agents=["technocrat", "populist"],
+        item=item,
+        dyad_id="D1",
+        trial_index=0,
+        transcript_summary="summary",
+        mcq_option_order_seed=42
+    )
+
+    res_legacy = administer_dyad_ballot(
+        client=client,
+        config=cfg,
+        agents=["technocrat", "populist"],
+        item=item,
+        dyad_id="D1",
+        trial_index=0,
+        transcript_summary="summary",
+        seed=42
+    )
+
+    for persona in ["technocrat", "populist"]:
+        assert res_new["votes"][persona]["display_mapping"] == res_legacy["votes"][persona]["display_mapping"]
+        assert res_new["votes"][persona]["displayed_letter"] == res_legacy["votes"][persona]["displayed_letter"]
+        assert res_new["votes"][persona]["selected_key"] == res_legacy["votes"][persona]["selected_key"]
+

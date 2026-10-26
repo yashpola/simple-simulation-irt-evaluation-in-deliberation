@@ -29,6 +29,7 @@ class DyadConfig(TypedDict, total=False):
 class DeliberationConfig(TypedDict, total=False):
     turns_per_item: int
     trials_per_item: int
+    mcq_option_order_seed: int
     seed: int
     dyads: List[DyadConfig]
 

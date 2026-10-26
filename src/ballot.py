@@ -150,12 +150,18 @@ def administer_dyad_ballot(
     dyad_id: str,
     trial_index: int,
     transcript_summary: str,
+    mcq_option_order_seed: Optional[int] = None,
     seed: Optional[int] = None,
 ) -> DyadBallotRecord:
-    """Run independent secret ballots for both agents in a dyad and evaluate consensus."""
+    """Run independent secret ballots for both agents in a dyad and evaluate consensus.
+
+    The mcq_option_order_seed (or legacy seed) determines the pseudo-random shuffling
+    of MCQ ballot option letters (A/B/C/D) to mitigate LLM position bias.
+    """
+    effective_seed = mcq_option_order_seed if mcq_option_order_seed is not None else seed
     votes: Dict[str, BallotVote] = {}
     for idx, persona_id in enumerate(agents):
-        agent_seed = (seed + idx * 1000 + trial_index) if seed is not None else None
+        agent_seed = (effective_seed + idx * 1000 + trial_index) if effective_seed is not None else None
         rng = random.Random(agent_seed)
         vote = administer_agent_ballot(
             client=client,
