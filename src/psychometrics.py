@@ -28,7 +28,7 @@ def compute_ctt_metrics(
     """Compute Classical Test Theory metrics:
 
     - Item Difficulty (p_i): consensus rate N_consensus / N_total
-    - Distractor Efficiency / DCR_k: count(distractor_k) / count(Option A)
+    - Distractor Efficiency / DCR_k: count(distractor_k) / count(integrative compromise)
     - Item Discrimination Index (D_27%): P_top27% - P_bottom27%
     """
     metrics: Dict[str, CTTMetrics] = {}
@@ -106,9 +106,9 @@ def build_response_matrix(
     ballots: List[DyadBallotRecord],
     item_ids: List[str]
 ) -> Tuple[npt.NDArray[np.float64], List[str], List[str]]:
-    """Build binary response matrix Y of shape (N_examinees, N_items).
+    """Build binary response matrix Y of shape (N_sessions, N_items).
 
-    Examinee = unique dyad session (dyad_id, trial_index).
+    Deliberative agent unit = unique dyad session (dyad_id, trial_index).
     Y[j, i] = 1 if consensus reached (both chose A), else 0.
     """
     sessions = sorted(list(set((b["dyad_id"], b["trial_index"]) for b in ballots)))
@@ -132,9 +132,9 @@ def build_individual_response_matrix(
     ballots: List[DyadBallotRecord],
     item_ids: List[str]
 ) -> Tuple[npt.NDArray[np.float64], List[Tuple[str, str, int]], List[str]]:
-    """Build binary response matrix Y_ind of shape (N_individual_examinees, N_items).
+    """Build binary response matrix Y_ind of shape (N_individual_agents, N_items).
 
-    Examinee = unique individual session (persona_id, dyad_id, trial_index).
+    Deliberative agent unit = unique individual session (persona_id, dyad_id, trial_index).
     Y[j, i] = 1 if the agent chose the integrative compromise (is_correct=True), else 0.
     """
     examinees = sorted(list(set(
@@ -294,7 +294,7 @@ def analyze_experiment_psychometrics(
     Y, sessions, _ = build_response_matrix(ballots, item_ids)
     theta_est, a_est, b_est = fit_irt_2pl(Y)
 
-    # Map examinees to dyad group
+    # Map deliberative agents to dyad group
     dyad_theta_map: Dict[str, List[float]] = {}
     for sess_name, th in zip(sessions, theta_est):
         parts = sess_name.split("_")
@@ -320,7 +320,7 @@ def analyze_experiment_psychometrics(
 
     persona_thetas_map: Dict[str, List[float]] = {}
     persona_by_dyad_map: Dict[str, Dict[str, List[float]]] = {}
-    persona_endorsement_map: Dict[str, List[int]] = {}
+    persona_success_map: Dict[str, List[int]] = {}
 
     for (p_id, d_id, _), th in zip(ind_examinees, ind_thetas):
         persona_thetas_map.setdefault(p_id, []).append(float(th))
@@ -328,7 +328,7 @@ def analyze_experiment_psychometrics(
 
     for b in ballots:
         for p_id, v in b["votes"].items():
-            persona_endorsement_map.setdefault(p_id, []).append(1 if v.get("is_correct") else 0)
+            persona_success_map.setdefault(p_id, []).append(1 if v.get("is_correct") else 0)
 
     mean_individual_thetas = {
         p_id: round(float(np.mean(vals)), 4)
@@ -342,7 +342,7 @@ def analyze_experiment_psychometrics(
 
     individual_success_rates = {
         p_id: round(float(np.mean(vals)), 4)
-        for p_id, vals in persona_endorsement_map.items()
+        for p_id, vals in persona_success_map.items()
     }
 
     # 3. Governance Insights & Ranking

@@ -92,7 +92,7 @@ def generate_markdown_report(
         "",
         "    subgraph Phase3 [\"3. Secret Ballot Administration\"]",
         "        BALLOT[\"Randomized Secret Ballot\"]",
-        "        KEY[\"Integrative Compromise (Option A)\"]",
+        "        KEY[\"Integrative Compromise\"]",
         "        TRAPS[\"Cognitive Traps (Inertia, Zero-Sum, Scapegoating)\"]",
         "        BALLOT --> KEY & TRAPS",
         "    end",
@@ -115,46 +115,80 @@ def generate_markdown_report(
         "",
         "---",
         "",
-        "## 3. Standardized Policy Battery Psychometrics (CTT & IRT)",
+        "## 3. Standardized Policy Battery Psychometrics",
         "",
-        "| Item ID | Policy Topic | Consensus Rate ($p_i$) | IRT Difficulty ($b_i$) | Discrimination ($a_i$) | DCR (B: Inertia) | DCR (C: Zero-Sum) | DCR (D: Scapegoat) |",
-        "| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: |"
+        "### 3.1 Classical Test Theory (CTT) Empirical Metrics",
+        "Direct observational statistics measuring empirical consensus difficulty ($p_i$), Kelley's upper-lower discrimination index ($D_i$), and cognitive distractor ratios ($\\text{DCR}$):",
+        "",
+        "| Item ID | Policy Dilemma Topic | Consensus Rate ($p_i$) | Discrimination ($D_i$) | DCR (B: Inertia) | DCR (C: Zero-Sum) | DCR (D: Scapegoat) |",
+        "| :--- | :--- | :---: | :---: | :---: | :---: | :---: |"
     ]
 
     for item_id, item_info in items_data.items():
         title = item_info.get("title", item_id)
         short_title = title[:34] + ("..." if len(title) > 34 else "")
-
         c_info = ctt_data.get(item_id)
-        i_info = irt_items.get(item_id)
 
         p_val: object = c_info["difficulty_p"] if c_info else "N/A"
-        b_val: object = i_info["difficulty_b"] if i_info else "N/A"
-        a_val: object = i_info["discrimination_a"] if i_info else "N/A"
+        d_val: object = c_info["discrimination_index"] if c_info else "N/A"
         dcr_dict: Dict[str, float] = c_info["distractor_ratios"] if c_info else {}
 
         report_lines.append(
-            f"| `{item_id}` | {short_title} | {p_val} | {b_val} | {a_val} | {dcr_dict.get('B', 0.0)} | {dcr_dict.get('C', 0.0)} | {dcr_dict.get('D', 0.0)} |"
+            f"| `{item_id}` | {short_title} | {p_val} | {d_val} | {dcr_dict.get('B', 0.0)} | {dcr_dict.get('C', 0.0)} | {dcr_dict.get('D', 0.0)} |"
         )
 
     report_lines.extend([
         "",
         "> [!NOTE]",
-        "> **Sample Size & Metric Interpretation Guide**:",
-        f"> - **Consensus Rate ($p_i$)**: The proportion of deliberative sessions where *both* participants in the dyad simultaneously voted for Option A. Evaluated over all **{sessions_per_item} sessions** for that dilemma ($5\\text{{ trials}} \\times {n_dyads}\\text{{ dyads}}$).  ",
-        f"> - **DCR (Distractor-to-Correct Ratio)**: A relative ratio against Option A, **not a percentage of total votes**: $\\text{{DCR}}_k = \\frac{{\\text{{Count}}(\\text{{Distractor }} k)}}{{\\text{{Count}}(\\text{{Option A}})}}$. Evaluated across all **{votes_per_item} individual secret ballots** cast for that dilemma.  ",
+        "> **CTT Metric Interpretation Guide**:",
+        f"> - **Consensus Rate ($p_i$)**: The proportion of deliberative sessions where *both* participants in the dyad simultaneously voted for the integrative compromise across all **{sessions_per_item} sessions** ($5\\text{{ trials}} \\times {n_dyads}\\text{{ dyads}}$).  ",
+        "> - **Item Discrimination ($D_i$)**: Kelley's optimal upper/lower 27% validation split ($P_{\\text{top}} - P_{\\text{bottom}}$), measuring separation between top- and bottom-performing dyads.  ",
+        f"> - **DCR (Distractor-to-Correct Ratio)**: A relative ratio against the integrative compromise, **not a percentage of total votes**: $\\text{{DCR}}_k = \\frac{{\\text{{Count}}(\\text{{Distractor }} k)}}{{\\text{{Count}}(\\text{{Integrative Compromise}})}}$. Evaluated across all **{votes_per_item} individual secret ballots** cast for that dilemma.  ",
         ">   - $\\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic was chosen *more frequently* than the compromise).  ",
-        ">   - $\\text{DCR} < 1.0$: Subdominant trap (Option A was chosen more frequently than this heuristic).  ",
+        ">   - $\\text{DCR} < 1.0$: Subdominant trap (the integrative compromise was chosen more frequently than this heuristic).  ",
         ">   - $\\text{DCR} = 1.0$: Parity trap (equal frequency to compromise).  ",
-        ">   - *Note on vote percentages*: DCR values do not sum to 100%. The actual percentage of votes for Option A is $\\frac{1}{1 + \\text{DCR}_B + \\text{DCR}_C + \\text{DCR}_D} \\times 100\\%$.  ",
-        "> - **IRT Difficulty ($b_i$) & Discrimination ($a_i$)**: Fitted simultaneously across the entire multi-dyad session matrix using regularized 2PL Maximum Likelihood. Higher $b_i$ indicates greater intrinsic resistance to consensus; higher $a_i$ indicates sharper diagnostic separation between high- and low-competence dyads.",
+        ">   - *Note on vote percentages*: DCR values do not sum to 100%. The actual percentage of votes for the integrative compromise is $\\frac{1}{1 + \\text{DCR}_B + \\text{DCR}_C + \\text{DCR}_D} \\times 100\\%$.  ",
+        "",
+        "### 3.2 Item Response Theory (2PL IRT) Calibrated Parameters",
+        "Latent difficulty threshold ($b_i$) and discrimination slope ($a_i$) calibrated via regularized Maximum Likelihood Estimation:",
+        "",
+        "| Item ID | Policy Dilemma Topic | Difficulty ($b_i$) | Discrimination ($a_i$) | Diagnostic Characteristic |",
+        "| :--- | :--- | :---: | :---: | :--- |"
+    ])
+
+    for item_id, item_info in items_data.items():
+        title = item_info.get("title", item_id)
+        short_title = title[:34] + ("..." if len(title) > 34 else "")
+        i_info = irt_items.get(item_id)
+
+        b_val = i_info["difficulty_b"] if i_info else 0.0
+        a_val = i_info["discrimination_a"] if i_info else 1.0
+
+        diff_desc = "High Difficulty" if b_val > 1.0 else ("Low Difficulty" if b_val < -1.0 else "Moderate Difficulty")
+        disc_desc = (
+            "Very High Discrimination" if a_val >= 1.70
+            else ("High Discrimination" if a_val >= 1.35
+            else ("Moderate Discrimination" if a_val >= 0.65
+            else "Low Discrimination"))
+        )
+
+        report_lines.append(
+            f"| `{item_id}` | {short_title} | {b_val} | {a_val} | {diff_desc}, {disc_desc} |"
+        )
+
+    report_lines.extend([
+        "",
+        "> [!NOTE]",
+        "> **IRT Metric Interpretation Guide**:",
+        "> - **Item Difficulty ($b_i$)**: The latent ability threshold $\\theta$ required for a 50% probability of consensus on the integrative compromise. Higher $b_i$ indicates greater intrinsic resistance to resolution.",
+        "> - **Item Discrimination ($a_i$)**: The slope of the Item Characteristic Curve (ICC) at $\\theta = b_i$. Values $a \\ge 1.70$ represent very high diagnostic separation between high- and low-competence dyads.",
         "",
         "---",
         "",
         "## 4. Latent Deliberative Ability Breakdown ($\\theta$)",
         "",
         "### 4.1 Dyadic Deliberative Competence (Consensus Requirement)",
-        "Estimated collective latent competence $\\theta$ across citizen dyad configurations (an item is passed only when both participants reach consensus on Option A):",
+        "Estimated collective latent competence $\\theta$ across citizen dyad configurations (an item is passed only when both participants reach consensus on the integrative compromise):",
         "",
         "| Dyad ID | Citizen Composition | Deliberative Dynamic | Collective Competence ($\\theta$) | Relative Ranking |",
         "| :--- | :--- | :--- | :---: | :---: |"
@@ -180,7 +214,7 @@ def generate_markdown_report(
             "",
             "### 4.2 Individual Persona Deliberative Competence & Success Rates",
             "Performance metrics for each citizen persona across independent secret ballots:",
-            "- **Individual Success Rate**: Empirical proportion of secret ballots where the persona voted for the integrative compromise (Option A).",
+            "- **Individual Success Rate**: Empirical proportion of secret ballots where the persona voted for the integrative compromise.",
             "- **Latent Competence ($\\theta$)**: Standardized 2PL IRT ability score isolating individual deliberative capacity.",
             "",
             "| Persona ID | Role Title | Individual Success Rate | Latent Competence ($\\theta$) | Relative Ranking |",

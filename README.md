@@ -59,7 +59,7 @@ flowchart TD
 
 The test battery consists of 4 standardized, contentious policy dilemmas grounded in Singapore public governance:
 
-| Item ID   | Topic                                | Value Tension                                                                                 | Key Compromise (Option A) Focus                                                                                                   |
+| Item ID   | Topic                                | Value Tension                                                                                 | Integrative Compromise Focus                                                                                                      |
 | :-------- | :----------------------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
 | `ITEM_01` | **School Mergers & Closures**        | Heritage identity vs. demographic decline & resource pooling.                                 | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit.                          |
 | `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility.                                       | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances.                         |
@@ -76,7 +76,7 @@ Each item features 3 tempting deliberative traps representing classic cognitive 
 
 ---
 
-## 3. Examinee Personas
+## 3. Deliberative Agent Personas
 
 The benchmark models deliberative competence across four archetypal citizen personas crossing **Policy Knowledge** and **Affective Polarization**:
 
@@ -89,7 +89,7 @@ _(Note: Dyadic pairings between these personas—such as Technocrat vs. Ideologu
 
 ---
 
-## 4. Psychometric Metrics, Ranges & Mathematical Formulations
+## 4. Psychometrics, Ranges & Mathematical Formulations
 
 This framework evaluates deliberative performance across three complementary analytical dimensions:
 
@@ -138,24 +138,24 @@ where $P_{i,\text{top}}$ is the consensus rate of the top 27% deliberative sessi
 
 #### 3. Distractor-to-Correct Ratio ($\text{DCR}_k$)
 
-Quantifies the relative cognitive pull of bad-faith heuristic $k$ against the integrative compromise (Option A) across all individual secret ballots cast:
+Quantifies the relative cognitive pull of bad-faith heuristic $k$ against the integrative compromise across all individual secret ballots cast:
 
 $$
-\text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Option A}}
+\text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Integrative Compromise}}
 $$
 
-Diagnoses whether non-compromise outcomes were driven by **Status Quo Inertia** (Option B), **Technocratic Coldness** (Option C), or **External Scapegoating** (Option D).
+Diagnoses whether non-compromise outcomes were driven by **Status Quo Inertia** (Distractor B), **Technocratic Coldness** (Distractor C), or **External Scapegoating** (Distractor D).
 
 - **Practical Range**: $[0.0, +\infty)$.
 - **Diagnostic Interpretation**:
   - $\text{DCR} = 0.0$: Completely unselected / non-functioning distractor.
-  - $0.0 < \text{DCR} < 1.0$: Subdominant trap (Option A was chosen more often than this heuristic).
-  - $\text{DCR} = 1.0$: Parity trap (heuristic chosen with equal frequency to Option A).
+  - $0.0 < \text{DCR} < 1.0$: Subdominant trap (the integrative compromise was chosen more often than this heuristic).
+  - $\text{DCR} = 1.0$: Parity trap (heuristic chosen with equal frequency to the integrative compromise).
   - $\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic successfully out-competes the integrative compromise).
-- **Vote Share Conversion**: DCR is a relative ratio against Option A, not a raw percentage. To convert DCR into the empirical percentage distribution of votes:
+- **Vote Share Conversion**: DCR is a relative ratio against the integrative compromise, not a raw percentage. To convert DCR into the empirical percentage distribution of votes:
 
   $$
-  \% \text{ Option A} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%
+  \% \text{ Integrative Compromise} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%
   $$
 
   $$
@@ -176,7 +176,7 @@ $$
 \text{Total Benchmark Matrix} = \text{Sessions per Dilemma} \times N_{\text{items}} \quad (\text{e.g., } 20 \times 4 = 80\text{ sessions, } 160\text{ votes})
 $$
 
-- **Consensus Rate ($p_i$)** is computed at the **session level** ($N = 20$ per dilemma); an item passes only when both agents independently vote Option A.
+- **Consensus Rate ($p_i$)** is computed at the **session level** ($N = 20$ per dilemma); an item passes only when both agents independently vote for the integrative compromise.
 - **Distractor Ratios ($\text{DCR}_k$)** are computed at the **individual secret ballot level** ($N = 40$ per dilemma).
 
 ---
@@ -193,7 +193,7 @@ where $Y_{ji} \in \{0, 1\}$ is the binary outcome of deliberator $j$ on dilemma 
 
 #### 1. IRT Item Difficulty ($b_i$)
 
-The latent deliberative ability threshold required for an examinee to have a 50% probability of adopting the integrative compromise ($P(Y=1) = 0.50$).
+The latent deliberative ability threshold required for a deliberative agent to have a 50% probability of adopting the integrative compromise ($P(Y=1) = 0.50$).
 
 - **Practical Range**: $[-4.0, +4.0]$ (under Gaussian prior $\mathcal{N}(0, 1)$).
 - **Diagnostic Interpretation**:
@@ -214,16 +214,16 @@ The slope of the Item Characteristic Curve (ICC) at $\theta = b_i$, reflecting h
 
 #### 3. Latent Deliberative Ability ($\theta$)
 
-The standardized competence trait of a deliberator, estimated under regularized maximum likelihood. Grouped in the benchmark under `"deliberators"`:
+The standardized competence trait of a deliberator, estimated under regularized maximum likelihood.
 
 - **Practical Range**: $[-4.0, +4.0]$ ($\mathcal{N}(0, 1)$ standardized).
 - **Diagnostic Interpretation**:
-  - $\theta > +1.0$: High deliberative ability (regularly identifies and endorses integrative solutions).
+  - $\theta > +1.0$: High deliberative ability (regularly identifies and votes for integrative solutions).
   - $-0.5 \le \theta \le +0.5$: Average deliberative capacity.
   - $\theta < -1.0$: Low deliberative ability (highly vulnerable to bad-faith heuristics and impasse).
 - **Deliberator Scopes**:
-  - **Dyadic Deliberative Competence (`dyad_theta`)**: Joint consensus convergence where both agents in the dyad simultaneously endorse Option A.
-  - **Individual Persona Competence (`individual_theta`)**: Persona's marginal baseline propensity to endorse Option A across all dilemmas.
+  - **Dyadic Deliberative Competence (`dyad_theta`)**: Joint consensus convergence where both agents in the dyad simultaneously vote for the integrative compromise.
+  - **Individual Persona Competence (`individual_theta`)**: Persona's marginal baseline propensity to vote for the integrative compromise across all dilemmas.
   - **Partner Interaction Effects (`persona_by_dyad_theta`)**: Persona's latent ability conditioned on the specific dyadic partner, isolating communicative synergy and polarization shifts.
 
 ---
@@ -235,14 +235,14 @@ The standardized competence trait of a deliberator, estimated under regularized 
 The empirical proportion of secret ballots where persona $p$ voted for the integrative compromise across all dilemmas and dyad configurations they deliberated in:
 
 $$
-\text{Individual Success Rate}_p = \frac{\sum \mathbf{1}(\text{Vote}_p = \text{Option A})}{N_{\text{trials}}(p)}
+\text{Individual Success Rate}_p = \frac{\sum \mathbf{1}(\text{Vote}_p = \text{Integrative Compromise})}{N_{\text{trials}}(p)}
 $$
 
 - **Practical Range**: $[0.0, 1.0]$ ($0\% \text{ to } 100\%$).
 - **Distinction from CTT Consensus Rate ($p_i$)**:
-  - $p_i$ is an **item-level consensus metric** requiring _both_ members of a dyad to select Option A simultaneously.
+  - $p_i$ is an **item-level consensus metric** requiring _both_ members of a dyad to select the integrative compromise simultaneously.
   - Individual Success Rate is a **persona-level behavioral metric** measuring an individual agent's unconstrained willingness to adopt integrative solutions regardless of whether their partner agreed.
-- **Diagnostic Utility**: Isolates whether failure to reach consensus was symmetric (both agents chose cognitive traps) or asymmetric (one agent endorsed the compromise while the other defected).
+- **Diagnostic Utility**: Isolates whether failure to reach consensus was symmetric (both agents chose cognitive traps) or asymmetric (one agent voted for the compromise while the other defected).
 
 ---
 

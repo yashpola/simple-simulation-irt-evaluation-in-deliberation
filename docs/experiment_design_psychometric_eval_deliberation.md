@@ -7,7 +7,7 @@ In LLM-driven multi-agent deliberative democracy, evaluating conversational sett
 1. **Which citizen demographic groups struggle most with constructive, compromise-oriented deliberation?**
 2. **Which public policy dilemmas are intrinsically harder or more prone to bad-faith cognitive traps?**
 
-This benchmark bridges psychometric theory—specifically **Classical Test Theory (CTT)** and **Item Response Theory (IRT)**—into multi-agent deliberative simulation. By formalizing policy dilemmas as **standardized test items** with structured **integrative compromises ("Option A Key")** and tempting **bad-faith cognitive heuristics ("Distractors B, C, D")**, the benchmark quantitatively estimates:
+This benchmark bridges psychometric theory—specifically **Classical Test Theory (CTT)** and **Item Response Theory (IRT)**—into multi-agent deliberative simulation. By formalizing policy dilemmas as **standardized test items** with structured **integrative compromises ("Integrative Compromise Key")** and tempting **bad-faith cognitive heuristics ("Distractors B, C, D")**, the benchmark quantitatively estimates:
 
 - **Latent Deliberative Ability ($\theta_j$)**: A continuous scale of deliberative competence for each citizen persona pairing.
 - **Item Difficulty ($b_i$)**: How resistant each policy dilemma is to consensus and integrative compromise.
@@ -22,7 +22,7 @@ The benchmark evaluates multi-agent policy deliberation across diverse citizen p
 
 - Diverse archetypal citizen dyads deliberate on standardized policy dilemmas.
 - Following multi-turn deliberation, each persona independently and privately casts a secret ballot.
-- Consensus is reached if and only if both personas in the dyad independently select the integrative compromise (**Option A**).
+- Consensus is reached if and only if both personas in the dyad independently select the integrative compromise.
 - Observed ballot distributions are aggregated across trials and fitted to CTT and 2PL IRT models to characterize both item properties and dyad deliberative competence.
 
 ---
@@ -31,7 +31,7 @@ The benchmark evaluates multi-agent policy deliberation across diverse citizen p
 
 The battery comprises **4 standardized policy dilemmas** grounded in Singapore public governance. Each item features a substantive value tension, an integrative compromise, and three tempting cognitive distractors:
 
-| Item ID   | Topic                                | Competing Value Tension                                                | Key Compromise (Option A) Focus                                                                                    |
+| Item ID   | Topic                                | Competing Value Tension                                                | Integrative Compromise Focus                                                                                       |
 | :-------- | :----------------------------------- | :--------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
 | `ITEM_01` | **School Mergers & Closures**        | Heritage identity vs. demographic decline & resource pooling.          | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit.           |
 | `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility.                | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances.          |
@@ -48,7 +48,7 @@ Each policy dilemma includes 3 standardized bad-faith cognitive traps:
 
 ---
 
-## 4. Examinee Personas & Citizen Dyads
+## 4. Deliberative Agent Personas & Citizen Dyads
 
 Four archetypal citizen personas cross **Policy Knowledge** and **Affective Polarization**:
 
@@ -81,22 +81,22 @@ To diagnose interpersonal friction and vulnerability, personas are paired into 3
    p_i = \frac{N_{\text{consensus}}}{N_{\text{sessions}}}
    $$
 
-   Where an item is passed ($1$) if and only if both agents independently converge on Option A. Computed at the session level ($N_{\text{sessions}} = \text{trials} \times N_{\text{dyads}}$).
+   Where an item is passed ($1$) if and only if both agents independently converge on the integrative compromise. Computed at the session level ($N_{\text{sessions}} = \text{trials} \times N_{\text{dyads}}$).
 
 2. **Distractor-to-Correct Ratio (DCR)**:
 
    $$
-   \text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Option A}}
+   \text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Integrative Compromise}}
    $$
 
    Evaluated at the individual vote level across all $N_{\text{votes}} = N_{\text{sessions}} \times 2$ secret ballots cast for that item.
-   - $\text{DCR}$ is a relative ratio against Option A, **not** a percentage.
+   - $\text{DCR}$ is a relative ratio against the integrative compromise, **not** a percentage.
    - $\text{DCR} > 1.0$: Dominant trap (heuristic selected more frequently than the compromise).
-   - $\text{DCR} < 1.0$: Subdominant trap (Option A chosen more frequently than the heuristic).
-   - DCR values do not sum to 100%. The actual percentage of votes for Option A is:
+   - $\text{DCR} < 1.0$: Subdominant trap (the integrative compromise chosen more frequently than the heuristic).
+   - DCR values do not sum to 100%. The actual percentage of votes for the integrative compromise is:
 
      $$
-     \% \text{ Option A} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%
+     \% \text{ Integrative Compromise} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%
      $$
 
 3. **Item Discrimination ($D_{27\%}$)**:
@@ -154,7 +154,7 @@ flowchart TD
 
     subgraph Phase3 ["3. Secret Ballot Administration"]
         BALLOT["Randomized Secret Ballot"]
-        KEY["Integrative Compromise (Option A)"]
+        KEY["Integrative Compromise"]
         TRAPS["Cognitive Traps (Inertia, Zero-Sum, Scapegoating)"]
         BALLOT --> KEY & TRAPS
     end

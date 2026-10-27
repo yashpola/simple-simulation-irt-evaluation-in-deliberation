@@ -175,7 +175,7 @@ def administer_dyad_ballot(
         )
         votes[persona_id] = vote
 
-    # Consensus reached if ALL agents in dyad chose Option A
+    # Consensus reached if ALL agents in dyad chose the integrative compromise (target key)
     consensus = bool(all(v["is_correct"] for v in votes.values()))
 
     ballot_record: DyadBallotRecord = {
