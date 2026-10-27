@@ -357,20 +357,28 @@ Artifacts are dynamically written to the next auto-incremented `data/expXXX/` di
 
 #### Modifying Experiment Parameters & Configuring `data/config.json`
 
-All experimental parameters (models, turns, trials, dyads, items, prompts, and seeds) are managed centrally in `data/config.json`. Below is the master configuration structure and instructions on how to manipulate both self-explanatory and nontrivial fields:
+All experimental parameters (models, turns, trials, dyads, items, prompts, and seeds) are managed centrally in `data/config.json`. Below is an example master configuration structure and instructions on how to manipulate both self-explanatory and nontrivial fields:
 
 ```json
 {
   "experiment_metadata": {
     "name": "IRT Deliberative Capacity Benchmark",
     "description": "Observing latent deliberative competence and item psychometrics across diverse citizen groups and Singapore policy dilemmas",
-    "version": "2.0.0"
+    "version": "1.3.7"
   },
   "model_config": {
     "agent_model": "openai/gpt-oss-120b",
     "temperature": 0.7,
     "max_tokens": 512
   },
+  "system_prompts": { ... },
+  "user_prompts": { ... },
+  "items": [
+    "data/items/item01_school_mergers_description.json",
+    "data/items/item02_heritage_mrt_description.json",
+    "data/items/item03_foreign_talent_description.json",
+    "data/items/item04_transboundary_haze_description.json"
+  ],
   "deliberation_config": {
     "turns_per_item": 4,
     "trials_per_item": 5,
@@ -393,17 +401,18 @@ All experimental parameters (models, turns, trials, dyads, items, prompts, and s
         "name": "Ideologue vs Populist",
         "dynamic": "Polarized Stalemate",
         "agents": ["ideologue", "populist"]
+      },
+      {
+        "id": "D4",
+        "name": "Ideologue vs Everyman",
+        "dynamic": "Rhetorical Dominance",
+        "agents": [
+          "ideologue",
+          "everyman"
+        ]
       }
     ]
-  },
-  "items": [
-    "data/items/item01_school_mergers_description.json",
-    "data/items/item02_heritage_mrt_description.json",
-    "data/items/item03_foreign_talent_description.json",
-    "data/items/item04_transboundary_haze_description.json"
-  ],
-  "system_prompts": { ... },
-  "user_prompts": { ... }
+  }
 }
 ```
 
