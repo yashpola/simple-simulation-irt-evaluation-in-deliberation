@@ -36,7 +36,7 @@ The battery comprises **4 standardized policy dilemmas** grounded in Singapore p
 | `ITEM_01` | **School Mergers & Closures**        | Heritage identity vs. demographic decline & resource pooling.          | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit.           |
 | `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility.                | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances.          |
 | `ITEM_03` | **Foreign PMET Thresholds**          | Global hub competitiveness vs. local job displacement anxieties.       | Dynamic salary threshold benchmarking paired with MNC-funded retraining levy and structured knowledge transfer.    |
-| `ITEM_04` | **Carbon Tax Acceleration**          | Statutory net-zero 2050 pledges vs. regressive cost-of-living impacts. | Aggressive tax trajectory with 100% revenue recycling into progressive household rebates and HDB energy retrofits. |
+| `ITEM_04` | **Transboundary Haze Enforcement**   | Extraterritorial corporate accountability vs. diplomatic caution & jurisdictional boundaries. | Bilateral firefighting & satellite monitoring paired with mandatory domestic green finance / supply chain traceability standards. |
 
 ### Structured Distractor Taxonomy
 
@@ -218,7 +218,7 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
     "data/items/item01_school_mergers.json",
     "data/items/item02_heritage_mrt.json",
     "data/items/item03_foreign_talent.json",
-    "data/items/item04_carbon_tax.json"
+    "data/items/item04_transboundary_haze.json"
   ],
   "deliberation_config": {
     "turns_per_item": 4,

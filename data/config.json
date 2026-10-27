@@ -25,7 +25,7 @@
     "data/items/item01_school_mergers.json",
     "data/items/item02_heritage_mrt.json",
     "data/items/item03_foreign_talent.json",
-    "data/items/item04_carbon_tax.json"
+    "data/items/item04_transboundary_haze.json"
   ],
   "deliberation_config": {
     "turns_per_item": 4,
@@ -49,6 +49,12 @@
         "name": "Ideologue vs Populist",
         "dynamic": "Polarized Stalemate",
         "agents": ["ideologue", "populist"]
+      },
+      {
+        "id": "D4",
+        "name": "Ideologue vs Everyman",
+        "dynamic": "Rhetorical Dominance",
+        "agents": ["ideologue", "everyman"]
       }
     ]
   }

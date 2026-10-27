@@ -64,7 +64,7 @@ The test battery consists of 4 standardized, contentious policy dilemmas grounde
 | `ITEM_01` | **School Mergers & Closures**        | Heritage identity vs. demographic decline & resource pooling.          | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit.           |
 | `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility.                | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances.          |
 | `ITEM_03` | **Foreign PMET Thresholds**          | Global hub competitiveness vs. local job displacement anxieties.       | Dynamic salary threshold benchmarking paired with MNC-funded retraining levy and structured knowledge transfer.    |
-| `ITEM_04` | **Carbon Tax Acceleration**          | Statutory net-zero 2050 pledges vs. regressive cost-of-living impacts. | Aggressive tax trajectory with 100% revenue recycling into progressive household rebates and HDB energy retrofits. |
+| `ITEM_04` | **Transboundary Haze Enforcement**   | Extraterritorial corporate accountability vs. diplomatic caution & jurisdictional boundaries. | Bilateral firefighting & satellite monitoring paired with mandatory domestic green finance / supply chain traceability standards. |
 
 ### Structured Distractor Taxonomy
 
@@ -76,20 +76,16 @@ Each item features 3 tempting deliberative traps representing classic cognitive 
 
 ---
 
-## 3. Examinee Personas & Dyads
+## 3. Examinee Personas
 
-Four archetypal citizen personas cross **Policy Knowledge** and **Affective Polarization**:
+The benchmark models deliberative competence across four archetypal citizen personas crossing **Policy Knowledge** and **Affective Polarization**:
 
-- **$P_1$ — Technocratic Pragmatist** (High Knowledge, Low Polarization): Calm, analytical, focused on feasibility, data, and institutional mechanisms.
-- **$P_2$ — Ideological Advocate** (High Knowledge, High Polarization): Articulate, morally committed to preservation and equity; skeptical of technocratic coldness.
-- **$P_3$ — Disaffected Populist** (Low Knowledge, High Polarization): Emotive, candid, feels sidelined by elites; defensive and prone to scapegoating heuristics.
-- **$P_4$ — Open-Minded Everyman** (Low Knowledge, Low Polarization): Plainspoken, humble, constructive; seeks common-sense harmony.
+- **$P_1$ — Technocratic Pragmatist** (`technocrat` | High Knowledge, Low Polarization): Calm, analytical, focused on feasibility, data, and institutional mechanisms.
+- **$P_2$ — Ideological Advocate** (`ideologue` | High Knowledge, High Polarization): Articulate, morally committed to preservation and equity; skeptical of technocratic coldness.
+- **$P_3$ — Disaffected Populist** (`populist` | Low Knowledge, High Polarization): Emotive, candid, feels sidelined by elites; defensive and prone to scapegoating heuristics.
+- **$P_4$ — Open-Minded Everyman** (`everyman` | Low Knowledge, Low Polarization): Plainspoken, humble, constructive; seeks common-sense harmony.
 
-### Dyad Configurations
-
-- **D1 (Ideological Friction)**: $P_1$ vs. $P_2$ (Technocrat vs. Ideologue)
-- **D2 (Asymmetric Vulnerability)**: $P_1$ vs. $P_3$ (Technocrat vs. Populist)
-- **D3 (Polarized Stalemate)**: $P_2$ vs. $P_3$ (Ideologue vs. Populist)
+*(Note: Dyadic pairings between these personas—such as Technocrat vs. Ideologue or Ideologue vs. Populist—are defined dynamically in `data/config.json`. See [Modifying Experiment Parameters & Configuring data/config.json](#modifying-experiment-parameters--configuring-dataconfigjson) below for setup instructions).*
 
 ---
 
@@ -172,7 +168,7 @@ simple-simulation-irt-evaluation-in-deliberation/
 │   │   ├── item01_school_mergers.json
 │   │   ├── item02_heritage_mrt.json
 │   │   ├── item03_foreign_talent.json
-│   │   └── item04_carbon_tax.json
+│   │   └── item04_transboundary_haze.json
 │   └── exp003/                         # Auto-incrementing experiment run output
 │       ├── config.json                 # Run configuration snapshot
 │       ├── items/                      # Snapshot of battery items evaluated in run
@@ -263,22 +259,113 @@ Artifacts are dynamically written to the next auto-incremented `data/expXXX/` di
 - `data/expXXX/config.json`: Snapshot of the configuration used for the experiment run
 - `data/expXXX/items/`: Snapshot of all policy battery item definitions used for the run
 
-#### Modifying Experiment Parameters
+#### Modifying Experiment Parameters & Configuring `data/config.json`
 
-To customize parameters such as the number of trials or models, update your configuration file (e.g. `data/config.json`):
+All experimental parameters (models, turns, trials, dyads, items, prompts, and seeds) are managed centrally in `data/config.json`. Below is the master configuration structure and instructions on how to manipulate both self-explanatory and nontrivial fields:
 
 ```json
 {
+  "experiment_metadata": {
+    "name": "IRT Deliberative Capacity Benchmark",
+    "description": "Observing latent deliberative competence and item psychometrics across diverse citizen groups and Singapore policy dilemmas",
+    "version": "2.0.0"
+  },
   "model_config": {
-    "agent_model": "openai/gpt-oss-120b"
+    "agent_model": "openai/gpt-oss-120b",
+    "temperature": 0.7,
+    "max_tokens": 512
   },
   "deliberation_config": {
     "turns_per_item": 4,
     "trials_per_item": 5,
-    "mcq_option_order_seed": 42
-  }
+    "mcq_option_order_seed": 42,
+    "dyads": [
+      {
+        "id": "D1",
+        "name": "Technocrat vs Ideologue",
+        "dynamic": "Ideological Friction",
+        "agents": ["technocrat", "ideologue"]
+      },
+      {
+        "id": "D2",
+        "name": "Technocrat vs Populist",
+        "dynamic": "Asymmetric Vulnerability",
+        "agents": ["technocrat", "populist"]
+      },
+      {
+        "id": "D3",
+        "name": "Ideologue vs Populist",
+        "dynamic": "Polarized Stalemate",
+        "agents": ["ideologue", "populist"]
+      }
+    ]
+  },
+  "items": [
+    "data/items/item01_school_mergers.json",
+    "data/items/item02_heritage_mrt.json",
+    "data/items/item03_foreign_talent.json",
+    "data/items/item04_transboundary_haze.json"
+  ],
+  "system_prompts": { ... },
+  "user_prompts": { ... }
 }
 ```
+
+##### 1. Setting Up Dyad Configurations (`deliberation_config.dyads`)
+
+The `dyads` list specifies which citizen personas engage in deliberative dialogue against each other. Each entry defines a structured interpersonal test condition:
+
+| Field | Type | Description & Purpose |
+| :--- | :---: | :--- |
+| **`id`** | `string` | **Unique Dyad Identifier** (e.g., `"D1"`, `"D2"`, `"D_CUSTOM"`). Tags transcripts, ballot records, and aggregate dyadic psychometric scores ($\theta_{\text{dyad}}$). |
+| **`name`** | `string` | **Human-Readable Label** (e.g., `"Technocrat vs Ideologue"`). Displayed in console logs, progress bars, and the Markdown synthesis report. |
+| **`dynamic`** | `string` | **Qualitative Sociopolitical Description** (e.g., `"Ideological Friction"`, `"Asymmetric Vulnerability"`, `"Polarized Stalemate"`). Classifies the theoretical tension for reporting and downstream analysis. |
+| **`agents`** | `list[str]` | **Exact 2-Element Array of Persona Keys** matching the keys defined in `system_prompts` (e.g., `["technocrat", "ideologue"]`).<br>• **Turn Sequence**: The order in `agents` dictates conversational turn taking (`agents[0]` speaks on turns 0 and 2; `agents[1]` speaks on turns 1 and 3).<br>• **Validation**: Every key in `agents` must match an active key in `system_prompts`. |
+
+**Example — Adding or Customizing a Dyad**:
+To test how an Open-Minded Everyman interacts with a Technocrat, append a new object to the `dyads` array:
+```json
+{
+  "id": "D4",
+  "name": "Technocrat vs Everyman",
+  "dynamic": "Institutional Translation",
+  "agents": ["technocrat", "everyman"]
+}
+```
+
+---
+
+##### 2. Nontrivial Configuration Fields
+
+* **`user_prompts` (Prompt Templates & Dynamic Placeholders)**:
+  Contains template strings formatted dynamically during execution using Python's `{field}` substitution.
+  * **`deliberation_turn`**: Formats the conversational prompt sent to the active agent on each dialogue turn. Requires `{title}`, `{topic_prompt}`, and `{conversation_history}` (which automatically compiles all prior turns into a transcript block).
+  * **`secret_ballot`**: Formats the post-deliberation voting prompt. Requires `{title}`, `{topic_prompt}`, `{transcript_summary}`, `{ballot_prompt}`, and `{formatted_options}`.
+    > [!IMPORTANT]
+    > The `secret_ballot` template instructs the model to return **only** a single letter (A, B, C, or D). The defensive regex parser in `src/ballot.py` inspects this response to extract the choice against the randomized presentation order.
+  * **`pre_stance` / `post_stance`**: Optional baseline and conclusion stance elicitation templates (invoked if `record_stances=True`).
+
+* **`system_prompts` (Persona Specifications)**:
+  A key-value dictionary where keys are persona identifiers (`technocrat`, `ideologue`, `populist`, `everyman`) and values are multi-line system prompts defining their role, policy knowledge level, affective polarization, behavioral heuristics, and conversational tone. To add a custom persona (e.g., `"environmentalist"`), add its system prompt here and reference it in a dyad's `agents` array.
+
+* **`items` (Policy Test Battery Paths)**:
+  An array of relative file paths to item JSON definitions (e.g. `"data/items/item01_school_mergers.json"`). To evaluate a subset of items or introduce new policy dilemmas, add or remove paths from this list. Each item JSON must define `item_id`, `title`, `topic_prompt`, and `ballot` (containing `prompt`, `options` A–D, and `correct_key`).
+
+* **`mcq_option_order_seed` (Option Randomization Seed)**:
+  An integer seed (`42`) used by Python's `random.Random` to shuffle the multiple-choice options (A, B, C, D) before presenting them in `{formatted_options}`. This decouples option positions from underlying semantic keys, neutralizing LLM positional bias. (Legacy config files with `"seed"` are supported via automatic fallback).
+
+---
+
+##### 3. Self-Explanatory Parameters (One-Liners)
+
+* **`experiment_metadata.name`**: Human-readable benchmark name recorded in output snapshots.
+* **`experiment_metadata.description`**: Brief high-level summary of the experiment's research scope.
+* **`experiment_metadata.version`**: Benchmark schema version string (e.g., `"2.0.0"`).
+* **`model_config.agent_model`**: LLM endpoint model identifier (e.g., `"openai/gpt-oss-120b"`).
+* **`model_config.temperature`**: Sampling temperature for multi-turn dialogue (default `0.7`).
+* **`model_config.max_tokens`**: Maximum token limit per individual dialogue statement (default `512`).
+* **`deliberation_config.turns_per_item`**: Number of alternating dialogue turns per session (default `4`, giving 2 turns per agent).
+* **`deliberation_config.trials_per_item`**: Number of independent simulation trials per item-dyad combination (default `5`, yielding $5 \times 4 \times 3 = 60$ sessions).
 
 ---
 
