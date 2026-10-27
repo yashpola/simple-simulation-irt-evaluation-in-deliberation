@@ -32,7 +32,7 @@ flowchart TD
 
     subgraph Phase3 ["3. Secret Ballot Administration"]
         BALLOT["Randomized Secret Ballot"]
-        KEY["Integrative Compromise (Option A)"]
+        KEY["Integrative Compromise"]
         TRAPS["Cognitive Traps (Inertia, Zero-Sum, Scapegoating)"]
         BALLOT --> KEY & TRAPS
     end
@@ -92,6 +92,7 @@ _(Note: Dyadic pairings between these personas—such as Technocrat vs. Ideologu
 ## 4. Psychometric Metrics, Ranges & Mathematical Formulations
 
 This framework evaluates deliberative performance across three complementary analytical dimensions:
+
 1. **Classical Test Theory (CTT)** for direct item-level empirical statistics and distractor dynamics.
 2. **Item Response Theory (IRT)** for model-based latent trait estimation and dilemma calibration.
 3. **Individual Deliberative Behavioral Metrics** for persona-level compromise adoption rates.
@@ -115,7 +116,7 @@ $$
   - $p_i > 0.80$: Very easy dilemma with low intrinsic resistance to compromise.
   - $0.20 \le p_i \le 0.80$: Optimal diagnostic range providing maximal item variance across dyads.
   - $p_i < 0.20$: High-difficulty dilemma representing an acute polarization trap.
-  - *(Note: In psychometrics, higher $p_i$ denotes an easier item).*
+  - _(Note: In psychometrics, higher $p_i$ denotes an easier item)._
 
 #### 2. Item Discrimination Index ($D_i$)
 
@@ -191,6 +192,7 @@ $$
 where $Y_{ji} \in \{0, 1\}$ is the binary outcome of deliberator $j$ on dilemma $i$.
 
 #### 1. IRT Item Difficulty ($b_i$)
+
 The latent deliberative ability threshold required for an examinee to have a 50% probability of adopting the integrative compromise ($P(Y=1) = 0.50$).
 
 - **Practical Range**: $[-4.0, +4.0]$ (under Gaussian prior $\mathcal{N}(0, 1)$).
@@ -200,6 +202,7 @@ The latent deliberative ability threshold required for an examinee to have a 50%
   - $b > +1.0$: High intrinsic difficulty (requires advanced deliberative competence to overcome polarization).
 
 #### 2. IRT Item Discrimination ($a_i$)
+
 The slope of the Item Characteristic Curve (ICC) at $\theta = b_i$, reflecting how sharply the dilemma differentiates between differing ability levels.
 
 - **Practical Range**: $[0.1, 4.0]$.
@@ -210,6 +213,7 @@ The slope of the Item Characteristic Curve (ICC) at $\theta = b_i$, reflecting h
   - $a \ge 1.70$: Very high discrimination (cleanly separates ability tiers).
 
 #### 3. Latent Deliberative Ability ($\theta$)
+
 The standardized competence trait of a deliberator, estimated under regularized maximum likelihood. Grouped in the benchmark under `"deliberators"`:
 
 - **Practical Range**: $[-4.0, +4.0]$ ($\mathcal{N}(0, 1)$ standardized).
@@ -236,7 +240,7 @@ $$
 
 - **Practical Range**: $[0.0, 1.0]$ ($0\% \text{ to } 100\%$).
 - **Distinction from CTT Consensus Rate ($p_i$)**:
-  - $p_i$ is an **item-level consensus metric** requiring *both* members of a dyad to select Option A simultaneously.
+  - $p_i$ is an **item-level consensus metric** requiring _both_ members of a dyad to select Option A simultaneously.
   - Individual Success Rate is a **persona-level behavioral metric** measuring an individual agent's unconstrained willingness to adopt integrative solutions regardless of whether their partner agreed.
 - **Diagnostic Utility**: Isolates whether failure to reach consensus was symmetric (both agents chose cognitive traps) or asymmetric (one agent endorsed the compromise while the other defected).
 
