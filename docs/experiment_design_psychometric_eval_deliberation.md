@@ -1,12 +1,14 @@
-# Deliberative IRT Simulation: Psychometric Benchmarking of Deliberative Capacity & Policy Dilemmas
+# Deliberative Simulation: Psychometric Benchmarking of Deliberative Capacity & Policy Dilemmas
 
 ## 1. Context & Benchmark Motivation
 
 In LLM-driven multi-agent deliberative democracy, evaluating conversational settings has historically relied on post-hoc, continuous text metrics like embedding cosine similarity, stance shift, or LLM-as-a-Judge Discourse Quality Index (DQI). While qualitative, these metrics often suffer from model sycophancy, lack statistical standard error bounds, and fail to provide actionable diagnostic answers to two fundamental governance questions:
+
 1. **Which citizen demographic groups struggle most with constructive, compromise-oriented deliberation?**
 2. **Which public policy dilemmas are intrinsically harder or more prone to bad-faith cognitive traps?**
 
 This benchmark bridges psychometric theory—specifically **Classical Test Theory (CTT)** and **Item Response Theory (IRT)**—into multi-agent deliberative simulation. By formalizing policy dilemmas as **standardized test items** with structured **integrative compromises ("Option A Key")** and tempting **bad-faith cognitive heuristics ("Distractors B, C, D")**, the benchmark quantitatively estimates:
+
 - **Latent Deliberative Ability ($\theta_j$)**: A continuous scale of deliberative competence for each citizen persona pairing.
 - **Item Difficulty ($b_i$)**: How resistant each policy dilemma is to consensus and integrative compromise.
 - **Item Discrimination ($a_i$)**: How sharply each policy dilemma distinguishes high-competence dyads from vulnerable ones.
@@ -17,6 +19,7 @@ This benchmark bridges psychometric theory—specifically **Classical Test Theor
 ## 2. Benchmark Design & Simplified Observational Paradigm
 
 The benchmark evaluates multi-agent policy deliberation across diverse citizen pairings and Singapore governance dilemmas without artificial control/treatment splits or prompt trickery. It is an **observational psychometric test battery**:
+
 - Diverse archetypal citizen dyads deliberate on standardized policy dilemmas.
 - Following multi-turn deliberation, each persona independently and privately casts a secret ballot.
 - Consensus is reached if and only if both personas in the dyad independently select the integrative compromise (**Option A**).
@@ -28,15 +31,17 @@ The benchmark evaluates multi-agent policy deliberation across diverse citizen p
 
 The battery comprises **4 standardized policy dilemmas** grounded in Singapore public governance. Each item features a substantive value tension, an integrative compromise, and three tempting cognitive distractors:
 
-| Item ID | Topic | Competing Value Tension | Key Compromise (Option A) Focus |
-| :--- | :--- | :--- | :--- |
-| `ITEM_01` | **School Mergers & Closures** | Heritage identity vs. demographic decline & resource pooling. | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit. |
-| `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility. | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances. |
-| `ITEM_03` | **Foreign PMET Thresholds** | Global hub competitiveness vs. local job displacement anxieties. | Dynamic salary threshold benchmarking paired with MNC-funded retraining levy and structured knowledge transfer. |
-| `ITEM_04` | **Carbon Tax Acceleration** | Statutory net-zero 2050 pledges vs. regressive cost-of-living impacts. | Aggressive tax trajectory with 100% revenue recycling into progressive household rebates and HDB energy retrofits. |
+| Item ID   | Topic                                | Competing Value Tension                                                | Key Compromise (Option A) Focus                                                                                    |
+| :-------- | :----------------------------------- | :--------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
+| `ITEM_01` | **School Mergers & Closures**        | Heritage identity vs. demographic decline & resource pooling.          | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit.           |
+| `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility.                | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances.          |
+| `ITEM_03` | **Foreign PMET Thresholds**          | Global hub competitiveness vs. local job displacement anxieties.       | Dynamic salary threshold benchmarking paired with MNC-funded retraining levy and structured knowledge transfer.    |
+| `ITEM_04` | **Carbon Tax Acceleration**          | Statutory net-zero 2050 pledges vs. regressive cost-of-living impacts. | Aggressive tax trajectory with 100% revenue recycling into progressive household rebates and HDB energy retrofits. |
 
 ### Structured Distractor Taxonomy
+
 Each policy dilemma includes 3 standardized bad-faith cognitive traps:
+
 - **Option B (Distractor 1 - Status Quo Inertia Trap)**: Rigid refusal to adapt; demands deficit spending or policy freezes regardless of demographic or fiscal reality.
 - **Option C (Distractor 2 - Technocratic Zero-Sum Trap)**: Ruthless efficiency maximization that completely disregards lived disruption, community identity, and human equity.
 - **Option D (Distractor 3 - External Scapegoating / Deflection Trap)**: Deflecting structural domestic challenges onto foreign or elite scapegoats without a viable solution.
@@ -57,7 +62,9 @@ Four archetypal citizen personas cross **Policy Knowledge** and **Affective Pola
    - Represents the average citizen without policy jargon. Speaks plainly, listens actively, respects differing viewpoints, seeks harmonious solutions.
 
 ### Dyad Configurations
+
 To diagnose interpersonal friction and vulnerability, personas are paired into 3 standardized dyads:
+
 - **D1 (Ideological Friction)**: $P_1$ vs. $P_2$ (Technocrat vs. Ideologue)
 - **D2 (Asymmetric Vulnerability)**: $P_1$ vs. $P_3$ (Technocrat vs. Populist)
 - **D3 (Polarized Stalemate)**: $P_2$ vs. $P_3$ (Ideologue vs. Populist)
@@ -67,6 +74,7 @@ To diagnose interpersonal friction and vulnerability, personas are paired into 3
 ## 5. Psychometric Formulations
 
 ### A. Classical Test Theory (CTT)
+
 1. **Item Difficulty ($p_i$)**:
    $$p_i = \frac{N_{\text{consensus}}}{N_{\text{total}}}$$
    Where consensus is achieved when both agents independently vote for Option A.
@@ -78,8 +86,10 @@ To diagnose interpersonal friction and vulnerability, personas are paired into 3
    Differentiates performance of top-performing dyads from bottom-performing dyads.
 
 ### B. Item Response Theory (IRT)
+
 Using a **2-Parameter Logistic (2PL) Model** fitted via regularized Maximum Likelihood Estimation:
 $$P(Y_{ij} = 1 \mid \theta_j, a_i, b_i) = \frac{1}{1 + e^{-a_i (\theta_j - b_i)}}$$
+
 - $\theta_j$: Latent deliberative ability of dyad $j$.
 - $b_i$: Difficulty parameter of policy dilemma $i$ (higher = more resistant to consensus).
 - $a_i$: Discrimination parameter of policy dilemma $i$ (higher = sharper diagnostic precision).
@@ -127,6 +137,7 @@ flowchart TD
 ```
 
 ### Execution Steps
+
 1. **Load Configuration**: Read `data/config.json` (or CLI-specified path) and battery items from `data/items/`.
 2. **Conduct Deliberation**: For each trial, dyad, and item, agents engage in a 4-turn alternating conversation. Conversation history is tracked verbatim.
 3. **Administer Secret Ballot**: Each agent independently votes on the policy resolution. Display order of options is randomized to prevent position bias. Choices are defensively parsed via regex.
@@ -140,10 +151,12 @@ flowchart TD
 To allow autonomous agents or researchers to reproduce this codebase reliably, the repository strictly enforces seven architectural guidelines:
 
 ### Guideline 1: Strict Typing with Built-in Types (No Pydantic)
+
 - All data schemas must use Python built-in `typing.TypedDict` (no heavy validation libraries like Pydantic).
 - Schemas are defined in `src/schemas.py`.
 
 ### Guideline 2: Separation of Concerns & File Modularity
+
 - `src/main.py`: Orchestrator and entry point (`execute_simulation_run`).
 - `src/deliberation.py`: Chat loops, prompt resolution, and turn generation.
 - `src/ballot.py`: Secret ballot runner with randomized display order and defensive regex parsing.
@@ -153,20 +166,25 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
 - `src/report.py`: Markdown synthesis report generator.
 
 ### Guideline 3: Single-Responsibility Functions
+
 - Every function has a clear, explicit name and docstring (e.g., `execute_simulation_run`, `conduct_deliberation`, `administer_dyad_ballot`, `analyze_experiment_psychometrics`).
 
 ### Guideline 4: Total Configuration Abstraction (Zero Hardcoded Prompts)
+
 - Absolutely zero prompt strings or textual templates exist in Python logic.
 - All prompts are loaded dynamically from `data/config.json`.
 - All `dict.get()` calls default to `""` rather than fallback text.
 
 ### Guideline 5: Defensive LLM Parsing
+
 - All ballot option extraction uses defensive regex wrapped in `try/except` to robustly handle markdown bolding, prefixes, and punctuation.
 
 ### Guideline 6: Dynamic Output Directory Indexing
+
 - Every execution dynamically discovers existing `data/expXXX/` directories and writes to the next incremented index (e.g., `data/exp000/`, `data/exp001/`). Past runs are never overwritten.
 
 ### Guideline 7: Documentation Transparency for Code Defaults (Hygiene)
+
 - Any default configurations, parameter values, or fallback behaviors embedded in Python logic (e.g., fallback model `openai/gpt-oss-120b` in `src/llm.py`, default inference temperature/max_tokens, option shuffling seeds like `mcq_option_order_seed`, or fallback directory resolutions) MUST be explicitly mentioned in `README.md`.
 - No hidden or undocumented assumptions: If code logic assumes or falls back to a specific default value when an environment variable or config field is omitted, that default must be documented prominently in the README setup instructions to maintain clean engineering hygiene and reproducibility.
 
@@ -237,6 +255,7 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
 The CLI entry point accepts **strictly one optional argument**: `--config`. All other experimental parameters must be specified within the configuration JSON file.
 
 ### CLI Usage
+
 ```bash
 # Run with default configuration (data/config.json)
 python3 -m src.main
@@ -249,6 +268,7 @@ python3 -m src.main --help
 ```
 
 ### Environment Credentials (`.env`)
+
 ```env
 OPENAI_API_KEY=your-api-key
 OPENAI_BASE_URL=https://api.together.xyz/v1
@@ -261,6 +281,7 @@ MODEL_GPT_OSS=openai/gpt-oss-120b
 ## 10. Persisted Output Artifacts (`data/expXXX/`)
 
 Each experiment run generates its outputs in its dedicated indexed directory:
+
 1. `config.json`: Complete snapshot of the configuration used for the run.
 2. `items/`: Full directory snapshot of the policy battery item JSONs evaluated during the run.
 3. `transcripts.json`: Complete record of all dialogue turns across dyads and trials.
@@ -273,10 +294,13 @@ Each experiment run generates its outputs in its dedicated indexed directory:
 ## 11. Automated Verification & Testing
 
 The repository must pass automated tests verifying all core mathematical and operational invariants:
+
 ```bash
 python3 -m pytest tests -v
 ```
+
 Required test coverage:
+
 - `tests/test_ballot_parser.py`: Exact letter match, prefixes (`Option A`), markdown wrappers, and position randomization.
 - `tests/test_deliberation.py`: Conversation history formatting, turn structure, and speaker alternation.
 - `tests/test_psychometrics.py`: CTT consensus calculation, distractor ratios, and 1PL/2PL IRT parameter monotonicity.
