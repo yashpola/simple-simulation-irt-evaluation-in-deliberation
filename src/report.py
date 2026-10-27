@@ -27,6 +27,14 @@ def generate_markdown_report(
     model_cfg = config.get("model_config", {})
     delib_cfg = config.get("deliberation_config", {})
     meta = config.get("experiment_metadata", {})
+    dyads_cfg = delib_cfg.get("dyads", [])
+    trials_per_item = delib_cfg.get("trials_per_item", 5)
+    n_dyads = max(1, len(dyads_cfg))
+    n_items = max(1, len(items_data))
+    sessions_per_item = trials_per_item * n_dyads
+    votes_per_item = sessions_per_item * 2
+    total_sessions = trials_per_item * n_items * n_dyads
+    total_votes = total_sessions * 2
 
     report_lines = [
         "# Deliberative Item Response Theory (IRT) Benchmark Report",
@@ -34,7 +42,8 @@ def generate_markdown_report(
         f"**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}  ",
         f"**Benchmark:** {meta.get('name', 'IRT Deliberation Benchmark')}  ",
         f"**Model:** `{model_cfg.get('agent_model', 'openai/gpt-oss-120b')}`  ",
-        f"**Trials per Item:** {delib_cfg.get('trials_per_item', 5)}  ",
+        f"**Execution Matrix:** {trials_per_item} trials/dyad across {n_dyads} dyads and {n_items} items ({total_sessions} total sessions, {total_votes} secret ballots)  ",
+        f"**Per-Item Sample:** {sessions_per_item} deliberative sessions ({votes_per_item} individual secret ballots cast)  ",
         "",
         "---",
         "",
@@ -117,9 +126,14 @@ def generate_markdown_report(
     report_lines.extend([
         "",
         "> [!NOTE]",
-        "> **IRT Difficulty ($b_i$)**: Higher values indicate dilemmas that are intrinsically harder to resolve constructively.  ",
-        "> **IRT Discrimination ($a_i$)**: Measures how effectively an item distinguishes high-competence from low-competence dyads.  ",
-        "> **DCR (Distractor-to-Correct Ratio)**: Ratio of selections for that trap relative to the integrative compromise (Option A).",
+        "> **Sample Size & Metric Interpretation Guide**:",
+        f"> - **Consensus Rate ($p_i$)**: The proportion of deliberative sessions where *both* participants in the dyad simultaneously voted for Option A. Evaluated over all **{sessions_per_item} sessions** for that dilemma ($5\\text{{ trials}} \\times {n_dyads}\\text{{ dyads}}$).  ",
+        f"> - **DCR (Distractor-to-Correct Ratio)**: A relative ratio against Option A, **not a percentage of total votes**: $\\text{{DCR}}_k = \\frac{{\\text{{Count}}(\\text{{Distractor }} k)}}{{\\text{{Count}}(\\text{{Option A}})}}$. Evaluated across all **{votes_per_item} individual secret ballots** cast for that dilemma.  ",
+        ">   - $\\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic was chosen *more frequently* than the compromise).  ",
+        ">   - $\\text{DCR} < 1.0$: Subdominant trap (Option A was chosen more frequently than this heuristic).  ",
+        ">   - $\\text{DCR} = 1.0$: Parity trap (equal frequency to compromise).  ",
+        ">   - *Note on vote percentages*: DCR values do not sum to 100%. The actual percentage of votes for Option A is $\\frac{1}{1 + \\text{DCR}_B + \\text{DCR}_C + \\text{DCR}_D} \\times 100\\%$.  ",
+        "> - **IRT Difficulty ($b_i$) & Discrimination ($a_i$)**: Fitted simultaneously across the entire multi-dyad session matrix using regularized 2PL Maximum Likelihood. Higher $b_i$ indicates greater intrinsic resistance to consensus; higher $a_i$ indicates sharper diagnostic separation between high- and low-competence dyads.",
         "",
         "---",
         "",

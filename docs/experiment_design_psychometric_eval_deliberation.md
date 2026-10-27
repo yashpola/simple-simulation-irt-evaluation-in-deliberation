@@ -75,15 +75,26 @@ To diagnose interpersonal friction and vulnerability, personas are paired into 3
 
 ### A. Classical Test Theory (CTT)
 
-1. **Item Difficulty ($p_i$)**:
-   $$p_i = \frac{N_{\text{consensus}}}{N_{\text{total}}}$$
-   Where consensus is achieved when both agents independently vote for Option A.
+1. **Item Difficulty / Consensus Rate ($p_i$)**:
+   $$p_i = \frac{N_{\text{consensus}}}{N_{\text{sessions}}}$$
+   Where an item is passed ($1$) if and only if both agents independently converge on Option A. Computed at the session level ($N_{\text{sessions}} = \text{trials\_per\_item} \times N_{\text{dyads}}$).
 2. **Distractor-to-Correct Ratio (DCR)**:
    $$\text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Option A}}$$
-   A high $\text{DCR}_k$ indicates an exceptionally alluring cognitive trap.
+   Evaluated at the individual vote level across all $N_{\text{votes}} = N_{\text{sessions}} \times 2$ secret ballots cast for that item.
+   - $\text{DCR}$ is a relative ratio against Option A, **not** a percentage.
+   - $\text{DCR} > 1.0$: Dominant trap (heuristic selected more frequently than the compromise).
+   - $\text{DCR} < 1.0$: Subdominant trap (Option A chosen more frequently than the heuristic).
+   - DCR values do not sum to 100%. The actual percentage of votes for Option A is:
+     $$\% \text{ Option A} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$$
 3. **Item Discrimination ($D_{27\%}$)**:
    $$D_i = P_{i,\text{top 27\%}} - P_{i,\text{bottom 27\%}}$$
-   Differentiates performance of top-performing dyads from bottom-performing dyads.
+   Using Kelley's 27% split to differentiate consensus success rates between top- and bottom-performing dyads.
+
+#### Execution Matrix & Sample Pooling Dynamics
+
+$$\text{Sessions per Dilemma} = \text{trials\_per\_item} \times N_{\text{dyads}} \quad (\text{e.g., } 5 \times 4 = 20 \text{ sessions})$$
+$$\text{Individual Secret Ballots per Dilemma} = \text{Sessions} \times 2 \text{ agents} \quad (\text{e.g., } 20 \times 2 = 40 \text{ votes})$$
+$$\text{Total Benchmark Matrix} = \text{Sessions per Dilemma} \times N_{\text{items}} \quad (\text{e.g., } 20 \times 4 = 80 \text{ sessions, } 160 \text{ votes})$$
 
 ### B. Item Response Theory (IRT)
 

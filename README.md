@@ -6,10 +6,10 @@
 
 An end-to-end psychometric evaluation framework for **LLM-driven Deliberative Democracy**. This repository applies **Classical Test Theory (CTT)** and **Item Response Theory (IRT)** to standardized multi-agent simulations across contentious public policy dilemmas in Singapore to empirically diagnose:
 
-1. **Item Difficulty ($b_i$)**: Which policy dilemmas are intrinsically harder or more prone to bad-faith traps?
-2. **Latent Deliberative Ability ($\theta_j$)**: Which citizen demographic groups struggle most with constructive deliberation?
-3. **Item Discrimination ($a_i$)**: Which policy items reliably differentiate high-competence dyads from vulnerable ones?
-4. **Distractor Efficiency (DCR)**: Which bad-faith cognitive heuristics (populist inertia, zero-sum technocracy, or foreign scapegoating) derail specific groups?
+1. **Item Difficulty**: Which policy dilemmas are intrinsically harder or more prone to bad-faith traps?
+2. **Latent Deliberative Ability**: Which citizen demographic groups struggle most with constructive deliberation?
+3. **Item Discrimination**: Which policy items reliably differentiate high-competence dyads from vulnerable ones?
+4. **Distractor Efficiency**: Which bad-faith cognitive heuristics (populist inertia, zero-sum technocracy, or foreign scapegoating) derail specific groups?
 
 ---
 
@@ -59,11 +59,11 @@ flowchart TD
 
 The test battery consists of 4 standardized, contentious policy dilemmas grounded in Singapore public governance:
 
-| Item ID   | Topic                                | Value Tension                                                          | Key Compromise (Option A) Focus                                                                                    |
-| :-------- | :----------------------------------- | :--------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
-| `ITEM_01` | **School Mergers & Closures**        | Heritage identity vs. demographic decline & resource pooling.          | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit.           |
-| `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility.                | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances.          |
-| `ITEM_03` | **Foreign PMET Thresholds**          | Global hub competitiveness vs. local job displacement anxieties.       | Dynamic salary threshold benchmarking paired with MNC-funded retraining levy and structured knowledge transfer.    |
+| Item ID   | Topic                                | Value Tension                                                                                 | Key Compromise (Option A) Focus                                                                                                   |
+| :-------- | :----------------------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+| `ITEM_01` | **School Mergers & Closures**        | Heritage identity vs. demographic decline & resource pooling.                                 | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit.                          |
+| `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility.                                       | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances.                         |
+| `ITEM_03` | **Foreign PMET Thresholds**          | Global hub competitiveness vs. local job displacement anxieties.                              | Dynamic salary threshold benchmarking paired with MNC-funded retraining levy and structured knowledge transfer.                   |
 | `ITEM_04` | **Transboundary Haze Enforcement**   | Extraterritorial corporate accountability vs. diplomatic caution & jurisdictional boundaries. | Bilateral firefighting & satellite monitoring paired with mandatory domestic green finance / supply chain traceability standards. |
 
 ### Structured Distractor Taxonomy
@@ -85,7 +85,7 @@ The benchmark models deliberative competence across four archetypal citizen pers
 - **$P_3$ — Disaffected Populist** (`populist` | Low Knowledge, High Polarization): Emotive, candid, feels sidelined by elites; defensive and prone to scapegoating heuristics.
 - **$P_4$ — Open-Minded Everyman** (`everyman` | Low Knowledge, Low Polarization): Plainspoken, humble, constructive; seeks common-sense harmony.
 
-*(Note: Dyadic pairings between these personas—such as Technocrat vs. Ideologue or Ideologue vs. Populist—are defined dynamically in `data/config.json`. See [Modifying Experiment Parameters & Configuring data/config.json](#modifying-experiment-parameters--configuring-dataconfigjson) below for setup instructions).*
+_(Note: Dyadic pairings between these personas—such as Technocrat vs. Ideologue or Ideologue vs. Populist—are defined dynamically in `data/config.json`. See [Modifying Experiment Parameters & Configuring data/config.json](#modifying-experiment-parameters--configuring-dataconfigjson) below for setup instructions)._
 
 ---
 
@@ -97,7 +97,7 @@ This framework combines **Classical Test Theory (CTT)** for direct empirical sta
 
 | Metric                              |     Symbol      |  Theoretical Range   | Practical Solver Range | Interpretation & Standard Thresholds                                                                                                                                                                                                                                                                                                                                                    |
 | :---------------------------------- | :-------------: | :------------------: | :--------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CTT Difficulty (Pass Rate)**      |      $p_i$      |     $[0.0, 1.0]$     |      $[0.0, 1.0]$      | **Proportion of examinees reaching consensus / selecting Option A.**<br>• $p > 0.80$: Very easy / low resistance dilemma.<br>• $0.20 \le p \le 0.80$: Optimal diagnostic range (maximal item variance).<br>• $p < 0.20$: Very difficult / high-friction polarization trap.<br>_(Note: In psychometrics, higher $p$ = easier item)._                                                     |
+| **CTT Difficulty (Consensus Rate)** |      $p_i$      |     $[0.0, 1.0]$     |      $[0.0, 1.0]$      | **Proportion of deliberative sessions reaching consensus on Option A.**<br>• $p > 0.80$: Very easy / low resistance dilemma.<br>• $0.20 \le p \le 0.80$: Optimal diagnostic range (maximal item variance).<br>• $p < 0.20$: Very difficult / high-friction polarization trap.<br>_(Note: In psychometrics, higher $p$ = easier item)._                                                     |
 | **CTT Item Discrimination**         | $D$ (27% split) |    $[-1.0, +1.0]$    |     $[-1.0, +1.0]$     | **Kelley's Upper-Lower Discrimination Index** ($P_{\text{top}} - P_{\text{bottom}}$).<br>• $D \ge 0.40$: Excellent discrimination.<br>• $0.30 \le D \le 0.39$: Good discrimination.<br>• $0.20 \le D \le 0.29$: Acceptable discrimination.<br>• $0.0 \le D < 0.20$: Poor discrimination.<br>• $D < 0.0$: Defective item (vulnerable groups pass more often than skilled groups).        |
 | **Distractor-to-Correct Ratio**     | $\text{DCR}_k$  |   $[0.0, +\infty)$   |    $[0.0, +\infty)$    | **Relative attractiveness of cognitive heuristic $k$ vs. Option A.**<br>• $\text{DCR} = 0.0$: Completely unselected / ineffective distractor.<br>• $0.0 < \text{DCR} < 1.0$: Subdominant trap (Option A chosen more often).<br>• $\text{DCR} = 1.0$: Parity trap (equal frequency to compromise).<br>• $\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic out-competes compromise). |
 | **IRT Latent Deliberative Ability** |    $\theta$     | $(-\infty, +\infty)$ |     $[-4.0, +4.0]$     | **Standardized capability of an examinee (dyad or individual persona).**<br>• $\theta > +1.0$: High deliberative ability (readily adopts integrative compromises).<br>• $-0.5 \le \theta \le +0.5$: Average deliberative capacity.<br>• $\theta < -1.0$: Low deliberative ability (highly vulnerable to polarization/traps).                                                            |
@@ -108,9 +108,9 @@ This framework combines **Classical Test Theory (CTT)** for direct empirical sta
 
 ### A. Classical Test Theory (CTT) Formulations
 
-1. **Item Difficulty ($p_i$)**:
-   $$p_i = \frac{N_{\text{passed}}}{N_{\text{total}}}$$
-   For dyadic deliberation, an item is passed ($1$) if and only if both agents independently converge on Option A; for individual analysis, it is the rate of selecting Option A.
+1. **Item Difficulty / Consensus Rate ($p_i$)**:
+   $$p_i = \frac{N_{\text{consensus}}}{N_{\text{total\_sessions}}}$$
+   The proportion of deliberative sessions where both agents in the dyad reach consensus by independently selecting the integrative compromise (Option A) on their secret ballots.
 
 2. **Item Discrimination Index ($D$)**:
    $$D_i = P_{i,\text{top}} - P_{i,\text{bottom}}$$
@@ -119,6 +119,24 @@ This framework combines **Classical Test Theory (CTT)** for direct empirical sta
 3. **Distractor-to-Correct Ratio (DCR)**:
    $$\text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Option A}}$$
    Diagnoses whether a failure to compromise was driven by **Status Quo Inertia** (Option B), **Technocratic Coldness** (Option C), or **External Scapegoating** (Option D).
+
+#### Sample Size Pooling & Execution Matrix Dynamics
+
+To understand how empirical observations map into these metrics:
+
+$$\text{Sessions per Dilemma} = \text{trials\_per\_item} \times N_{\text{dyads}} \quad (\text{e.g., } 5 \times 4 = 20 \text{ sessions})$$
+$$\text{Individual Secret Ballots per Dilemma} = \text{Sessions} \times 2 \text{ agents} \quad (\text{e.g., } 20 \times 2 = 40 \text{ votes})$$
+$$\text{Total Benchmark Matrix} = \text{Sessions per Dilemma} \times N_{\text{items}} \quad (\text{e.g., } 20 \times 4 = 80 \text{ sessions, } 160 \text{ votes})$$
+
+* **Consensus Rate ($p_i$)** is evaluated at the **session level** over all $N_{\text{sessions}}$ for that item ($p_i = \frac{N_{\text{consensus}}}{20}$). An item is passed only when both participants simultaneously select Option A.
+* **Distractor-to-Correct Ratio ($\text{DCR}_k$)** is evaluated at the **individual vote level** across all $N_{\text{votes}}$ secret ballots cast ($40$ votes per item):
+  - $\text{DCR}$ is a **relative ratio against Option A**, not a percentage of total votes.
+  - $\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic selected more often than the compromise).
+  - $\text{DCR} < 1.0$: Subdominant trap (compromise chosen more often than the heuristic).
+  - $\text{DCR} = 1.0$: Parity trap (equal frequency to compromise).
+  - DCR values do not sum to 100%. To convert DCR values into the actual percentage distribution of votes:
+    $$\% \text{ Option A} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$$
+    $$\% \text{ Distractor } k = \frac{\text{DCR}_k}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$$
 
 ---
 
@@ -315,15 +333,16 @@ All experimental parameters (models, turns, trials, dyads, items, prompts, and s
 
 The `dyads` list specifies which citizen personas engage in deliberative dialogue against each other. Each entry defines a structured interpersonal test condition:
 
-| Field | Type | Description & Purpose |
-| :--- | :---: | :--- |
-| **`id`** | `string` | **Unique Dyad Identifier** (e.g., `"D1"`, `"D2"`, `"D_CUSTOM"`). Tags transcripts, ballot records, and aggregate dyadic psychometric scores ($\theta_{\text{dyad}}$). |
-| **`name`** | `string` | **Human-Readable Label** (e.g., `"Technocrat vs Ideologue"`). Displayed in console logs, progress bars, and the Markdown synthesis report. |
-| **`dynamic`** | `string` | **Qualitative Sociopolitical Description** (e.g., `"Ideological Friction"`, `"Asymmetric Vulnerability"`, `"Polarized Stalemate"`). Classifies the theoretical tension for reporting and downstream analysis. |
-| **`agents`** | `list[str]` | **Exact 2-Element Array of Persona Keys** matching the keys defined in `system_prompts` (e.g., `["technocrat", "ideologue"]`).<br>• **Turn Sequence**: The order in `agents` dictates conversational turn taking (`agents[0]` speaks on turns 0 and 2; `agents[1]` speaks on turns 1 and 3).<br>• **Validation**: Every key in `agents` must match an active key in `system_prompts`. |
+| Field         |    Type     | Description & Purpose                                                                                                                                                                                                                                                                                                                                                                 |
+| :------------ | :---------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`id`**      |  `string`   | **Unique Dyad Identifier** (e.g., `"D1"`, `"D2"`, `"D_CUSTOM"`). Tags transcripts, ballot records, and aggregate dyadic psychometric scores ($\theta_{\text{dyad}}$).                                                                                                                                                                                                                 |
+| **`name`**    |  `string`   | **Human-Readable Label** (e.g., `"Technocrat vs Ideologue"`). Displayed in console logs, progress bars, and the Markdown synthesis report.                                                                                                                                                                                                                                            |
+| **`dynamic`** |  `string`   | **Qualitative Sociopolitical Description** (e.g., `"Ideological Friction"`, `"Asymmetric Vulnerability"`, `"Polarized Stalemate"`). Classifies the theoretical tension for reporting and downstream analysis.                                                                                                                                                                         |
+| **`agents`**  | `list[str]` | **Exact 2-Element Array of Persona Keys** matching the keys defined in `system_prompts` (e.g., `["technocrat", "ideologue"]`).<br>• **Turn Sequence**: The order in `agents` dictates conversational turn taking (`agents[0]` speaks on turns 0 and 2; `agents[1]` speaks on turns 1 and 3).<br>• **Validation**: Every key in `agents` must match an active key in `system_prompts`. |
 
 **Example — Adding or Customizing a Dyad**:
 To test how an Open-Minded Everyman interacts with a Technocrat, append a new object to the `dyads` array:
+
 ```json
 {
   "id": "D4",
@@ -337,35 +356,35 @@ To test how an Open-Minded Everyman interacts with a Technocrat, append a new ob
 
 ##### 2. Nontrivial Configuration Fields
 
-* **`user_prompts` (Prompt Templates & Dynamic Placeholders)**:
+- **`user_prompts` (Prompt Templates & Dynamic Placeholders)**:
   Contains template strings formatted dynamically during execution using Python's `{field}` substitution.
-  * **`deliberation_turn`**: Formats the conversational prompt sent to the active agent on each dialogue turn. Requires `{title}`, `{topic_prompt}`, and `{conversation_history}` (which automatically compiles all prior turns into a transcript block).
-  * **`secret_ballot`**: Formats the post-deliberation voting prompt. Requires `{title}`, `{topic_prompt}`, `{transcript_summary}`, `{ballot_prompt}`, and `{formatted_options}`.
+  - **`deliberation_turn`**: Formats the conversational prompt sent to the active agent on each dialogue turn. Requires `{title}`, `{topic_prompt}`, and `{conversation_history}` (which automatically compiles all prior turns into a transcript block).
+  - **`secret_ballot`**: Formats the post-deliberation voting prompt. Requires `{title}`, `{topic_prompt}`, `{transcript_summary}`, `{ballot_prompt}`, and `{formatted_options}`.
     > [!IMPORTANT]
     > The `secret_ballot` template instructs the model to return **only** a single letter (A, B, C, or D). The defensive regex parser in `src/ballot.py` inspects this response to extract the choice against the randomized presentation order.
-  * **`pre_stance` / `post_stance`**: Optional baseline and conclusion stance elicitation templates (invoked if `record_stances=True`).
+  - **`pre_stance` / `post_stance`**: Optional baseline and conclusion stance elicitation templates (invoked if `record_stances=True`).
 
-* **`system_prompts` (Persona Specifications)**:
+- **`system_prompts` (Persona Specifications)**:
   A key-value dictionary where keys are persona identifiers (`technocrat`, `ideologue`, `populist`, `everyman`) and values are multi-line system prompts defining their role, policy knowledge level, affective polarization, behavioral heuristics, and conversational tone. To add a custom persona (e.g., `"environmentalist"`), add its system prompt here and reference it in a dyad's `agents` array.
 
-* **`items` (Policy Test Battery Paths)**:
+- **`items` (Policy Test Battery Paths)**:
   An array of relative file paths to item JSON definitions (e.g. `"data/items/item01_school_mergers.json"`). To evaluate a subset of items or introduce new policy dilemmas, add or remove paths from this list. Each item JSON must define `item_id`, `title`, `topic_prompt`, and `ballot` (containing `prompt`, `options` A–D, and `correct_key`).
 
-* **`mcq_option_order_seed` (Option Randomization Seed)**:
+- **`mcq_option_order_seed` (Option Randomization Seed)**:
   An integer seed (`42`) used by Python's `random.Random` to shuffle the multiple-choice options (A, B, C, D) before presenting them in `{formatted_options}`. This decouples option positions from underlying semantic keys, neutralizing LLM positional bias. (Legacy config files with `"seed"` are supported via automatic fallback).
 
 ---
 
 ##### 3. Self-Explanatory Parameters (One-Liners)
 
-* **`experiment_metadata.name`**: Human-readable benchmark name recorded in output snapshots.
-* **`experiment_metadata.description`**: Brief high-level summary of the experiment's research scope.
-* **`experiment_metadata.version`**: Benchmark schema version string (e.g., `"2.0.0"`).
-* **`model_config.agent_model`**: LLM endpoint model identifier (e.g., `"openai/gpt-oss-120b"`).
-* **`model_config.temperature`**: Sampling temperature for multi-turn dialogue (default `0.7`).
-* **`model_config.max_tokens`**: Maximum token limit per individual dialogue statement (default `512`).
-* **`deliberation_config.turns_per_item`**: Number of alternating dialogue turns per session (default `4`, giving 2 turns per agent).
-* **`deliberation_config.trials_per_item`**: Number of independent simulation trials per item-dyad combination (default `5`, yielding $5 \times 4 \times 3 = 60$ sessions).
+- **`experiment_metadata.name`**: Human-readable benchmark name recorded in output snapshots.
+- **`experiment_metadata.description`**: Brief high-level summary of the experiment's research scope.
+- **`experiment_metadata.version`**: Benchmark schema version string (e.g., `"2.0.0"`).
+- **`model_config.agent_model`**: LLM endpoint model identifier (e.g., `"openai/gpt-oss-120b"`).
+- **`model_config.temperature`**: Sampling temperature for multi-turn dialogue (default `0.7`).
+- **`model_config.max_tokens`**: Maximum token limit per individual dialogue statement (default `512`).
+- **`deliberation_config.turns_per_item`**: Number of alternating dialogue turns per session (default `4`, giving 2 turns per agent).
+- **`deliberation_config.trials_per_item`**: Number of independent simulation trials per item-dyad combination (e.g. `5` trials $\times$ 4 dyads = 20 sessions per dilemma; yielding $5 \times 4 \times 4 = 80$ total benchmark sessions).
 
 ---
 
