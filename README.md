@@ -21,7 +21,7 @@ The simulation benchmark operates as an end-to-end sequential psychometric pipel
 flowchart TD
     subgraph Phase1 ["1. Inputs & Configuration"]
         CFG["Master Config (data/config.json)"]
-        DYADS["Citizen Personas & Dyads (D1, D2, D3)"]
+        DYADS["Citizen Personas & Dyads (D1 to D4)"]
         ITEMS["Standardized Policy Battery (Items 1 to 4)"]
         CFG --> DYADS & ITEMS
     end
@@ -364,12 +364,13 @@ All experimental parameters (models, turns, trials, dyads, items, prompts, and s
   "experiment_metadata": {
     "name": "IRT Deliberative Capacity Benchmark",
     "description": "Observing latent deliberative competence and item psychometrics across diverse citizen groups and Singapore policy dilemmas",
-    "version": "1.3.7"
+    "version": "1.4.0"
   },
   "model_config": {
     "agent_model": "openai/gpt-oss-120b",
     "temperature": 0.7,
-    "max_tokens": 512
+    "max_tokens": 512,
+    "seed": null
   },
   "system_prompts": { ... },
   "user_prompts": { ... },
@@ -469,6 +470,7 @@ To test how an Open-Minded Everyman interacts with a Technocrat, append a new ob
 - **`model_config.agent_model`**: LLM endpoint model identifier (e.g., `"openai/gpt-oss-120b"`).
 - **`model_config.temperature`**: Sampling temperature for multi-turn dialogue (default `0.7`).
 - **`model_config.max_tokens`**: Maximum token limit per individual dialogue statement (default `512`).
+- **`model_config.seed`**: Optional integer seed for LLM text generation reproducibility (default `null` / `None` for stochastic generation).
 - **`deliberation_config.turns_per_item`**: Number of alternating dialogue turns per session (default `4`, giving 2 turns per agent).
 - **`deliberation_config.trials_per_item`**: Number of independent simulation trials per item-dyad combination (e.g. `5` trials $\times$ 4 dyads = 20 sessions per dilemma; yielding $5 \times 4 \times 4 = 80$ total benchmark sessions).
 
@@ -481,12 +483,13 @@ All default parameters, fallback chains, and optimization bounds hardcoded withi
 | Module / Scope                                  | Parameter                    | Code Default / Fallback                          | Behavior & Purpose                                                                                                                                                                                                |
 | :---------------------------------------------- | :--------------------------- | :----------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Model Resolution** (`src/llm.py`)             | `agent_model`                | `"openai/gpt-oss-120b"`                          | Read from `config.json`. If missing or unavailable on endpoint, falls back through `.env`: `AGENT_MODEL` $\rightarrow$ `DEFAULT_AGENT_MODEL` $\rightarrow$ `MODEL_GPT_OSS` $\rightarrow$ `"openai/gpt-oss-120b"`. |
+| **Model Inference Seed** (`src/llm.py`)         | `seed`                       | `None` (`null`)                                  | Controls deterministic LLM inference on endpoints supporting seed parameter. Defaults to `None` for unconstrained stochastic diversity.                                                                           |
 | **API Credentials** (`src/llm.py`)              | `api_key`, `base_url`        | **No fallback**                                  | Strictly read from `OPENAI_API_KEY` and `OPENAI_BASE_URL` in `.env`. Fails fast with `ValueError` if either is missing.                                                                                           |
 | **Dialogue Turns** (`src/deliberation.py`)      | `temperature` / `max_tokens` | `0.7` / `512`                                    | Balanced exploratory sampling for multi-turn citizen dialogue.                                                                                                                                                    |
 | **Secret Ballot** (`src/ballot.py`)             | `temperature` / `max_tokens` | `0.3` / `32`                                     | Low temperature ensures deterministic single-letter option voting.                                                                                                                                                |
 | **Ballot Fallback** (`src/ballot.py`)           | Parsed Letter                | `"A"`                                            | If an LLM response cannot be parsed via regex into A/B/C/D, defensively defaults to `"A"` to prevent crash.                                                                                                       |
 | **Simulation Matrix** (`src/main.py`)           | `turns_per_item`             | `4`                                              | 4 alternating dialogue turns per session (2 turns per persona).                                                                                                                                                   |
-| **Simulation Matrix** (`src/main.py`)           | `trials_per_item`            | `5`                                              | 5 independent trials per item-dyad combination (60 total sessions across benchmark).                                                                                                                              |
+| **Simulation Matrix** (`src/main.py`)           | `trials_per_item`            | `5`                                              | 5 independent trials per item-dyad combination (80 total sessions across benchmark).                                                                                                                              |
 | **Option Shuffling Seed** (`src/main.py`)       | `mcq_option_order_seed`      | `42` (legacy fallback: `seed`)                   | Base pseudo-random seed for shuffling multiple-choice ballot option presentation order (A/B/C/D) to mitigate LLM position bias.                                                                                   |
 | **Output Directory** (`src/main.py`)            | `output_dir`                 | `data/expXXX/`                                   | Auto-detects highest existing `expXXX` and increments to the next index (starts at `exp000`).                                                                                                                     |
 | **IRT Regularization** (`src/psychometrics.py`) | L2 Priors ($\lambda$)        | `0.5` ($\theta, b$), `0.5` ($a - 1$)             | Regularizes maximum likelihood estimation against overfitting on small samples.                                                                                                                                   |

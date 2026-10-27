@@ -42,6 +42,10 @@ def conduct_deliberation(
     turns: List[DeliberationTurn] = []
     user_prompts = config.get("user_prompts", {})
     prompt_template = user_prompts.get("deliberation_turn", "")
+    model_cfg = config.get("model_config", {})
+    temperature = model_cfg.get("temperature", 0.7)
+    max_tokens = model_cfg.get("max_tokens", 512)
+    model_seed = model_cfg.get("seed", None)
 
     for turn_idx in range(turns_per_item):
         current_speaker_id = agents[turn_idx % len(agents)]
@@ -58,8 +62,9 @@ def conduct_deliberation(
         statement = client.generate(
             prompt=turn_prompt,
             system_prompt=system_prompt,
-            temperature=0.7,
-            max_tokens=512
+            temperature=temperature,
+            max_tokens=max_tokens,
+            seed=model_seed
         ).strip()
 
         turn_record: DeliberationTurn = {

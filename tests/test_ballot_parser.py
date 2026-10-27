@@ -16,6 +16,7 @@ class DummyBallotClient(BaseLLMClient):
         system_prompt: Optional[str] = None,
         temperature: float = 0.7,
         max_tokens: int = 512,
+        seed: Optional[int] = None,
     ) -> str:
         return "Option A"
 

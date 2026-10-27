@@ -33,6 +33,7 @@ class BaseLLMClient(abc.ABC):
         system_prompt: Optional[str] = None,
         temperature: float = 0.7,
         max_tokens: int = 512,
+        seed: Optional[int] = None,
     ) -> str:
         """Generate text from prompt and system prompt."""
         pass
@@ -77,6 +78,7 @@ class OpenAIClient(BaseLLMClient):
         system_prompt: Optional[str] = None,
         temperature: float = 0.7,
         max_tokens: int = 512,
+        seed: Optional[int] = None,
     ) -> str:
         messages: list[ChatCompletionMessageParam] = []
         if system_prompt:
@@ -84,12 +86,21 @@ class OpenAIClient(BaseLLMClient):
         messages.append({"role": "user", "content": prompt})
 
         try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=messages,
-                temperature=temperature,
-                max_tokens=max_tokens,
-            )
+            if seed is not None:
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                    seed=seed,
+                )
+            else:
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=messages,
+                    temperature=temperature,
+                    max_tokens=max_tokens,
+                )
             return response.choices[0].message.content or ""
         except Exception as primary_err:
             err_str = str(primary_err).lower()
@@ -101,12 +112,21 @@ class OpenAIClient(BaseLLMClient):
             ):
                 print(f"⚠️ Model '{self.model}' not available on endpoint ({primary_err}). Falling back to '{self.fallback_model}' from environment...")
                 try:
-                    fallback_response = self.client.chat.completions.create(
-                        model=self.fallback_model,
-                        messages=messages,
-                        temperature=temperature,
-                        max_tokens=max_tokens,
-                    )
+                    if seed is not None:
+                        fallback_response = self.client.chat.completions.create(
+                            model=self.fallback_model,
+                            messages=messages,
+                            temperature=temperature,
+                            max_tokens=max_tokens,
+                            seed=seed,
+                        )
+                    else:
+                        fallback_response = self.client.chat.completions.create(
+                            model=self.fallback_model,
+                            messages=messages,
+                            temperature=temperature,
+                            max_tokens=max_tokens,
+                        )
                     return fallback_response.choices[0].message.content or ""
                 except Exception as fallback_err:
                     print(f"❌ Fallback model '{self.fallback_model}' also failed: {fallback_err}")

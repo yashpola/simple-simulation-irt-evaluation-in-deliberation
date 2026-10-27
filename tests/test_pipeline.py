@@ -14,7 +14,8 @@ def dummy_openai_generate(
     prompt: str,
     system_prompt: Optional[str] = None,
     temperature: float = 0.7,
-    max_tokens: int = 512
+    max_tokens: int = 512,
+    seed: Optional[int] = None,
 ) -> str:
     """Offline test double for OpenAIClient.generate during automated unit tests."""
     prompt_lower = prompt.lower()

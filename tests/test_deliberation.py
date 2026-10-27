@@ -19,6 +19,7 @@ class TestLLMClient(BaseLLMClient):
         system_prompt: Optional[str] = None,
         temperature: float = 0.7,
         max_tokens: int = 512,
+        seed: Optional[int] = None,
     ) -> str:
         return "I propose we combine necessary structural reform with direct targeted protections."
 
@@ -74,4 +75,49 @@ def test_conduct_deliberation_turn_structure():
 
     for t in transcript["turns"]:
         assert len(t["statement"]) > 0
+
+
+class RecordingLLMClient(BaseLLMClient):
+    """Test client that records call parameters."""
+
+    def __init__(self) -> None:
+        self.received_seed: Optional[int] = None
+
+    def generate(
+        self,
+        prompt: str,
+        system_prompt: Optional[str] = None,
+        temperature: float = 0.7,
+        max_tokens: int = 512,
+        seed: Optional[int] = None,
+    ) -> str:
+        self.received_seed = seed
+        return "Recorded compromise statement."
+
+
+def test_conduct_deliberation_forwards_model_seed():
+    """Verify that model_config seed is properly forwarded to client.generate."""
+    config = load_master_configuration("data/config.json")
+    model_cfg = config.get("model_config")
+    if model_cfg is not None:
+        model_cfg["seed"] = 9999
+    else:
+        config["model_config"] = {"seed": 9999}
+    item: PolicyItem = {
+        "item_id": "ITEM_01",
+        "title": "Test Policy",
+        "topic_prompt": "Deliberate on policy",
+        "ballot": {"prompt": "Vote", "options": {"A": "Key", "B": "Trap"}, "correct_key": "A"}
+    }
+    recorder = RecordingLLMClient()
+    conduct_deliberation(
+        client=recorder,
+        config=config,
+        item=item,
+        dyad_id="D1",
+        agents=["technocrat", "ideologue"],
+        trial_index=0,
+        turns_per_item=1
+    )
+    assert recorder.received_seed == 9999
 

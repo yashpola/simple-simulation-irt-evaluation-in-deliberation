@@ -81,7 +81,7 @@ def generate_markdown_report(
         "flowchart TD",
         "    subgraph Phase1 [\"1. Inputs & Configuration\"]",
         "        CFG[\"Master Config (config.json)\"]",
-        "        DYADS[\"Citizen Personas & Dyads (D1, D2, D3)\"]",
+        "        DYADS[\"Citizen Personas & Dyads (D1 to D4)\"]",
         "        ITEMS[\"Standardized Policy Battery (Items 1 to 4)\"]",
         "        CFG --> DYADS & ITEMS",
         "    end",

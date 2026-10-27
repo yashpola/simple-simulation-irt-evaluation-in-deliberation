@@ -113,12 +113,15 @@ def administer_agent_ballot(
         formatted_options=formatted_options
     )
 
+    model_cfg = config.get("model_config", {})
+    model_seed = model_cfg.get("seed", None)
     system_prompt = resolve_persona_system_prompt(persona_id, config)
     raw_response = client.generate(
         prompt=ballot_prompt,
         system_prompt=system_prompt,
         temperature=0.3,
-        max_tokens=32
+        max_tokens=32,
+        seed=model_seed
     )
 
     parsed_display_letter = parse_ballot_choice(raw_response, list(display_to_canon.keys()))

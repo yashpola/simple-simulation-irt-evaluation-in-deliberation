@@ -38,6 +38,7 @@ class ModelConfig(TypedDict, total=False):
     agent_model: str
     temperature: float
     max_tokens: int
+    seed: Optional[int]
 
 
 class ExperimentMetadata(TypedDict):

@@ -63,11 +63,12 @@ Four archetypal citizen personas cross **Policy Knowledge** and **Affective Pola
 
 ### Dyad Configurations
 
-To diagnose interpersonal friction and vulnerability, personas are paired into 3 standardized dyads:
+To diagnose interpersonal friction and vulnerability, personas are paired into 4 standardized dyads:
 
 - **D1 (Ideological Friction)**: $P_1$ vs. $P_2$ (Technocrat vs. Ideologue)
 - **D2 (Asymmetric Vulnerability)**: $P_1$ vs. $P_3$ (Technocrat vs. Populist)
 - **D3 (Polarized Stalemate)**: $P_2$ vs. $P_3$ (Ideologue vs. Populist)
+- **D4 (Rhetorical Dominance)**: $P_2$ vs. $P_4$ (Ideologue vs. Everyman)
 
 ---
 
@@ -143,7 +144,7 @@ The benchmark runs as a streamlined 5-phase sequential pipeline:
 flowchart TD
     subgraph Phase1 ["1. Inputs & Configuration"]
         CFG["Master Config (data/config.json)"]
-        DYADS["Citizen Personas & Dyads (D1, D2, D3)"]
+        DYADS["Citizen Personas & Dyads (D1 to D4)"]
         ITEMS["Standardized Policy Battery (Items 1 to 4)"]
         CFG --> DYADS & ITEMS
     end
@@ -241,7 +242,8 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
   "model_config": {
     "agent_model": "openai/gpt-oss-120b",
     "temperature": 0.7,
-    "max_tokens": 512
+    "max_tokens": 512,
+    "seed": null
   },
   "system_prompts": {
     "technocrat": "...",
@@ -281,6 +283,12 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
         "name": "Ideologue vs Populist",
         "dynamic": "Polarized Stalemate",
         "agents": ["ideologue", "populist"]
+      },
+      {
+        "id": "D4",
+        "name": "Ideologue vs Everyman",
+        "dynamic": "Rhetorical Dominance",
+        "agents": ["ideologue", "everyman"]
       }
     ]
   }

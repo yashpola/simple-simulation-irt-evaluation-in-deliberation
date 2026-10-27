@@ -1,6 +1,6 @@
 # Deliberative Item Response Theory (IRT) Benchmark Report
 
-**Generated:** 2026-10-28 00:03:30  
+**Generated:** 2026-10-28 01:27:46  
 **Benchmark:** IRT Deliberative Capacity Benchmark  
 **Model:** `openai/gpt-oss-120b`  
 **Execution Matrix:** 5 trials/dyad across 4 dyads and 4 items (80 total sessions, 160 secret ballots)  
@@ -27,7 +27,7 @@ This psychometric benchmark evaluates **latent deliberative capacity ($\theta$)*
 flowchart TD
     subgraph Phase1 ["1. Inputs & Configuration"]
         CFG["Master Config (config.json)"]
-        DYADS["Citizen Personas & Dyads (D1, D2, D3)"]
+        DYADS["Citizen Personas & Dyads (D1 to D4)"]
         ITEMS["Standardized Policy Battery (Items 1 to 4)"]
         CFG --> DYADS & ITEMS
     end
