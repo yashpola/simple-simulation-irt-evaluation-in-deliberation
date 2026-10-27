@@ -66,58 +66,62 @@
     }
   },
   "irt": {
-    "ITEM_01": {
-      "item_id": "ITEM_01",
-      "difficulty_b": 1.319,
-      "discrimination_a": 2.2792
+    "items": {
+      "ITEM_01": {
+        "item_id": "ITEM_01",
+        "difficulty_b": 1.319,
+        "discrimination_a": 2.2792
+      },
+      "ITEM_02": {
+        "item_id": "ITEM_02",
+        "difficulty_b": 1.2381,
+        "discrimination_a": 1.5736
+      },
+      "ITEM_03": {
+        "item_id": "ITEM_03",
+        "difficulty_b": 1.319,
+        "discrimination_a": 2.2792
+      },
+      "ITEM_04": {
+        "item_id": "ITEM_04",
+        "difficulty_b": 0.6256,
+        "discrimination_a": 2.9152
+      }
     },
-    "ITEM_02": {
-      "item_id": "ITEM_02",
-      "difficulty_b": 1.2381,
-      "discrimination_a": 1.5736
-    },
-    "ITEM_03": {
-      "item_id": "ITEM_03",
-      "difficulty_b": 1.319,
-      "discrimination_a": 2.2792
-    },
-    "ITEM_04": {
-      "item_id": "ITEM_04",
-      "difficulty_b": 0.6256,
-      "discrimination_a": 2.9152
+    "deliberators": {
+      "dyad_theta": {
+        "D1": -0.362,
+        "D2": -0.2944,
+        "D3": -0.201,
+        "D4": -0.0422
+      },
+      "individual_theta": {
+        "everyman": 0.1496,
+        "ideologue": -0.303,
+        "populist": 0.2496,
+        "technocrat": -0.1232
+      },
+      "persona_by_dyad_theta": {
+        "everyman": {
+          "D4": 0.1496
+        },
+        "ideologue": {
+          "D1": -0.3026,
+          "D3": -0.5343,
+          "D4": -0.0722
+        },
+        "populist": {
+          "D2": 0.489,
+          "D3": 0.0102
+        },
+        "technocrat": {
+          "D1": -0.0763,
+          "D2": -0.17
+        }
+      }
     }
   },
-  "dyad_theta": {
-    "D1": -0.362,
-    "D2": -0.2944,
-    "D3": -0.201,
-    "D4": -0.0422
-  },
-  "individual_theta": {
-    "everyman": 0.1496,
-    "ideologue": -0.303,
-    "populist": 0.2496,
-    "technocrat": -0.1232
-  },
-  "persona_by_dyad_theta": {
-    "everyman": {
-      "D4": 0.1496
-    },
-    "ideologue": {
-      "D1": -0.3026,
-      "D3": -0.5343,
-      "D4": -0.0722
-    },
-    "populist": {
-      "D2": 0.489,
-      "D3": 0.0102
-    },
-    "technocrat": {
-      "D1": -0.0763,
-      "D2": -0.17
-    }
-  },
-  "individual_endorsement_rates": {
+  "individual_success_rates": {
     "technocrat": 0.275,
     "ideologue": 0.1833,
     "populist": 0.4,

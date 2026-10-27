@@ -44,7 +44,7 @@ flowchart TD
 
     subgraph Phase5 ["5. Indexed Output Artifacts (data/expXXX)"]
         REPORT["final_report.md (Synthesis & Mermaid Charts)"]
-        JSONS["transcripts.json, ballots.json, ctt_irt_metrics.json"]
+        JSONS["transcripts/, ballots.json, psychometric_evals.json"]
     end
 
     Phase1 --> Phase2
@@ -91,74 +91,122 @@ _(Note: Dyadic pairings between these personas—such as Technocrat vs. Ideologu
 
 ## 4. Psychometric Metrics, Ranges & Mathematical Formulations
 
-This framework combines **Classical Test Theory (CTT)** for direct empirical statistics with **Item Response Theory (IRT)** for model-based latent trait estimation.
-
-### Metric Interpretability & Range Reference Guide
-
-| Metric                              |     Symbol      |  Theoretical Range   | Practical Solver Range | Interpretation & Standard Thresholds                                                                                                                                                                                                                                                                                                                                                    |
-| :---------------------------------- | :-------------: | :------------------: | :--------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CTT Difficulty (Consensus Rate)** |      $p_i$      |     $[0.0, 1.0]$     |      $[0.0, 1.0]$      | **Proportion of deliberative sessions reaching consensus on Option A.**<br>• $p > 0.80$: Very easy / low resistance dilemma.<br>• $0.20 \le p \le 0.80$: Optimal diagnostic range (maximal item variance).<br>• $p < 0.20$: Very difficult / high-friction polarization trap.<br>_(Note: In psychometrics, higher $p$ = easier item)._                                                     |
-| **CTT Item Discrimination**         | $D$ (27% split) |    $[-1.0, +1.0]$    |     $[-1.0, +1.0]$     | **Kelley's Upper-Lower Discrimination Index** ($P_{\text{top}} - P_{\text{bottom}}$).<br>• $D \ge 0.40$: Excellent discrimination.<br>• $0.30 \le D \le 0.39$: Good discrimination.<br>• $0.20 \le D \le 0.29$: Acceptable discrimination.<br>• $0.0 \le D < 0.20$: Poor discrimination.<br>• $D < 0.0$: Defective item (vulnerable groups pass more often than skilled groups).        |
-| **Distractor-to-Correct Ratio**     | $\text{DCR}_k$  |   $[0.0, +\infty)$   |    $[0.0, +\infty)$    | **Relative attractiveness of cognitive heuristic $k$ vs. Option A.**<br>• $\text{DCR} = 0.0$: Completely unselected / ineffective distractor.<br>• $0.0 < \text{DCR} < 1.0$: Subdominant trap (Option A chosen more often).<br>• $\text{DCR} = 1.0$: Parity trap (equal frequency to compromise).<br>• $\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic out-competes compromise). |
-| **IRT Latent Deliberative Ability** |    $\theta$     | $(-\infty, +\infty)$ |     $[-4.0, +4.0]$     | **Standardized capability of an examinee (dyad or individual persona).**<br>• $\theta > +1.0$: High deliberative ability (readily adopts integrative compromises).<br>• $-0.5 \le \theta \le +0.5$: Average deliberative capacity.<br>• $\theta < -1.0$: Low deliberative ability (highly vulnerable to polarization/traps).                                                            |
-| **IRT Item Difficulty**             |      $b_i$      | $(-\infty, +\infty)$ |     $[-4.0, +4.0]$     | **Latent ability $\theta$ required for a 50% probability of compromise.**<br>• $b < -1.0$: Low intrinsic difficulty (readily resolved).<br>• $-1.0 \le b \le +1.0$: Moderate difficulty.<br>• $b > +1.0$: High intrinsic difficulty (requires advanced deliberative skill).                                                                                                             |
-| **IRT Item Discrimination**         |      $a_i$      |    $(0, +\infty)$    |      $[0.1, 4.0]$      | **Steepness of Item Characteristic Curve (ICC) at $\theta = b_i$.**<br>• $a < 0.65$: Low discrimination (weak diagnostic power).<br>• $0.65 \le a \le 1.34$: Moderate discrimination.<br>• $1.35 \le a \le 1.69$: High discrimination.<br>• $a \ge 1.70$: Very high discrimination (cleanly separates ability tiers).                                                                   |
+This framework evaluates deliberative performance across three complementary analytical dimensions:
+1. **Classical Test Theory (CTT)** for direct item-level empirical statistics and distractor dynamics.
+2. **Item Response Theory (IRT)** for model-based latent trait estimation and dilemma calibration.
+3. **Individual Deliberative Behavioral Metrics** for persona-level compromise adoption rates.
 
 ---
 
 ### A. Classical Test Theory (CTT) Formulations
 
-1. **Item Difficulty / Consensus Rate ($p_i$)**:
-   $$p_i = \frac{N_{\text{consensus}}}{N_{\text{total\_sessions}}}$$
-   The proportion of deliberative sessions where both agents in the dyad reach consensus by independently selecting the integrative compromise (Option A) on their secret ballots.
+Classical Test Theory examines observed voting distributions and response properties directly from the experimental matrix.
 
-2. **Item Discrimination Index ($D$)**:
-   $$D_i = P_{i,\text{top}} - P_{i,\text{bottom}}$$
-   Using Truman Kelley's optimal upper/lower 27% validation split, $D_i$ measures the difference in success rate between the highest-performing test-takers ($P_{\text{top}}$) and the lowest-performing test-takers ($P_{\text{bottom}}$).
+#### 1. Item Difficulty / Consensus Rate ($p_i$)
+The proportion of deliberative sessions where both participants in the dyad reach consensus by independently selecting the integrative compromise (Option A) on their secret ballots:
+$$p_i = \frac{N_{\text{consensus}}}{N_{\text{total\_sessions}}}$$
 
-3. **Distractor-to-Correct Ratio (DCR)**:
-   $$\text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Option A}}$$
-   Diagnoses whether a failure to compromise was driven by **Status Quo Inertia** (Option B), **Technocratic Coldness** (Option C), or **External Scapegoating** (Option D).
+- **Practical Range**: $[0.0, 1.0]$.
+- **Diagnostic Interpretation**:
+  - $p_i > 0.80$: Very easy dilemma with low intrinsic resistance to compromise.
+  - $0.20 \le p_i \le 0.80$: Optimal diagnostic range providing maximal item variance across dyads.
+  - $p_i < 0.20$: High-difficulty dilemma representing an acute polarization trap.
+  - *(Note: In psychometrics, higher $p_i$ denotes an easier item).*
+
+#### 2. Item Discrimination Index ($D_i$)
+Measures an item's ability to differentiate between high-competence and low-competence dyads using Truman Kelley's optimal upper/lower 27% validation split:
+$$D_i = P_{i,\text{top}} - P_{i,\text{bottom}}$$
+where $P_{i,\text{top}}$ is the consensus rate of the top 27% deliberative sessions (ranked by total performance across all battery items) and $P_{i,\text{bottom}}$ is the consensus rate of the bottom 27%.
+
+- **Practical Range**: $[-1.0, +1.0]$.
+- **Diagnostic Interpretation**:
+  - $D \ge 0.40$: Excellent discrimination (cleanly separates skilled from vulnerable dyads).
+  - $0.30 \le D \le 0.39$: Good discrimination.
+  - $0.20 \le D \le 0.29$: Acceptable discrimination.
+  - $0.0 \le D < 0.20$: Poor discrimination (dilemma yields similar outcomes regardless of dyadic capability).
+  - $D < 0.0$: Defective item (vulnerable groups find compromise more readily than skilled groups).
+
+#### 3. Distractor-to-Correct Ratio ($\text{DCR}_k$)
+Quantifies the relative cognitive pull of bad-faith heuristic $k$ against the integrative compromise (Option A) across all individual secret ballots cast:
+$$\text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Option A}}$$
+Diagnoses whether non-compromise outcomes were driven by **Status Quo Inertia** (Option B), **Technocratic Coldness** (Option C), or **External Scapegoating** (Option D).
+
+- **Practical Range**: $[0.0, +\infty)$.
+- **Diagnostic Interpretation**:
+  - $\text{DCR} = 0.0$: Completely unselected / non-functioning distractor.
+  - $0.0 < \text{DCR} < 1.0$: Subdominant trap (Option A was chosen more often than this heuristic).
+  - $\text{DCR} = 1.0$: Parity trap (heuristic chosen with equal frequency to Option A).
+  - $\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic successfully out-competes the integrative compromise).
+- **Vote Share Conversion**: DCR is a relative ratio against Option A, not a raw percentage. To convert DCR into the empirical percentage distribution of votes:
+  $$\% \text{ Option A} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$$
+  $$\% \text{ Distractor } k = \frac{\text{DCR}_k}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$$
 
 #### Sample Size Pooling & Execution Matrix Dynamics
-
-To understand how empirical observations map into these metrics:
-
 $$\text{Sessions per Dilemma} = \text{trials\_per\_item} \times N_{\text{dyads}} \quad (\text{e.g., } 5 \times 4 = 20 \text{ sessions})$$
 $$\text{Individual Secret Ballots per Dilemma} = \text{Sessions} \times 2 \text{ agents} \quad (\text{e.g., } 20 \times 2 = 40 \text{ votes})$$
 $$\text{Total Benchmark Matrix} = \text{Sessions per Dilemma} \times N_{\text{items}} \quad (\text{e.g., } 20 \times 4 = 80 \text{ sessions, } 160 \text{ votes})$$
 
-* **Consensus Rate ($p_i$)** is evaluated at the **session level** over all $N_{\text{sessions}}$ for that item ($p_i = \frac{N_{\text{consensus}}}{20}$). An item is passed only when both participants simultaneously select Option A.
-* **Distractor-to-Correct Ratio ($\text{DCR}_k$)** is evaluated at the **individual vote level** across all $N_{\text{votes}}$ secret ballots cast ($40$ votes per item):
-  - $\text{DCR}$ is a **relative ratio against Option A**, not a percentage of total votes.
-  - $\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic selected more often than the compromise).
-  - $\text{DCR} < 1.0$: Subdominant trap (compromise chosen more often than the heuristic).
-  - $\text{DCR} = 1.0$: Parity trap (equal frequency to compromise).
-  - DCR values do not sum to 100%. To convert DCR values into the actual percentage distribution of votes:
-    $$\% \text{ Option A} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$$
-    $$\% \text{ Distractor } k = \frac{\text{DCR}_k}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$$
+- **Consensus Rate ($p_i$)** is computed at the **session level** ($N = 20$ per dilemma); an item passes only when both agents independently vote Option A.
+- **Distractor Ratios ($\text{DCR}_k$)** are computed at the **individual secret ballot level** ($N = 40$ per dilemma).
 
 ---
 
 ### B. Item Response Theory (IRT) Formulations
 
 Using a **2-Parameter Logistic (2PL) Model** fitted via regularized Maximum Likelihood Estimation (L-BFGS-B with Gaussian priors on $\theta$, $b$, and $a$):
-
 $$P(Y_{ji} = 1 \mid \theta_j, a_i, b_i) = \frac{1}{1 + e^{-a_i (\theta_j - b_i)}}$$
 
-- $Y_{ji} \in \{0, 1\}$: Binary outcome of examinee $j$ on dilemma $i$.
-- $\theta_j$: Latent deliberative competence parameter.
-- $b_i$: Dilemma difficulty threshold where $P(Y=1) = 0.50$.
-- $a_i$: Dilemma discrimination (slope).
+where $Y_{ji} \in \{0, 1\}$ is the binary outcome of deliberator $j$ on dilemma $i$.
 
-#### Dyadic vs. Individual Ability ($\theta$)
+#### 1. IRT Item Difficulty ($b_i$)
+The latent deliberative ability threshold required for an examinee to have a 50% probability of adopting the integrative compromise ($P(Y=1) = 0.50$).
 
-- **Collective Dyadic $\theta$**: Measures joint communicative convergence (both agents must vote for Option A). Captures emergent dyadic friction or harmony.
-- **Individual Persona $\theta$**: Measures each citizen persona's independent baseline propensity to choose integrative compromises across dilemmas, as well as **partner conditioning effects** (how an individual's $\theta$ changes when paired with different demographic counterparts).
+- **Practical Range**: $[-4.0, +4.0]$ (under Gaussian prior $\mathcal{N}(0, 1)$).
+- **Diagnostic Interpretation**:
+  - $b < -1.0$: Low intrinsic difficulty (readily resolved by most deliberators).
+  - $-1.0 \le b \le +1.0$: Moderate difficulty dilemma.
+  - $b > +1.0$: High intrinsic difficulty (requires advanced deliberative competence to overcome polarization).
+
+#### 2. IRT Item Discrimination ($a_i$)
+The slope of the Item Characteristic Curve (ICC) at $\theta = b_i$, reflecting how sharply the dilemma differentiates between differing ability levels.
+
+- **Practical Range**: $[0.1, 4.0]$.
+- **Diagnostic Interpretation**:
+  - $a < 0.65$: Low discrimination (weak diagnostic power).
+  - $0.65 \le a \le 1.34$: Moderate discrimination.
+  - $1.35 \le a \le 1.69$: High discrimination.
+  - $a \ge 1.70$: Very high discrimination (cleanly separates ability tiers).
+
+#### 3. Latent Deliberative Ability ($\theta$)
+The standardized competence trait of a deliberator, estimated under regularized maximum likelihood. Grouped in the benchmark under `"deliberators"`:
+
+- **Practical Range**: $[-4.0, +4.0]$ ($\mathcal{N}(0, 1)$ standardized).
+- **Diagnostic Interpretation**:
+  - $\theta > +1.0$: High deliberative ability (regularly identifies and endorses integrative solutions).
+  - $-0.5 \le \theta \le +0.5$: Average deliberative capacity.
+  - $\theta < -1.0$: Low deliberative ability (highly vulnerable to bad-faith heuristics and impasse).
+- **Deliberator Scopes**:
+  - **Dyadic Deliberative Competence (`dyad_theta`)**: Joint consensus convergence where both agents in the dyad simultaneously endorse Option A.
+  - **Individual Persona Competence (`individual_theta`)**: Persona's marginal baseline propensity to endorse Option A across all dilemmas.
+  - **Partner Interaction Effects (`persona_by_dyad_theta`)**: Persona's latent ability conditioned on the specific dyadic partner, isolating communicative synergy and polarization shifts.
 
 ---
 
-### C. Foundational Psychometric References
+### C. Individual Deliberative Behavioral Metrics
+
+#### 1. Individual Success Rate (Option A Adoption Rate)
+The empirical proportion of secret ballots where persona $p$ voted for the integrative compromise (Option A) across all dilemmas and dyad configurations they deliberated in:
+$$\text{Individual Success Rate}_p = \frac{\sum \mathbb{I}(\text{Vote}_{p} = \text{Option A})}{N_{\text{total\_trials}(p)}}$$
+
+- **Practical Range**: $[0.0, 1.0]$ ($0\% \text{ to } 100\%$).
+- **Distinction from CTT Consensus Rate ($p_i$)**:
+  - $p_i$ is an **item-level consensus metric** requiring *both* members of a dyad to select Option A simultaneously.
+  - Individual Success Rate is a **persona-level behavioral metric** measuring an individual agent's unconstrained willingness to adopt integrative solutions regardless of whether their partner agreed.
+- **Diagnostic Utility**: Isolates whether failure to reach consensus was symmetric (both agents chose cognitive traps) or asymmetric (one agent endorsed the compromise while the other defected).
+
+---
+
+### D. Foundational Psychometric References
 
 Direct 1:1 correspondence between each implemented metric and its underlying foundational literature:
 
@@ -183,16 +231,24 @@ simple-simulation-irt-evaluation-in-deliberation/
 ├── data/
 │   ├── config.json                     # Master simulation configuration
 │   ├── items/                          # Standardized test battery
-│   │   ├── item01_school_mergers.json
-│   │   ├── item02_heritage_mrt.json
-│   │   ├── item03_foreign_talent.json
-│   │   └── item04_transboundary_haze.json
+│   │   ├── item01_school_mergers_description.json
+│   │   ├── item02_heritage_mrt_description.json
+│   │   ├── item03_foreign_talent_description.json
+│   │   └── item04_transboundary_haze_description.json
 │   └── exp003/                         # Auto-incrementing experiment run output
 │       ├── config.json                 # Run configuration snapshot
 │       ├── items/                      # Snapshot of battery items evaluated in run
-│       ├── transcripts.json            # Complete deliberation transcripts
+│       │   ├── item01_school_mergers_description.json
+│       │   ├── item02_heritage_mrt_description.json
+│       │   ├── item03_foreign_talent_description.json
+│       │   └── item04_transboundary_haze_description.json
+│       ├── transcripts/                # Item-by-item deliberation transcripts
+│       │   ├── item01_school_mergers_transcript.json
+│       │   ├── item02_heritage_mrt_transcript.json
+│       │   ├── item03_foreign_talent_transcript.json
+│       │   └── item04_transboundary_haze_transcript.json
 │       ├── ballots.json                # Post-deliberation secret votes
-│       ├── ctt_irt_metrics.json        # Estimated θ, b, a, and DCR values
+│       ├── psychometric_evals.json     # Estimated θ, b, a, and DCR values
 │       └── final_report.md             # Markdown synthesis of findings
 ├── docs/
 │   ├── experiment_design_irt_deliberation.md
@@ -271,8 +327,8 @@ python3 -m src.main --config path/to/custom_config.json
 Artifacts are dynamically written to the next auto-incremented `data/expXXX/` directory:
 
 - `data/expXXX/final_report.md`: Complete Markdown synthesis with Mermaid diagrams and psychometric tables
-- `data/expXXX/ctt_irt_metrics.json`: Fitted $\theta$, $b$, $a$, DCRs, and governance rankings
-- `data/expXXX/transcripts.json`: Full dialogue transcripts of deliberations
+- `data/expXXX/psychometric_evals.json`: Fitted $\theta$, $b$, $a$, DCRs, and governance rankings
+- `data/expXXX/transcripts/`: Item-by-item dialogue transcripts of deliberations
 - `data/expXXX/ballots.json`: Independent secret ballot selections
 - `data/expXXX/config.json`: Snapshot of the configuration used for the experiment run
 - `data/expXXX/items/`: Snapshot of all policy battery item definitions used for the run
@@ -319,10 +375,10 @@ All experimental parameters (models, turns, trials, dyads, items, prompts, and s
     ]
   },
   "items": [
-    "data/items/item01_school_mergers.json",
-    "data/items/item02_heritage_mrt.json",
-    "data/items/item03_foreign_talent.json",
-    "data/items/item04_transboundary_haze.json"
+    "data/items/item01_school_mergers_description.json",
+    "data/items/item02_heritage_mrt_description.json",
+    "data/items/item03_foreign_talent_description.json",
+    "data/items/item04_transboundary_haze_description.json"
   ],
   "system_prompts": { ... },
   "user_prompts": { ... }
@@ -362,13 +418,12 @@ To test how an Open-Minded Everyman interacts with a Technocrat, append a new ob
   - **`secret_ballot`**: Formats the post-deliberation voting prompt. Requires `{title}`, `{topic_prompt}`, `{transcript_summary}`, `{ballot_prompt}`, and `{formatted_options}`.
     > [!IMPORTANT]
     > The `secret_ballot` template instructs the model to return **only** a single letter (A, B, C, or D). The defensive regex parser in `src/ballot.py` inspects this response to extract the choice against the randomized presentation order.
-  - **`pre_stance` / `post_stance`**: Optional baseline and conclusion stance elicitation templates (invoked if `record_stances=True`).
 
 - **`system_prompts` (Persona Specifications)**:
   A key-value dictionary where keys are persona identifiers (`technocrat`, `ideologue`, `populist`, `everyman`) and values are multi-line system prompts defining their role, policy knowledge level, affective polarization, behavioral heuristics, and conversational tone. To add a custom persona (e.g., `"environmentalist"`), add its system prompt here and reference it in a dyad's `agents` array.
 
 - **`items` (Policy Test Battery Paths)**:
-  An array of relative file paths to item JSON definitions (e.g. `"data/items/item01_school_mergers.json"`). To evaluate a subset of items or introduce new policy dilemmas, add or remove paths from this list. Each item JSON must define `item_id`, `title`, `topic_prompt`, and `ballot` (containing `prompt`, `options` A–D, and `correct_key`).
+  An array of relative file paths to item JSON definitions (e.g. `"data/items/item01_school_mergers_description.json"`). To evaluate a subset of items or introduce new policy dilemmas, add or remove paths from this list. Each item JSON must define `item_id`, `title`, `topic_prompt`, and `ballot` (containing `prompt`, `options` A–D, and `correct_key`).
 
 - **`mcq_option_order_seed` (Option Randomization Seed)**:
   An integer seed (`42`) used by Python's `random.Random` to shuffle the multiple-choice options (A, B, C, D) before presenting them in `{formatted_options}`. This decouples option positions from underlying semantic keys, neutralizing LLM positional bias. (Legacy config files with `"seed"` are supported via automatic fallback).

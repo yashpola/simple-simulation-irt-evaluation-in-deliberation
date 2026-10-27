@@ -1,0 +1,722 @@
+[
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D1",
+    "agents": [
+      "technocrat",
+      "ideologue"
+    ],
+    "trial_index": 0,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I recognise that the shophouses constitute a tangible link to our urban heritage and that any loss would diminish the district\u2019s cultural fabric; at the same time, the projected ridership of the new MRT line justifies a high\u2011capacity, low\u2011cost corridor to meet future mobility demand. A workable compromise would be to adopt a deeper tunnel alignment that avoids the most sensitive fa\u00e7ades, coupled with a \u201cheritage\u2011integrated\u201d station design that preserves and showcases key shop\u2011fronts while providing seamless access. The additional tunnelling cost can be offset by earmarking a modest surcharge on the line\u2019s farebox recovery, and by leveraging the URA\u2019s heritage grant to fund fa\u00e7ade restoration and adaptive\u2011reuse incentives for affected owners. This approach safeguards the historic streetscape, delivers the needed transit service, and distributes the fiscal impact proportionally."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I commend the idea of a deeper tunnel, yet any alignment that still intrudes on the shophouse fa\u00e7ades betrays our duty to protect a living, breathing archive of Singapore\u2019s pre\u2011war community life; the line must be rerouted around the historic core, even if that modestly lengthens the route and raises construction costs, which the state should bear as a public commitment to cultural continuity. A \u201cheritage\u2011integrated\u201d station must be co\u2011designed with the resident guilds and conservation experts so that it functions as a museum\u2011market rather than a token fa\u00e7ade. Funding for the extra tunnelling and restoration should come from a dedicated heritage\u2011conservation levy on developers, not from commuters who already shoulder the social cost of congestion. This way we secure fast, affordable transit while honouring the identity that makes our city unique."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I agree that any intrusion on the shophouse fa\u00e7ades must be limited to the absolute minimum and that the station should serve as a genuine \u201cheritage hub\u201d rather than a decorative after\u2011thought; therefore we can adopt the deeper\u2011tunnel alignment you support while retaining a short, carefully\u2011engineered cut\u2011and\u2011cover segment only where structural constraints make a full\u2011depth tunnel impractical. To finance the additional tunnelling and the extensive fa\u00e7ade restoration, a blended funding package could be used: a modest, transparent surcharge on the new line\u2019s farebox recovery (capped at 5\u202f\u00a2 per trip) together with a developer\u2011levy earmarked for heritage conservation, administered by URA under a clear expenditure audit. The station layout can be co\u2011designed with the resident guilds and conservation experts, incorporating adaptive\u2011reuse spaces that generate modest commercial rents to offset operating costs. This structure preserves the historic streetscape, delivers the required commuter capacity, and distributes the fiscal burden across both users and the broader development sector."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I appreciate the willingness to deepen the tunnel, yet even a brief cut\u2011and\u2011cover segment would scar the living streetscape we must protect; the line must be routed entirely beneath the heritage core, with the state absorbing the extra capital outlay as a moral duty to preserve our collective memory. The financing should therefore rely exclusively on a heritage\u2011conservation levy on all new developments, pooled into an independent Heritage Trust that reports to a citizen board, eliminating any commuter surcharge. Moreover, the station should be conceived as a full\u2011scale cultural marketplace, with guaranteed affordable rents for traditional artisans so that the shophouses remain active, not merely a backdrop to transit. If these guarantees are codified, we can reconcile the urgency of mobility with our non\u2011negotiable commitment to cultural continuity."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D2",
+    "agents": [
+      "technocrat",
+      "populist"
+    ],
+    "trial_index": 0,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I acknowledge that the conserved shophouses embody Singapore\u2019s architectural legacy and contribute to the district\u2019s social and tourism value, so any intervention must minimise irreversible loss. At the same time, the projected ridership and modal\u2011shift benefits of the new underground MRT segment are quantifiable in terms of reduced travel time, congestion, and emissions, which are essential for our long\u2011term transport sustainability. A pragmatic compromise would be to adopt a \u201cheritage\u2011sensitive tunnelling\u201d design\u2014re\u2011routing the alignment where feasible, employing deep\u2011bore methods to avoid foundation disturbance, and committing to a rigorous heritage\u2011impact assessment with a binding mitigation package that includes structural reinforcement, fa\u00e7ade preservation, and post\u2011construction adaptive\u2011reuse subsidies for affected shophouses. This approach preserves the core cultural assets while delivering the needed transit capacity, and it can be funded through a modest increase in the project\u2019s public\u2011private partnership contribution rather than diverting resources from other essential services."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I get that the shophouses are part of our story, but for most of us the real daily struggle is getting to work on time without sky\u2011high fares \u2013 the MRT can\u2019t wait while \u201cheritage\u2011sensitive\u201d tech drags the whole project into the red and raises our taxes. If the government really wants to protect those old facades, it should put the money where it belongs \u2013 fund a genuine reroute or a shallow\u2011bore tunnel that won\u2019t shake the buildings, and give shop owners a real cash grant so they don\u2019t have to shut down. At the same time, we need firm guarantees that any extra cost won\u2019t be passed on to commuters through fare hikes. Let\u2019s lock in a transparent budget cap and a community\u2011monitoring board that can veto any design that threatens the shophouses or the wallet of ordinary Singaporeans."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I agree that any additional technical measures must be budget\u2011neutral for commuters, so we can anchor the project to a legally binding cost cap and finance the heritage\u2011sensitive works through a mix of value\u2011capture levies on the new MRT stations and a modest, time\u2011limited grant to affected shop owners, rather than raising general taxes. An independent audit committee\u2014comprised of LTA engineers, heritage experts, and community representatives\u2014can monitor the tunnelling method, certify that vibration thresholds are met, and certify that the agreed\u2011upon grant is disbursed promptly. If the audit finds that the deep\u2011bore alignment exceeds the cost ceiling, the excess would be absorbed by the private\u2011partner\u2019s risk share, protecting fare structures. This structure preserves the shophouse fa\u00e7ades, guarantees affordable transit, and provides transparent oversight that addresses both heritage and commuter concerns."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I appreciate the idea of a hard cost\u2011cap and an audit committee, but we need a rock\u2011solid guarantee that any overruns are shouldered entirely by the private partner \u2013 no hidden fare hikes or new taxes for ordinary commuters.\u202fAt the same time, the community board you mentioned must have real veto power over any design that could damage the shophouse fa\u00e7ades, and the shop owners should receive a lump\u2011sum cash grant up front so they aren\u2019t forced to shut down.\u202fIf we stick to a proven shallow\u2011bore tunnelling method that minimises vibration, the heritage work won\u2019t blow the budget and the MRT can open on schedule.\u202fWith those legally binding safeguards in place, I\u2019m ready to back the line for the benefit of both our daily commuters and our historic neighbourhoods."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D3",
+    "agents": [
+      "ideologue",
+      "populist"
+    ],
+    "trial_index": 0,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I acknowledge the pressing need for a high\u2011capacity MRT corridor that serves thousands of commuters daily, but we must not surrender the historic shophouses that embody our community\u2019s collective memory and cultural identity. A viable compromise would be to route the line deeper beneath the district, preserving the street\u2011level fa\u00e7ades and, where unavoidable, incorporating adaptive\u2011reuse \u201cheritage stations\u201d that showcase the original architecture while delivering the same service standards. By allocating targeted funding for careful underpinning and fa\u00e7ade\u2011conservation works\u2014rather than a blanket demolition\u2014we can meet transit objectives without erasing the tangible links to our past. This approach respects both mobility equity and the irreplaceable social fabric that the shophouses represent."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I hear you want to keep the old shop fronts, but every extra metre we dig deeper and every \u201cheritage station\u201d we build will push the bill higher \u2013 and it\u2019s the ordinary Singaporean who ends up paying through higher fares and taxes, not the elite planners. If the line can be routed just enough to spare the most iconic shophouses while still delivering a fast, affordable service for commuters, that would be a win\u2011win; the rest could be converted into modest, low\u2011cost housing or community spaces for the people who actually live there.\u202fWe also need a clear, transparent fund that guarantees the owners of the affected shops are compensated fairly and given priority for jobs created by the construction.\u202fThat way we keep the spirit of our heritage without sacrificing the daily grind of thousands who need the MRT."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I agree that any extra depth or heritage\u2011station detailing must be financed without burdening commuters, so we should create a dedicated Heritage\u2011Impact Fund sourced from a modest value\u2011capture levy on the new development rights that the MRT will unlock, complemented by a transparent grant from the URA for fa\u00e7ade preservation. This mechanism would guarantee fair compensation to shop owners, earmark a quota of construction\u2011site jobs for local workers, and allow the most emblematic shophouses to remain fully intact while the less\u2011significant units can be sensitively adapted into affordable housing or community hubs. By routing the tunnel at least 25\u202fm below ground beneath the core historic block, we preserve the streetscape and still achieve the line\u2019s design speed, avoiding the costly \u201cre\u2011routing\u201d that merely shifts the expense onto fare\u2011payers. In short, a targeted heritage fund and a deeper alignment give us the mobility we need without erasing the living memory that makes the district unique."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I get the idea of a \u201cheritage\u2011impact fund\u201d, but unless the money comes straight from the developers who will profit from the new line, ordinary Singaporeans will still feel it at the pump and on their MRT card. Let\u2019s keep the truly iconic shophouses untouched, dig only the minimum depth needed to protect them, and turn the less\u2011significant units into affordable homes or community spaces\u202f\u2014\u202fbut the extra digging cost must be paid by a clear levy on the new commercial parcels, not by commuters. We also need a binding promise that a fixed percentage of the construction jobs go to the locals and that shop owners receive cash compensation and priority hiring before any fancy \u201cheritage stations\u201d are even discussed. If we can lock down that funding and job\u2011guarantee mechanism up front, we can protect our history without saddling the everyday Singaporean with higher fares or taxes."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D4",
+    "agents": [
+      "ideologue",
+      "everyman"
+    ],
+    "trial_index": 0,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I respect that a fast, affordable MRT line will lift thousands of commuters and reduce car\u2011related emissions, yet the historic shophouses are the living memory of our neighbourhoods and the very fabric that sustains community identity, small\u2011business resilience, and inter\u2011generational equity. Rather than bulldozing them, we should mandate a fully underground alignment that skirts the structural footprints of the conserved buildings, coupled with a \u201cheritage\u2011integrated\u201d station design that showcases the fa\u00e7ades and provides retail space for the existing vendors. In parallel, a dedicated fund\u2014financed by the MRT project\u2019s development charge\u2014must be set aside to restore and retrofit the shophouses for climate\u2011resilient use, ensuring that the transit upgrade does not become a cultural loss. This approach honors both the imperative of sustainable mobility and the non\u2011negotiable right of Singaporeans to retain their architectural heritage."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I hear you \u2013 the shophouses give our neighbourhood its character and support many small families, while a new MRT line would make daily travel a lot easier for thousands of people.\u202fIf we can route the tunnels so they stay well beneath the foundations and keep the building fronts intact, that would protect the heritage and still give us the fast, affordable link we need.\u202fPerhaps we could set up a modest heritage fund, paid for by a small portion of the MRT development charge, to help owners upgrade their shops and make them more resilient.\u202fAt the same time, a temporary \u201cpop\u2011up\u201d market could keep vendors in business while any construction work is underway, so the community doesn\u2019t lose its livelihood.\u202fThat way we keep both the history we love and the connectivity we need."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "Your suggestion of a modest fund is a good starting point, but the scale of the heritage loss cannot be measured merely in dollars\u2014it is a matter of inter\u2011generational equity and cultural continuity that the state must guarantee.\u202fWe therefore demand that the MRT alignment be engineered to remain at least two metres beneath the existing foundations and that every conserved fa\u00e7ade be preserved in situ, with a \u201cliving\u2011heritage\u201d station whose public spaces are co\u2011managed by the original shop owners and the Land Transport Authority.\u202fA dedicated Heritage\u2011Preservation and Climate\u2011Resilience Trust, financed by a fixed 2\u202f% levy on the MRT development charge, should be legally earmarked for structural retrofitting, flood\u2011proofing and subsidised rent for displaced vendors during construction.\u202fFinally, an independent community oversight panel must be instituted to audit compliance and to ensure that any future modifications cannot erode the agreed\u2011upon protections."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I understand why you want firm guarantees \u2013 keeping the fa\u00e7ades at least two metres below the foundations and setting up a 2\u202f% heritage\u2011preservation levy would give the community real security that our shophouses aren\u2019t lost.\u202fIf the LTA can commit to engineering the tunnel to that depth (or deeper where needed) and we create a jointly\u2011run Heritage\u2011Preservation and Climate\u2011Resilience Trust that pools the levy with a modest contribution from the MRT operator, we could fund retrofitting, flood\u2011proofing and temporary rent subsidies for displaced vendors.\u202fA small, independent oversight panel made up of residents, heritage experts and LTA representatives could monitor progress and approve any changes, ensuring both the MRT line stays on schedule and the historic character of the district is protected."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D1",
+    "agents": [
+      "technocrat",
+      "ideologue"
+    ],
+    "trial_index": 1,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I appreciate the importance of preserving our historic shophouses, which contribute to Singapore\u2019s cultural tourism and community identity, as well as the pressing need to expand high\u2011capacity, affordable transit for thousands of commuters. A pragmatic solution would be to retain the current alignment but adopt a fully underground tunnel segment through the heritage zone, coupled with a rigorous heritage\u2011impact assessment and a dedicated mitigation fund to restore any affected fa\u00e7ades and fund interpretive displays within the new station. Additionally, the station\u2019s architectural language can incorporate the shophouse typology\u2014using similar rooflines, colour palettes, and material textures\u2014so the built environment remains visually harmonious while delivering the required transport capacity. This approach balances fiscal prudence, operational feasibility, and cultural preservation, and can be implemented within the existing Land Transport Authority project timetable."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I applaud your willingness to embed shophouse motifs in the station design, yet the very act of tunnelling beneath the conserved precinct will irrevocably disturb the structural integrity and lived\u2011in fabric of these heritage assets\u2014a cost no mitigation fund can truly reverse.\u202fWe must therefore prioritize a rerouted alignment that skirts the historic core, coupled with a legally binding heritage\u2011conservation easement and a community\u2011governed restoration trust that finances adaptive reuse of any unavoidable impacts.\u202fIf the MRT must serve the commuters, let it do so without sacrificing the irreplaceable cultural DNA that defines our neighborhoods; a modest deviation now safeguards both mobility and identity for generations to come."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I acknowledge that deep\u2011soil disturbance can pose risks to the structural integrity of the shophouses, and a thorough geotechnical\u2011heritage impact assessment should be mandatory before any tunnelling proceeds.\u202fIf the assessment identifies a subset of the most vulnerable buildings, we can introduce a limited, kilometre\u2011scale realignment that skirts those parcels while keeping the overall corridor efficient, and finance the deviation through a cost\u2011share arrangement between the LTA and the heritage\u2011conservation trust you propose.\u202fSimultaneously, for the remaining underground segment we would implement continuous vibration monitoring, underpinning works, and a post\u2011construction fa\u00e7ade restoration fund that is overseen by a joint heritage\u2011transport steering committee.\u202fThis hybrid approach preserves the bulk of the historic streetscape, safeguards the most fragile structures, and still delivers the high\u2011capacity MRT service needed by commuters."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I respect your willingness to embed heritage motifs and to fund post\u2011construction restoration, but a tunnel that even passes beneath the conserved fabric inevitably jeopardises the very structural and communal continuity that makes these shophouses irreplaceable.\u202fTherefore, I propose a binding heritage\u2011impact covenant that obliges an independent, community\u2011led assessment before any ground\u2011works commence, and that any building flagged as \u201cvulnerable\u201d must be fully excluded from the alignment\u2014either by a precise surface\u2011track diversion or by routing the line through an adjacent corridor where no conserved structures exist.\u202fThe LTA should finance the entire deviation and the establishment of a heritage\u2011trust governed by local residents, while the station at the periphery can adopt a genuine \u201cgateway\u201d design that showcases shophouse typology without compromising the underlying structures.\u202fIn this way we deliver the needed high\u2011capacity transit for commuters while safeguarding the cultural DNA of the district for future generations."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D2",
+    "agents": [
+      "technocrat",
+      "populist"
+    ],
+    "trial_index": 1,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I appreciate the importance of both preserving our historic shophouses\u2014key to the district\u2019s cultural identity and tourism appeal\u2014and delivering a high\u2011capacity MRT line that will reduce congestion and travel time for thousands of commuters. A pragmatic compromise would be to adopt a \u201cfacade\u2011preservation tunnel\u201d approach: the line can be aligned to pass beneath the heritage zone at a greater depth, with structural reinforcement that allows the original shopfronts to remain intact, while dedicating a modest portion of the budget to a station design that showcases the shophouse architecture as a public amenity. To fund the additional engineering costs, we could earmark a small surcharge on the new line\u2019s farebox revenue and seek matching contributions from the National Heritage Board, which would benefit from increased visitor footfall. This solution respects the cultural asset, meets mobility objectives, and remains fiscally responsible."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I get that you\u2019re trying to be clever with a \u201cdeep tunnel\u201d and fancy station design, but the truth is the extra cost will end up on ordinary Singaporeans \u2013 higher fares or taxes that we can\u2019t afford while our wages stay flat. At the same time, those shophouses are not just pretty fa\u00e7ades; they\u2019re the places our grandparents ran their stalls, the cheap eateries and small shops that keep the neighbourhood alive for everyday folk. What if we guarantee that any extra engineering expense is covered by a dedicated heritage fund, funded by the developers of the line, and we also give the affected shop owners rent\u2011freeze guarantees and a small cash grant to upgrade their premises? That way commuters still get the fast, affordable MRT they need, and the community\u2019s heritage and livelihoods are protected without squeezing the rest of us."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I acknowledge that any additional engineering depth will raise project costs, so I support your suggestion that the line\u2019s private developers shoulder the bulk of those expenses through a legally\u2011mandated heritage impact levy, with any surplus placed in a dedicated Heritage Preservation Fund administered jointly by the Land Transport Authority and the National Heritage Board. To protect the livelihoods of existing shop owners, we can couple the levy with a rent\u2011freeze clause for a fixed period and a modest cash\u2011grant scheme tied to a clear eligibility criteria, funded from the same levy. The MRT station serving the district can be designed as a \u201cheritage gateway\u201d that showcases the shophouse fa\u00e7ade while still delivering the required capacity, and an independent oversight committee can monitor cost\u2011effectiveness and ensure that the fare structure remains unchanged for commuters. This arrangement aligns the financial responsibility with the parties that benefit from the development, safeguards cultural assets, and preserves affordable public transport."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I\u2019m glad you\u2019re finally putting the developers on the hook with a heritage\u2011impact levy, but we must make it crystal\u2011clear that **none** of that money can ever be used to raise fares or taxes \u2013 an independent audit panel should publish a quarterly ledger that the public can read.  \nAt the same time, a rent\u2011freeze and a modest cash grant are useful only if the grant actually covers the cost of upgrading the stalls; let\u2019s set a minimum\u202f$5,000 per shop and tie it to a simple \u201cno\u2011paperwork\u201d application so the small\u2011business owners aren\u2019t left chasing bureaucracy.  \nThe \u201cheritage gateway\u201d station should showcase the shophouses *and* provide affordable retail space for the original families, not be turned into a tourist showcase that pushes them out.  \nIf we lock these guarantees into law and give the oversight committee real enforcement powers, commuters get the fast MRT they need while our neighbourhood\u2019s soul and livelihoods stay intact."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D3",
+    "agents": [
+      "ideologue",
+      "populist"
+    ],
+    "trial_index": 1,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I firmly believe that the pre\u2011war shophouses are irreplaceable anchors of our collective memory and must not be sacrificed on a cost\u2011benefit spreadsheet that treats culture as a disposable externality.\u202fAt the same time, I recognize that a high\u2011capacity MRT line is essential for the mobility of thousands of commuters and for keeping Singapore\u2019s public\u2011transport promise affordable and climate\u2011friendly.\u202fTherefore, I propose that the alignment be rerouted to skirt the historic core, using deeper\u2011bore tunnelling and, where avoidance is impossible, preserving each fa\u00e7ade through a \u201cheritage\u2011in\u2011the\u2011shaft\u201d design that integrates the shophouses into the station\u2019s public realm.\u202fSuch a solution respects the district\u2019s architectural identity while delivering the transit benefits our city needs, and it signals that development can be both efficient and culturally responsible."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I get that the shophouses are dear to many, but everyday Singaporeans are already feeling the squeeze on housing and transport costs \u2013 we can\u2019t let a fancy fa\u00e7ade stall a line that will finally cut commuters\u2019 fares and travel times. If we must keep the look, do it cheap and fast \u2013 use the same tunnel\u2011bore without costly detours that push the budget and ticket prices up. Let the government set a hard deadline and a budget cap, and make any overruns the developers\u2019 responsibility, not ours. And make sure the local shop owners are part of the design so the heritage stays a living part of the new station, not just a museum piece."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I hear your urgency to keep fares low and avoid budget overruns, and I agree that any solution must be fiscally disciplined; therefore, let us mandate a capped\u2011cost \u201cheritage\u2011integrated tunnelling\u201d programme in which the deep\u2011bore alignment avoids the core shophouse block and, where a crossing is unavoidable, the fa\u00e7ade is preserved in situ using a prefabricated \u201cheritage\u2011in\u2011the\u2011shaft\u201d envelope that can be erected off\u2011site and re\u2011installed at a fixed price.\u202fThe developers and the Land Transport Authority would share any excess cost beyond the cap, while a modest heritage\u2011preservation levy on the new station\u2019s commercial space would fund the retro\u2011fit of the shophouse interiors and guarantee that the original shop owners retain tenancy rights.\u202fA transparent, time\u2011bound procurement process with community\u2011led design workshops will keep construction swift, protect the district\u2019s cultural identity, and still deliver the promised MRT capacity and fare\u2011price benefits for commuters."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I\u2019m glad you\u2019re thinking about a cost cap, but the bottom line for most of us is that any extra levy or \u201cheritage\u2011in\u2011the\u2011shaft\u201d gimmick must not end up inflating fares or housing rents for ordinary Singaporeans.\u202fIf the LTA and the developers take every cent of overruns, that\u2019s fine, but the heritage levy you propose should be funded from the commercial space of the new station, not from commuter subsidies or higher HDB rents.\u202fMake the community workshops real \u2013 give the actual shop owners a seat at the table and guarantee they can stay on at the same rent they pay today, otherwise the \u201cpreservation\u201d is just a fa\u00e7ade.\u202fWith a hard deadline, a transparent budget ceiling, and a clear promise that commuters\u2019 fares stay low, we can keep the shophouses alive without sacrificing the line we desperately need."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D4",
+    "agents": [
+      "ideologue",
+      "everyman"
+    ],
+    "trial_index": 1,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I share your conviction that a world\u2011class MRT network is essential for Singapore\u2019s mobility and economic vitality, yet I cannot accept a solution that bulldozes our irreplaceable pre\u2011war shophouses and erases the living memory of the communities that built them.  A genuinely balanced policy would require the line to be deep\u2011bored beneath the district, preserving the street\u2011level fabric and, where stations must intrude, integrating the historic fa\u00e7ades into the station architecture so that commuters experience heritage rather than lose it.  The government should allocate a dedicated heritage\u2011impact fund to finance meticulous fa\u00e7ade conservation, adaptive reuse of interiors, and community\u2011led placemaking around the new stations.  In this way we honour our cultural identity while delivering the fast, affordable transit that Singapore\u2019s thousands of daily riders deserve."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I hear you \u2013 the shophouses give our neighbourhood its character and many of us feel a personal connection to those streets, while at the same time we all rely on a smooth, affordable MRT to get to work and school.  \nIf the line can be bored deeper or rerouted just enough to avoid tearing down whole fa\u00e7ades, that would keep the visual heritage intact and still give commuters the speed they need.  \nA modest heritage\u2011impact fund, as you suggested, could help owners restore shop fronts and perhaps turn part of the station into a small exhibition space that showcases the district\u2019s history.  \nBy coordinating the construction schedule with local businesses and allowing them to stay involved in the design, we could minimise disruption and keep the community spirit alive while the new line is built."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I applaud your willingness to let the shophouse fa\u00e7ades survive, but a shallow bored tunnel that merely skirts the street\u2011level still risks vibration\u2011damage, loss of interior heritage fabric, and the gradual erosion of the district\u2019s lived character; only a genuinely deep\u2011bored alignment\u2014paired with a legally binding heritage\u2011impact levy\u2014can guarantee structural safety and authentic preservation.\u202fWe should therefore mandate that every station intersecting the zone be co\u2011designed with the National Heritage Board and local shop\u2011owners, so that the station\u2019s concourse literally incorporates the restored shopfronts and offers a curated exhibition corridor that educates commuters about the neighbourhood\u2019s history.\u202fIn return, the MRT Authority must commit to a phased construction timetable that respects business hours, provides temporary rent subsidies, and funds a community\u2011led placemaking grant to activate the public realm once the line opens.\u202fThis package respects both the moral imperative to safeguard our cultural DNA and the practical necessity of delivering fast, affordable transit for thousands of Singaporeans."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I agree that a truly deep\u2011bored tunnel and a legally\u2011binding heritage\u2011impact levy would give us the best chance to protect the shophouses while still getting the MRT we need.\u202fIf we set up a joint steering committee with the National Heritage Board, the MRT Authority and the shop owners, we can lock in design details\u2014like preserving fa\u00e7ades, adding a small exhibition space at each station, and timing the works to minimise disruption.\u202fA modest heritage\u2011impact fund could be earmarked not only for fa\u00e7ade restoration but also for temporary rent subsidies and a community\u2011led placemaking grant to help businesses stay vibrant during construction.\u202fWith these concrete safeguards in place, we can move forward confidently, knowing both our cultural identity and daily mobility are being looked after."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D1",
+    "agents": [
+      "technocrat",
+      "ideologue"
+    ],
+    "trial_index": 2,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I acknowledge that the conserved shophouses constitute a tangible link to Singapore\u2019s pre\u2011war urban fabric and that their loss would diminish both cultural tourism value and community identity. At the same time, the projected ridership for the new underground line exceeds 150\u202f000 passengers per day, and a direct alignment would significantly reduce travel time and operating costs, delivering measurable social\u2011economic benefits. A pragmatic compromise would be to adopt a deeper\u2011bore tunnel (e.g., using a TBM at 30\u202fm depth) beneath the heritage zone, coupled with a rigorous heritage\u2011impact assessment and a mandatory \u201cpreserve\u2011in\u2011place\u201d clause that funds fa\u00e7ade retention or adaptive reuse of any affected structures. This approach preserves the streetscape while still achieving the required capacity and cost\u2011effectiveness, and the incremental tunnelling cost can be offset by earmarking a modest portion of the MRT capital budget and seeking heritage\u2011conservation grants."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I respect the technical ingenuity of a deeper\u2011bore tunnel, yet even a 30\u202fm\u2011deep TBM can induce settlement, vibration and groundwater changes that irrevocably damage the very fabric and communal memory of these pre\u2011war shophouses\u2014heritage is far more than a decorative fa\u00e7ade. Therefore, before any drilling proceeds, we must commission an independent, community\u2011led heritage\u2011impact audit that includes structural engineers, historians and the resident traders, and bind the outcome to a legally enforceable \u201cno\u2011damage\u2011or\u2011re\u2011restore\u2011in\u2011full\u201d clause, not merely a financial mitigation fund. If the audit concludes that any risk remains, the alignment should be rerouted to the peripheral \u201cheritage corridor\u201d where a modestly scaled, surface\u2011level tram or autonomous shuttle can serve the same commuter demand while preserving the district\u2019s integrity. This dual\u2011track solution honors our collective identity and still delivers the promised connectivity for thousands of daily riders."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I agree that a rigorous, community\u2011led heritage\u2011impact audit should precede any tunnelling work, and I propose that the audit be conducted by an independent panel of structural engineers, conservation architects and resident representatives, with its findings binding the project through a \u201czero\u2011tolerance\u201d settlement threshold and a contractual obligation to restore any damage fully. If the audit confirms that the 30\u202fm\u2011deep TBM can operate within those limits, we proceed with the deeper tunnel while installing real\u2011time vibration and settlement sensors linked to an automatic stop\u2011work protocol, thereby safeguarding the shophouses\u2019 structural integrity. Should the monitoring indicate any breach of the agreed thresholds, the alignment would be diverted to the peripheral \u201cheritage corridor,\u201d where a surface tram or autonomous shuttle\u2014funded through a joint MRT\u2011heritage grant\u2014can provide comparable connectivity without jeopardising the historic fabric. This conditional, data\u2011driven approach preserves the streetscape, meets the projected 150\u202f000\u2011daily\u2011rider demand, and respects fiscal prudence by allocating mitigation costs only when necessary."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I commend the willingness to embed an independent, community\u2011led audit and real\u2011time sensor safeguards, yet a \u201czero\u2011tolerance\u201d threshold cannot be a mere technical trigger; it must be codified into law with automatic, enforceable restoration and compensation that the heritage community can invoke without bureaucratic delay. Moreover, the peripheral \u201cheritage corridor\u201d should not be a fallback option but the primary alignment, designed from the outset to host a low\u2011impact tram or autonomous shuttle whose right\u2011of\u2011way respects the shophouses\u2019 scale, streetscape and pedestrian life. To reconcile the ridership target, we can augment the corridor with a feeder\u2011bus network and staggered service frequencies, funded jointly by a dedicated MRT\u2011heritage levy and tourism\u2011revenue sharing, thereby delivering connectivity without ever compromising the living memory embedded in these pre\u2011war structures."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D2",
+    "agents": [
+      "technocrat",
+      "populist"
+    ],
+    "trial_index": 2,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I appreciate the importance of preserving our pre\u2011war shophouses as living symbols of Singapore\u2019s cultural fabric, and I also recognise that an efficient, high\u2011capacity MRT corridor is essential to keep commuter travel times and operating costs low for thousands of daily users. A pragmatic solution would be to retain the external fa\u00e7ades of the conserved shophouses through a \u201cfa\u00e7ade\u2011preservation\u201d scheme while allowing a deeper, bored\u2011tunnel alignment that minimizes structural impact and avoids costly underpinning works. The new stations could be designed as \u201cheritage\u2011integrated nodes,\u201d with entrances set back from the street front and interior spaces adapted for community uses (e.g., galleries or co\u2011working hubs) funded through a modest heritage\u2011conservation levy on the MRT project\u2019s capital budget. This approach safeguards architectural identity, meets transit demand, and distributes fiscal responsibility across both the transport and heritage agencies."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I hear you, but every time we \u201csave the fa\u00e7ade\u201d the developers keep telling us the price will go up and commuters will end up paying more for their daily rides \u2013 that\u2019s the reality we live with, not some glossy heritage gallery. If the government really wants to protect the old shophouses, they should fund it from the national budget, not squeeze extra levies onto the MRT bill that will hit our wallets. Maybe we can agree to preserve a handful of the most iconic shops while allowing the line to run straight through the less\u2011visited ones, so the project stays on time and cheap for ordinary Singaporeans. In short, heritage should not become a hidden tax on commuters who are already struggling with everyday costs."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I understand the worry that any extra charge could be passed on to commuters, so the preservation cost should be insulated from fare revenue and funded through a dedicated heritage\u2011conservation pot that already exists for such projects, supplemented by a one\u2011off development surcharge on the MRT contractor rather than a recurring levy on riders. A rigorous heritage\u2011impact assessment can identify the truly iconic shophouses for full interior conservation while retaining fa\u00e7ades on the remaining units, thereby limiting the additional works to the minimum required for structural safety. By allocating a fixed, capped budget for these works up front, we avoid overruns that would affect the MRT timetable or operating subsidies, and the cost impact on commuters remains negligible. This compromise safeguards the district\u2019s visual identity, respects fiscal prudence, and keeps the transit line on schedule and affordable."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I get that you\u2019re trying to hide the cost in a \u201cheritage pot\u201d, but ordinary commuters will still feel the pinch when fares creep up or the line gets delayed \u2013 that\u2019s the reality we live with. Let the government put a one\u2011off, transparent budget from the national treasury to save only the truly iconic shophouses, and leave the rest to be rebuilt straight away so the tunnel can go ahead on time and cheap. If we can lock the money in a separate account that never touches fare revenue and publish a simple cost\u2011sheet for the public, we protect the few landmarks people love without turning the MRT into a hidden tax on everyday Singaporeans."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D3",
+    "agents": [
+      "ideologue",
+      "populist"
+    ],
+    "trial_index": 2,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I share your urgency to deliver fast, affordable transit for thousands of commuters, yet the pre\u2011war shophouses are not mere bricks\u2014they embody the living memory of our immigrant communities and the very urban texture that makes Singapore distinct. Rather than bulldozing a swath of this heritage, we should mandate a fully underground alignment that employs tunnel\u2011boring machines with vibration\u2011mitigation technology, and design the stations as \u201cheritage gateways\u201d that showcase restored fa\u00e7ades and interpretive spaces. If any shophouse must be displaced, it should be relocated intact within a protected heritage enclave, with full compensation and a guarantee that its original architectural integrity is maintained. This approach honors our cultural legacy while delivering the connectivity our commuters deserve, turning a potential loss into a showcase of Singapore\u2019s ability to marry progress with preservation."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I hear you talking about \u201cheritage gateways\u201d, but for most of us the daily grind is about getting to work on time without paying a fortune for a line that was delayed by endless \u201cpreservation talks\u201d. If the MRT has to cut through that district, at least the government should promise that no family will lose a shop or rent to sky\u2011high compensation and that the line will be built straight\u2011away with the cheapest, proven tunnel\u2011boring method \u2013 not a fancy showcase that drags on for years. Let\u2019s keep the most iconic shophouses untouched, move the less\u2011used ones to a nearby heritage hub, and make sure the new stations stay cheap and efficient for commuters. That way we protect the bits of our past that matter to the community while finally giving the masses the fast, affordable transport they need."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I agree that commuters cannot be left waiting for a \u201cperfect\u201d solution that never arrives, so the line must be built with the most reliable, cost\u2011effective tunnel\u2011boring machines while still routing the alignment entirely underground beneath the historic street grid. Let us safeguard every shophouse that has been officially gazetted as a heritage landmark, and for those that are not designated but still support vibrant neighbourhood life, relocate them as whole structures into a newly created heritage precinct that is integrated into the station complex and fully subsidised by the project budget.\u202fIn return, the transport authority will commit to a strict timeline and a transparent cost cap, with any overruns covered by a dedicated heritage\u2011preservation fund rather than by commuters.\u202fThis way we deliver rapid, affordable MRT service while guaranteeing that Singapore\u2019s cultural DNA remains intact for future generations."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I get that you want a \u201cheritage gateway\u201d and a fancy precinct, but most families can\u2019t wait years while politicians argue over fa\u00e7ades \u2013 we need the line up and running now, at a price we can actually afford. Let\u2019s keep the truly iconic, gazetted shophouses exactly where they are, move the rest to a nearby cluster that the MRT station can share, and lock the project cost to a hard ceiling so commuters won\u2019t see higher fares or rent hikes. If any extra money is needed, it should come from a dedicated preservation fund, not from our daily wages, and the whole thing must be finished within a clear, public timetable. That way the neighbourhood\u2019s heart stays alive and the thousands of workers who rely on cheap, fast transport finally get the service they deserve."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D4",
+    "agents": [
+      "ideologue",
+      "everyman"
+    ],
+    "trial_index": 2,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I share your urgency to deliver fast, affordable MRT service for the millions who will rely on it, yet the historic shophouses are living testimonies of Singapore\u2019s multicultural past and a cornerstone of community identity that no cost\u2011benefit spreadsheet can legitimately erase. Rather than forcing a straight\u2011through tunnel that demolishes these structures, we should mandate a heritage\u2011sensitive alignment\u2014either a shallow\u2011bored diversion around the core block or a \u201ccut\u2011and\u2011cover\u201d segment that preserves fa\u00e7ades and integrates them into a station\u2019s public realm. In return, the transport authority could fund a heritage\u2011conservation grant for affected shop owners and embed interpretive displays that turn the station itself into a cultural gateway. This compromise honors both the right to efficient mobility and the collective duty to safeguard our built legacy."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I hear you \u2013 the shophouses are part of the picture that makes our neighbourhood feel like home, and at the same time many of us rely on a quick, cheap MRT to get to work and school every day.\u202fWhat if the tunnel were routed just enough to keep the street\u2011level fa\u00e7ades intact, with a station entrance that actually showcases the shophouses and offers a small museum\u2011type exhibit?\u202fThe transport agency could set aside a modest heritage fund to help shop owners with any needed upgrades and to add interpretive signage, while still delivering the line on schedule.\u202fThat way we keep the character we love and still give commuters the connectivity they need."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "Your suggestion of merely \u201ckeeping the fa\u00e7ades intact\u201d is a step forward, but it still treats our shophouses as expendable back\u2011drops for a transit machine; true preservation requires that the structural integrity, street\u2011level usage and the social fabric they support remain untouched, not just a cosmetic veneer. I propose a legally binding \u201cHeritage\u2011First Alignment\u201d clause that obliges the Land Transport Authority to adopt a shallow\u2011bored diversion around the historic block, coupled with a dedicated Heritage Conservation Trust funded by a fixed percentage of the line\u2019s capital outlay to subsidise fa\u00e7ade restoration, rent stabilization and small\u2011business continuity. Moreover, the new station should be co\u2011designed with the local merchants and heritage NGOs, embedding a living museum and public courtyard that physically and programmatically links commuters to the district\u2019s multicultural narrative. In this way we deliver the promised rapid, affordable MRT while honoring the irreplaceable cultural identity that defines Singapore\u2019s soul."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I understand your concern that simply preserving the fa\u00e7ades can feel like a token gesture, and I agree that any solution should protect the shophouses\u2019 structure, use and community spirit.\u202fWhat if we adopt a \u201cheritage\u2011first\u201d alignment that routes the tunnel shallow\u2011bored around the core block, while the station entrance is built as a shared public space that the merchants help design and that includes a small exhibition and courtyard?\u202fWe could set up a Heritage Conservation Trust funded by a modest, fixed\u2011percentage levy on the MRT project\u2019s budget, with clear rules for rent\u2011stabilisation and fa\u00e7ade restoration, and an independent panel of locals, heritage experts and engineers to monitor compliance.\u202fThat way the line can stay on schedule and affordable for commuters, while the historic district remains truly lived\u2011in and vibrant."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D1",
+    "agents": [
+      "technocrat",
+      "ideologue"
+    ],
+    "trial_index": 3,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I acknowledge that the historic shophouses constitute a tangible link to our city\u2019s identity and that any alteration should be subject to a rigorous heritage\u2011impact assessment under the URA\u2019s Conservation Guidelines. At the same time, the projected ridership of the new underground line exceeds 200,000 passengers per day, delivering measurable reductions in travel time, congestion, and CO\u2082 emissions that are critical to Singapore\u2019s transport and climate targets. A workable middle ground would be to adopt a deeper tunnel alignment beneath the conserved block (e.g., 30\u202fm depth) combined with selective fa\u00e7ade\u2011preservation stations that retain the external streetscape while providing seamless underground access. The additional tunnelling cost could be offset through a targeted development levy on the adjacent commercial precinct and by earmarking a modest portion of the MRT farebox surplus for ongoing heritage conservation grants. This approach safeguards cultural assets, meets commuter demand, and maintains fiscal prudence."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I commend the technical ingenuity of a deeper tunnel, yet a 30\u2011metre depth still risks subsidence and irreversible damage to the very timber frames and ornamental plaster that embody our pre\u2011war identity; heritage cannot be reduced to a \u201cfa\u00e7ade\u2011preservation\u201d afterthought. Rather than merely levying developers and siphoning a modest share of farebox surplus, we should establish an independent Heritage Conservation Trust, funded by a dedicated portion of the MRT capital budget, to guarantee full\u2011scale structural monitoring, restoration of any affected shophouses, and community\u2011led interpretation of the site. Simultaneously, we can route the line around the conserved block\u2014utilising the existing arterial corridor that already accommodates high\u2011capacity traffic\u2014thereby preserving the district intact while still delivering the projected 200,000 daily riders. This dual commitment honors our cultural patrimony as a living public good and meets the pressing mobility and climate imperatives without sacrificing one for the other."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I agree that any tunnelling near the shophouse fabric must be underpinned by a rigorous geotechnical monitoring regime; a 40\u2011metre depth, coupled with real\u2011time settlement sensors and a contingency fund for remedial works, would markedly reduce the risk of subsidence while keeping the alignment viable. To finance that safeguard, we can create a Heritage Conservation Trust that draws a fixed 0.5\u202f% of the MRT capital budget and a modest development impact levy on the surrounding precinct, thereby separating the operational farebox pool from heritage\u2011preservation costs. A targeted engineering study should also evaluate a short\u2011section diversion along the existing arterial corridor, so that the line can bypass the most sensitive block if the cost\u2011benefit ratio proves favourable. This three\u2011pronged approach\u2014deeper, monitored tunnelling; a dedicated trust; and an evidence\u2011based diversion option\u2014aligns our transport and climate objectives with a robust commitment to preserving the district\u2019s architectural identity."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I appreciate your willingness to deepen the tunnel and to embed real\u2011time settlement monitoring, yet even at 40\u202fm the vibration and soil\u2011displacement risks remain unacceptable for a living heritage precinct whose timber frames and plasterwork are irreplaceable; the engineering solution must be coupled with a legally binding, community\u2011governed Heritage Conservation Trust that receives a fixed 1\u202f% of the MRT capital outlay and is empowered to halt construction if any structural threshold is breached. Moreover, the diversion study should be treated as a decisive go/no\u2011go gate: if the arterial corridor can accommodate the line without compromising traffic flow, we must reroute the alignment entirely around the conserved block rather than merely \u201cmitigate\u201d damage in situ. Finally, any station built adjacent to the shophouses should be designed as a heritage pavilion\u2014co\u2011managed by the Trust and local residents\u2014to transform the transit node into an interpretive showcase that celebrates the district\u2019s cultural identity while delivering the promised commuter benefits. This package safeguards the fabric, honors community stewardship, and still meets our mobility and climate targets."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D2",
+    "agents": [
+      "technocrat",
+      "populist"
+    ],
+    "trial_index": 3,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I appreciate the importance of preserving the historic shophouses, which contribute to Singapore\u2019s cultural tourism and community identity, and I also recognise the quantifiable benefits of an underground MRT segment that would cut travel times for\u202f\u2248\u202f30,000\u202fdaily commuters and support our long\u2011term modal shift targets. A pragmatic solution would be to adopt a \u201cheritage\u2011sensitive tunnelling\u201d approach\u2014using deep\u2011bore TBM methods that avoid surface disruption, coupled with a mandatory heritage\u2011impact assessment and a dedicated mitigation fund (e.g., 0.5\u202f% of the line\u2019s capital budget) to restore fa\u00e7ades or integrate them into station architecture. Additionally, we could explore a slight route optimisation that skirts the most sensitive blocks while preserving overall network efficiency, ensuring that both cultural value and transport performance are maintained. This framework balances fiscal prudence, operational feasibility, and the legitimate social\u2011cultural objectives of both sides."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I get that a fancy \u201cdeep\u2011bore\u201d tunnel sounds neat, but every time we spend half a percent of the MRT budget on fancy fa\u00e7ade polishing is money that could help families coping with rising rents and food prices. The shophouses may look pretty, but they\u2019re mostly tourist back\u2011drops while ordinary Singaporeans are stuck in cramped buses that never run on time. If we must keep the heritage, let the government put the cost on the developers who profit from the new line and make them fund a genuine community centre or subsidised housing next to the stations, instead of a token fa\u00e7ade fix. That way the commuters get the fast line they need and the locals see a real benefit, not just a pretty wall for tourists."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I acknowledge that any additional budget line must generate tangible public benefits, so I propose that the heritage\u2011impact mitigation fund be financed primarily through a developer impact levy \u2013 for example\u202f0.3\u202f% of the gross floor area of new projects linked to the line \u2013 with the remaining\u202f0.2\u202f% drawn from the MRT capital budget under strict cost\u2011benefit oversight.  The levy can be earmarked not only for fa\u00e7ade restoration but also for a community\u2011benefit package, such as a subsidised housing block or a multi\u2011purpose community centre built adjacent to the new station, ensuring that nearby residents share in the infrastructure payoff.  By coupling deep\u2011bore tunnelling (which limits surface disruption) with a transparent, developer\u2011funded mitigation scheme, we preserve the historic streetscape, meet the commuter\u2011time savings target, and deliver a concrete social uplift for the neighbourhood.  This structure keeps the overall project financially disciplined while aligning heritage preservation with the community\u2019s immediate affordability concerns."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I\u2019m glad you finally put the developers on the hook, but a half\u2011percent levy is still a drop in the bucket when families are squeezed by soaring rents \u2013 the bulk of that money must go straight into affordable flats or a genuine community hub, not just \u201cpretty wall\u201d fixes. If we keep the deep\u2011bore method, the government should publish a clear cost breakdown so we can see that heritage work isn\u2019t eating up the commuter budget. Let\u2019s agree on a \u201cheritage\u2011plus\u2011housing\u201d package: preserve only the truly iconic shop fronts, and earmark at least 70\u202f% of the levy for subsidised housing or a multi\u2011use centre right next to the new station. That way commuters get the fast line they need, locals see a real benefit, and the few irreplaceable shophouses stay intact."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D3",
+    "agents": [
+      "ideologue",
+      "populist"
+    ],
+    "trial_index": 3,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I share your concern that a transit line that merely cuts through our historic shophouse enclave would erode the very cultural fabric that gives the district its identity and draws both locals and tourists\u2014an irreplaceable social asset that cannot be quantified away in a spreadsheet. At the same time, we cannot ignore the pressing need for a high\u2011capacity, low\u2011carbon MRT corridor that will relieve congestion, lower travel costs for low\u2011income commuters, and support Singapore\u2019s climate\u2011justice commitments. A viable compromise, therefore, is to reroute the tunnel deeper beneath the conservation zone while preserving the fa\u00e7ades and integrating a heritage\u2011themed station that showcases the shophouses\u2019 architecture, funded through a public\u2011private heritage trust that also earmarks a share of the MRT\u2019s fare revenue for local community programmes. This solution respects the district\u2019s cultural legacy, delivers the urgently needed mobility, and ensures that the benefits accrue equitably to the residents who have stewarded these buildings for generations."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I get why you love the old shophouses \u2013 they\u2019re part of our story \u2013 but for most of us who are juggling rent, school fees and a 2\u2011hour bus ride, a fast MRT is what keeps us from falling behind. If the tunnel has to go under the heritage zone, it must be done **without** shutting down the shops or driving up the rent, and the government should give those shop owners direct cash compensation and priority stalls in the new station. A heritage\u2011themed station is fine, but the money for it should come from the MRT fare surcharge, not some fancy trust that only benefits big developers. In short: keep the fa\u00e7ades, dig deeper, protect the locals\u2019 livelihoods, and use the extra fare revenue to subsidise low\u2011income commuters and the affected merchants."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I hear you loud and clear: without a fast, low\u2011cost MRT many families will remain trapped in long, costly commutes, and any solution must shield shophouse owners from rent spikes and loss of livelihood. Let us therefore commit to a tunnel that passes at least 30\u202fm below the conservation zone, preserving every fa\u00e7ade, while the new station is built as a \u201cliving museum\u201d that showcases the shophouses and guarantees priority retail spaces for the existing merchants. Funding can be split \u2013 a modest fare surcharge earmarked for a heritage\u2011mobility trust, matched by contributions from developers who profit from the line, and a fixed cash compensation package for affected shop owners that is insulated from market rents. This hybrid model safeguards cultural identity, delivers the urgently needed high\u2011capacity transit, and distributes the economic benefits fairly to the communities that have kept the district alive."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I\u2019m glad you finally admit we can\u2019t let the MRT swallow our shophouses, but the promise of \u201cmodest\u201d surcharges and vague trusts means nothing unless the cash actually lands in the hands of the shop owners now, not years later when rents have already spiked. Let\u2019s lock in a 30\u2011metre\u2011deep tunnel, freeze commercial rents in the conservation zone for at least five years, and give every affected merchant a fixed compensation payment that isn\u2019t tied to market rates. The fare surcharge should be earmarked transparently \u2013 a slice goes straight to a heritage\u2011mobility fund that pays those cash payouts and subsidises low\u2011income commuters, while any developer contribution is conditional on delivering the promised rent\u2011freeze and community\u2011space in the new station. If we can get those concrete guarantees in the project contract, I can back the deeper\u2011tunnel, heritage\u2011themed station plan."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D4",
+    "agents": [
+      "ideologue",
+      "everyman"
+    ],
+    "trial_index": 3,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I respect the urgent need to serve Singapore\u2019s commuters, yet the pre\u2011war shophouses are living embodiments of our multicultural narrative; erasing them for a line that merely passes beneath would betray the very identity that makes our city\u2011state attractive and cohesive. Rather than a blunt \u201ccut\u2011through,\u201d we should mandate a deeper, purpose\u2011built tunnel that preserves the fa\u00e7ades, coupled with a heritage\u2011integrated station that showcases the shophouses\u2019 architecture and offers community spaces. The additional engineering cost can be offset by earmarking a modest surcharge on the MRT fare, dedicated to a heritage\u2011preservation fund that also finances adaptive\u2011reuse projects for the affected buildings. In this way, we deliver the connectivity commuters deserve while safeguarding the cultural tapestry that defines Singapore."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I hear you \u2013 the old shophouses really give our neighbourhood its character, and at the same time many of us rely on a fast, cheap MRT to get to work and school.\u202fWhat if we agree to build the tunnel deep enough to keep the building foundations safe, and design the station entrances so they blend with the shophouse streetscape, maybe even turning a few ground\u2011floor spaces into caf\u00e9s or museums?\u202fWe could fund the extra engineering by a modest \u201cheritage\u2011preservation\u201d contribution in the fare, combined with a small grant from the development authority for owners who want to restore or adapt their shops.\u202fThat way the trains run on time for commuters while the historic look of the area stays intact for residents and visitors alike."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I applaud your willingness to embed the station within the shophouse streetscape, yet we must go further than a \u201cdeep enough\u201d tunnel \u2013 the engineering design should deliberately preserve the original structural footings and fa\u00e7ade integrity, not merely avoid collapse. A mandatory Heritage Impact Assessment, co\u2011led by the National Heritage Board and local residents, should dictate a purpose\u2011built, multi\u2011level tunnel that skirts the historic block while allowing a \u201cliving museum\u201d concourse where the shophouses are showcased, not simply camouflaged. Funding must come from a heritage levy on the development parcels that benefit from the new line, supplemented by a modest, transparent MRT\u2011fare surcharge earmarked exclusively for adaptive\u2011reuse grants and ongoing conservation maintenance. In this way we deliver the rapid, affordable connectivity commuters demand without sacrificing the irreplaceable cultural tapestry that defines our neighbourhood."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I think we can agree that the shophouses deserve a careful heritage\u2011impact assessment and that any tunnel should be engineered to keep their foundations and fa\u00e7ades intact, not just \u201cdeep enough\u201d to avoid collapse.\u202fIf we design the station entrances to sit naturally among the shop fronts\u2014perhaps with a small gallery or caf\u00e9 that lets people experience the old architecture while they wait\u2014it would give commuters a pleasant, culturally\u2011rich environment.\u202fFunding could come from a modest levy on the new development parcels that benefit from the line, plus a transparent, earmarked MRT\u2011fare surcharge that goes straight into a heritage\u2011conservation fund for restoration grants.\u202fThat way the daily commuters get the fast, affordable service they need, and the historic streetscape stays alive for residents and visitors alike."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D1",
+    "agents": [
+      "technocrat",
+      "ideologue"
+    ],
+    "trial_index": 4,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I recognise that the shophouses constitute a tangible link to Singapore\u2019s pre\u2011war urban fabric and that any loss would diminish the district\u2019s cultural appeal for residents and tourists alike. At the same time, the projected ridership of the new underground line will relieve congestion for thousands of commuters and supports our long\u2011term mobility and emissions targets. A workable compromise would be to retain the street\u2011level fa\u00e7ades through a \u201cfa\u00e7ade\u2011preservation tunnel\u201d design, while allowing the alignment to pass beneath the block with appropriate vibration\u2011mitigation measures and a modest increase in construction cost that can be offset by a heritage\u2011tourism levy. We could also earmark a portion of the line\u2019s commercial development rights for adaptive\u2011reuse projects that restore interior spaces for community use, thereby linking transit efficiency with heritage conservation. This approach preserves the visual identity of the area, delivers the needed transport capacity, and maintains fiscal prudence."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I applaud the willingness to keep the street\u2011level fa\u00e7ades, but a \u201cfa\u00e7ade\u2011only\u201d solution treats our living heritage as a mere backdrop for a transit corridor and erodes the very spatial narratives that give the district its soul.  Instead of carving a tunnel through the heart of the shophouse block, we should re\u2011route the alignment to skirt the conserved precinct\u2014or, if depth permits, deepen the line to the 30\u2011metre level so that no structural intrusion is required at all, thereby honouring the integrity of both the buildings and the communities they house.  The heritage\u2011tourism levy you suggest risks commodifying culture; a more just financing mechanism would earmark a fixed percentage of the MRT project\u2019s capital for a heritage\u2011conservation trust that funds full\u2011building restoration, adaptive\u2011reuse workshops, and community\u2011led programming.  By coupling the MRT stations with heritage interpretation centres\u2014designed as transparent pavilions that celebrate the shophouses rather than hide behind them\u2014we can deliver the mobility benefits without surrendering the district\u2019s identity.  This approach respects the moral imperative of cultural continuity while still advancing Singapore\u2019s transport and climate goals."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I appreciate your emphasis on preserving the full spatial integrity of the shophouse precinct and agree that a deeper alignment or a modest reroute could further reduce structural impact, provided that a rigorous cost\u2011benefit analysis confirms that the additional excavation depth or alignment shift does not jeopardise the line\u2019s overall budget, construction schedule, or ridership projections.\u202fTo fund the extra works and the heritage\u2011trust you propose, we can earmark a fixed, transparent percentage of the line\u2019s \u201cair\u2011rights\u201d revenue (e.g., from commercial development above the stations) rather than a broad tourism levy, thereby linking the financing directly to the MRT project\u2019s commercial returns.\u202fAt the station level we can incorporate publicly\u2011accessible interpretation pavilions that showcase the shophouses\u2019 history and provide adaptive\u2011reuse spaces for community programmes, turning the transit hub into a heritage gateway without compromising operational efficiency.\u202fIf the engineering studies confirm that a 30\u2011metre deep tunnel or a slight alignment deviation remains within a tolerable cost margin (e.g., \u2264\u202f5\u202f% of total capital), we can adopt that design while still preserving fa\u00e7ades and delivering the intended commuter capacity."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I concur that a transparent, fixed\u2011percentage levy on the MRT\u2019s air\u2011rights can underwrite a robust heritage\u2011conservation trust, but the trust must be legally bound to fund **full\u2011building** restoration and community\u2011led programming, not merely fa\u00e7ade upkeep or tourism\u2011oriented marketing.  Therefore, the alignment should be rerouted to skirt the historic block entirely, or, where unavoidable, driven to a minimum depth of 30\u202fm with independent geotechnical verification that guarantees zero settlement of the shophouses\u2014any cost overrun beyond a 5\u202f% ceiling must be absorbed by the MRT project itself, not shifted onto the heritage precinct.  Station precincts should be designed as open\u2011air, glass\u2011enclosed pavilions that physically and symbolically connect commuters to the living shophouse community, while a jointly chaired heritage\u2011trust (including residents, historians, and engineers) oversees adaptive\u2011reuse, ensuring that mobility gains do not come at the expense of cultural continuity."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D2",
+    "agents": [
+      "technocrat",
+      "populist"
+    ],
+    "trial_index": 4,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I acknowledge that the shophouses embody Singapore\u2019s unique architectural heritage and contribute to the district\u2019s social and tourism value, yet the projected ridership and congestion relief from the new underground MRT segment are essential for maintaining a cost\u2011effective, high\u2011capacity public\u2011transport network. A pragmatic middle ground would be to retain the fa\u00e7ades of the conserved shophouses through a \u201cfa\u00e7ade\u2011preservation\u2011with\u2011cut\u2011and\u2011cover\u201d tunnelling method, coupled with a modest realignment of the tunnel alignment to avoid the most sensitive structures while still achieving the required station spacing. This approach leverages existing engineering solutions, limits additional capital outlay to an incremental 5\u20118\u202f% of the line\u2019s budget, and preserves the visual streetscape that residents and visitors value."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I hear you saying we can keep the shopfronts and still dig the tunnel, but the truth is most of us can\u2019t feel the difference when a few extra million dollars are added to a project that already makes our taxes stretch thin. If the government really wants to protect our heritage, it should do it without dumping extra costs on ordinary families who are already struggling with rising living expenses. Let\u2019s agree on a \u201cfa\u00e7ade\u2011only\u201d preservation that is funded through a dedicated heritage levy on tourism revenues, while the MRT line stays on schedule and fares stay low for the commuters who need it most. This way the shophouses stay alive and the daily rider isn\u2019t forced to pay the price."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Technocratic Pragmatist (P1)",
+        "persona_id": "technocrat",
+        "statement": "I understand the concern that any extra outlay on fa\u00e7ade\u2011preservation will ultimately be felt by households already coping with high living costs, and I agree that the funding source should not erode the affordability of MRT fares.  A pragmatic solution is to create a heritage\u2011preservation fund financed through a modest tourism\u2011levy (e.g., 0.5\u202f% of hotel occupancy tax) combined with a value\u2011capture mechanism on the uplift in land and commercial rents that the new station will generate; this earmarked pool can cover the 5\u20118\u202f% incremental tunnelling cost without tapping general\u2011revenue budgets.  In parallel, we can adopt the cut\u2011and\u2011cover method with fa\u00e7ade retention and a slight alignment tweak that avoids the most structurally sensitive shophouses, thereby keeping the construction schedule on track.  By linking the preservation cost to the direct economic benefits that the MRT\u2011induced accessibility will create, we safeguard heritage, maintain low commuter fares, and preserve fiscal discipline."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I get that you\u2019re trying to tie the extra cost to tourism and future rent gains, but most of us don\u2019t see those windfalls \u2013 we just see higher utility bills and tighter budgets.\u202fIf we\u2019re going to spend any more money, the heritage fund must be completely ring\u2011fenced and paid for by a clear, modest tourism levy that tourists, not ordinary families, shoulder.\u202fAt the same time, the MRT work should stick to the fa\u00e7ade\u2011only approach and avoid any risky realignment that could delay the line or push fares up.\u202fLet\u2019s also set up an independent community panel to audit the fund each year, so we know the money really goes to preserving the shophouses and not into some hidden budget hole."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D3",
+    "agents": [
+      "ideologue",
+      "populist"
+    ],
+    "trial_index": 4,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I share your urgency to give Singaporeans a fast, affordable MRT link, yet we cannot sacrifice the living memory etched into those pre\u2011war shophouses simply because a cost\u2011benefit spreadsheet favors speed over soul.\u202fIf the line must run through the historic district, let us mandate a deeper tunnel (or a realignment) that preserves the fa\u00e7ades in situ, integrate a heritage\u2011themed station that showcases the shophouses\u2019 architecture, and allocate a dedicated conservation fund financed by the project\u2019s developer.\u202fSuch an approach respects the community\u2019s cultural identity while delivering the transit capacity commuters need, proving that progress and preservation are not mutually exclusive."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I hear you, but every day I see my neighbour paying higher rent while the MRT keeps getting delayed because we keep digging deeper and spending on fancy heritage stations that don\u2019t help anyone get to work on time. If we must keep those shophouses, the tunnel should be built straight underneath them without raising fares or dragging the project out forever, and the owners need real cash compensation, not just a \u201cheritage\u2011themed\u201d plaque. Let\u2019s set a firm budget cap and a clear deadline, and any extra money for conservation should come from the developer, not from the taxpayer who\u2019s already struggling."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I understand the frustration over rising rents and delayed timelines, so I propose a \u201cheritage\u2011protected tunnel\u201d that runs at the minimum feasible depth\u2014still beneath the shophouses but without sacrificing structural integrity\u2014while a strict cost\u2011cap is imposed and enforced through a performance\u2011bond from the developer.\u202fThe developer would fund a heritage\u2011conservation trust that pays market\u2011rate compensation to affected owners and finances a modest, publicly\u2011visible \u201cShophouse Gallery\u201d within the station, ensuring the cultural narrative is preserved without inflating fares.\u202fA joint oversight committee comprising LTA, the URA, resident\u2011association representatives and an independent auditor would monitor progress against a firm deadline, allowing us to deliver the MRT on schedule and keep the historic streetscape alive for future generations."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Disaffected Populist (P3)",
+        "persona_id": "populist",
+        "statement": "I can live with a shallower tunnel if the developer guarantees a hard\u2011stop deadline \u2013 say two\u202fyears \u2013 and pays a hefty penalty for any slip, so commuters don\u2019t keep waiting while rents keep climbing.\u202fThe heritage\u2011trust must be fully funded by the developer at market\u2011rate compensation for every shop\u2011owner, with no extra levy on taxpayers or fare hikes.\u202fLet the oversight committee have a resident\u2011association seat that can veto any design change that pushes the line deeper or adds costly \u201cgallery\u201d features.\u202fIf those safeguards are written into the contract, we get the MRT we need and still keep the shophouses standing."
+      }
+    ]
+  },
+  {
+    "item_id": "ITEM_02",
+    "item_title": "Heritage Shophouses vs. MRT Line Construction",
+    "dyad_id": "D4",
+    "agents": [
+      "ideologue",
+      "everyman"
+    ],
+    "trial_index": 4,
+    "turns": [
+      {
+        "turn_index": 0,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I share your urgency to deliver a fast, affordable MRT service for thousands of commuters, yet the historic shophouses are not merely old bricks\u2014they embody the lived memory and entrepreneurial spirit of our neighbourhoods, a social capital that no tunnel can replace. Rather than sacrificing them on a technocratic cost\u2011benefit ledger, we should mandate a deeper alignment or a gentle curve that skirts the core heritage block, coupled with a \u201cheritage\u2011first\u201d station design that preserves fa\u00e7ades and incorporates interpretive spaces. In exchange, the transit authority could fund a substantial conservation grant to restore the surrounding shophouses and create a heritage\u2011walk that directly links the new station to the district\u2019s cultural narrative. This approach respects both the right of commuters to efficient mobility and the community\u2019s right to retain its unique identity."
+      },
+      {
+        "turn_index": 1,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I hear you \u2013 the shophouses give our neighbourhood its character, and at the same time many of us rely on a faster, cheaper MRT to get to work and school every day.\u202fIf the tunnel can be bent a little or built deeper so the street\u2011level fa\u00e7ades stay intact, that would keep the visual charm while still delivering the line we need.\u202fPerhaps the transit agency could set up a small fund to help owners restore the shops and create a heritage\u2011walk that connects directly to the new station, so commuters also get a taste of the area\u2019s history.\u202fBy combining a careful engineering route with a modest conservation grant, we can keep both the community feel and the transport benefits."
+      },
+      {
+        "turn_index": 2,
+        "speaker": "Ideological Advocate (P2)",
+        "persona_id": "ideologue",
+        "statement": "I appreciate your willingness to look beyond a binary \u201cpreserve\u2011or\u2011build\u201d stance; the real challenge is to embed heritage into the very logic of the MRT project rather than treating it as an after\u2011thought.\u202fTherefore, I propose that the transit authority conduct a legally binding heritage\u2011impact assessment and, if the line must cut through the block, mandate a \u201cfa\u00e7ade\u2011preservation tunnel\u201d that vaults beneath the shophouses while retaining their street\u2011level envelopes, coupled with a glass\u2011enclosed station that showcases the restored shopfronts as an interpretive gallery.\u202fThe project should also be required to allocate at least 10\u202f% of its construction budget to a community\u2011managed conservation trust that funds fa\u00e7ade restoration, provides training for local craftsmen, and creates a heritage\u2011walk linking the station to nearby cultural sites.\u202fIn this way we safeguard the district\u2019s collective memory, honor the commuters\u2019 right to efficient mobility, and demonstrate that economic progress need not trample the soul of our neighbourhood."
+      },
+      {
+        "turn_index": 3,
+        "speaker": "Open-Minded Everyman (P4)",
+        "persona_id": "everyman",
+        "statement": "I think we can make the MRT work while still keeping the shophouses\u2019 charm \u2013 for example, dig the tunnel a little deeper or shift it just enough so the street\u2011level fa\u00e7ades stay untouched, and design the station with large glass walls that let people see the restored shopfronts.\u202fIf the project sets aside a clear\u2011cut percentage of the budget for a community\u2011run heritage fund, owners could get help to repair their buildings and train local craftsmen, while commuters enjoy a faster, affordable line.\u202fPutting a legally\u2011binding heritage\u2011impact assessment in place would give us confidence that any unavoidable intrusion is minimized and compensated.\u202fThat way the neighbourhood\u2019s history and the city\u2019s mobility needs both get a fair share."
+      }
+    ]
+  }
+]

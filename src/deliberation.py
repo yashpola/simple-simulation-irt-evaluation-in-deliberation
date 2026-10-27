@@ -2,12 +2,12 @@
 
 Adheres to:
 - Guideline 2: Functional split for LLM chat loops & prompt injections.
-- Guideline 3: Single-responsibility functions (generate_initial_stances, conduct_deliberation, generate_final_stances).
+- Guideline 3: Single-responsibility deliberation execution.
 - Guideline 4: Zero hardcoded prompt strings; all prompts loaded from MasterConfig with default "".
 - Guideline 5: Defensive parsing wrapped in try/except.
 """
 
-from typing import List, Dict
+from typing import List
 from src.schemas import (
     PolicyItem,
     DeliberationTurn,
@@ -29,67 +29,6 @@ def build_conversation_history(turns: List[DeliberationTurn]) -> str:
     return "\n".join(history_lines)
 
 
-def generate_initial_stances(
-    client: BaseLLMClient,
-    config: MasterConfig,
-    item: PolicyItem,
-    agents: List[str]
-) -> Dict[str, str]:
-    """Generate pre-deliberation baseline stance statements for each agent in a dyad."""
-    stances: Dict[str, str] = {}
-    user_prompts = config.get("user_prompts", {})
-    prompt_template = user_prompts.get("pre_stance", "")
-
-    if not prompt_template:
-        return {agent_id: "" for agent_id in agents}
-
-    for agent_id in agents:
-        system_prompt = resolve_persona_system_prompt(agent_id, config)
-        prompt = prompt_template.format(
-            title=item.get("title", ""),
-            topic_prompt=item.get("topic_prompt", "")
-        )
-        response = client.generate(
-            prompt=prompt,
-            system_prompt=system_prompt,
-            temperature=0.7,
-            max_tokens=256
-        )
-        stances[agent_id] = response.strip()
-
-    return stances
-
-
-def generate_final_stances(
-    client: BaseLLMClient,
-    config: MasterConfig,
-    item: PolicyItem,
-    agents: List[str]
-) -> Dict[str, str]:
-    """Generate post-deliberation consolidated stance statements for each agent in a dyad."""
-    stances: Dict[str, str] = {}
-    user_prompts = config.get("user_prompts", {})
-    prompt_template = user_prompts.get("post_stance", "")
-
-    if not prompt_template:
-        return {agent_id: "" for agent_id in agents}
-
-    for agent_id in agents:
-        system_prompt = resolve_persona_system_prompt(agent_id, config)
-        prompt = prompt_template.format(
-            title=item.get("title", "")
-        )
-        response = client.generate(
-            prompt=prompt,
-            system_prompt=system_prompt,
-            temperature=0.7,
-            max_tokens=256
-        )
-        stances[agent_id] = response.strip()
-
-    return stances
-
-
 def conduct_deliberation(
     client: BaseLLMClient,
     config: MasterConfig,
@@ -97,14 +36,9 @@ def conduct_deliberation(
     dyad_id: str,
     agents: List[str],
     trial_index: int,
-    turns_per_item: int = 4,
-    record_stances: bool = False
+    turns_per_item: int = 4
 ) -> DeliberationTranscript:
     """Execute complete dyadic deliberation between two agents for a policy item."""
-    # 1. Optional baseline stances (disabled by default when discourse validation is dropped)
-    pre_stances = generate_initial_stances(client, config, item, agents) if record_stances else {}
-
-    # 2. Alternating conversational dialogue turns
     turns: List[DeliberationTurn] = []
     user_prompts = config.get("user_prompts", {})
     prompt_template = user_prompts.get("deliberation_turn", "")
@@ -136,17 +70,12 @@ def conduct_deliberation(
         }
         turns.append(turn_record)
 
-    # 3. Optional concluded stances
-    post_stances = generate_final_stances(client, config, item, agents) if record_stances else {}
-
     transcript: DeliberationTranscript = {
         "item_id": item["item_id"],
         "item_title": item["title"],
         "dyad_id": dyad_id,
         "agents": agents,
         "trial_index": trial_index,
-        "pre_stances": pre_stances,
-        "turns": turns,
-        "post_stances": post_stances
+        "turns": turns
     }
     return transcript

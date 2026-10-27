@@ -6,9 +6,17 @@ Adheres to:
 - Simplified benchmark observing latent deliberative competence across diverse citizen groups and policy items.
 """
 
-from typing import Dict
+from typing import Any, Dict, Optional
 from datetime import datetime
-from src.schemas import MasterConfig, PolicyItem, PsychometricResults
+from src.schemas import (
+    MasterConfig,
+    PolicyItem,
+    PsychometricResults,
+    IRTMetrics,
+    IRTDeliberators,
+    IRTResults,
+    CTTMetrics,
+)
 from src.personas import get_persona_metadata
 
 
@@ -19,10 +27,16 @@ def generate_markdown_report(
     output_path: str
 ) -> str:
     """Compile final_report.md synthesizing deliberative psychometrics and governance insights."""
-    ctt_data = metrics.get("ctt", {})
-    irt_data = metrics.get("irt", {})
-    dyad_thetas = metrics.get("dyad_theta", {})
-    insights = metrics.get("insights", {})
+    ctt_data: Dict[str, CTTMetrics] = metrics.get("ctt", {})
+    irt_block: Optional[IRTResults] = metrics.get("irt")
+    irt_items: Dict[str, IRTMetrics] = irt_block.get("items", {}) if irt_block else {}
+    deliberators: Optional[IRTDeliberators] = irt_block.get("deliberators") if irt_block else None
+
+    dyad_thetas: Dict[str, float] = deliberators.get("dyad_theta", {}) if deliberators else {}
+    ind_thetas: Dict[str, float] = deliberators.get("individual_theta", {}) if deliberators else {}
+    persona_by_dyad: Dict[str, Dict[str, float]] = deliberators.get("persona_by_dyad_theta", {}) if deliberators else {}
+    ind_success: Dict[str, float] = metrics.get("individual_success_rates", {})
+    insights: Dict[str, Any] = metrics.get("insights", {})
 
     model_cfg = config.get("model_config", {})
     delib_cfg = config.get("deliberation_config", {})
@@ -90,7 +104,7 @@ def generate_markdown_report(
         "",
         "    subgraph Phase5 [\"5. Indexed Output Artifacts (data/expXXX)\"]",
         "        REPORT[\"final_report.md (Synthesis & Mermaid Charts)\"]",
-        "        JSONS[\"transcripts.json, ballots.json, ctt_irt_metrics.json\"]",
+        "        JSONS[\"transcripts/, ballots.json, psychometric_evals.json\"]",
         "    end",
         "",
         "    Phase1 --> Phase2",
@@ -112,7 +126,7 @@ def generate_markdown_report(
         short_title = title[:34] + ("..." if len(title) > 34 else "")
 
         c_info = ctt_data.get(item_id)
-        i_info = irt_data.get(item_id)
+        i_info = irt_items.get(item_id)
 
         p_val: object = c_info["difficulty_p"] if c_info else "N/A"
         b_val: object = i_info["difficulty_b"] if i_info else "N/A"
@@ -160,30 +174,29 @@ def generate_markdown_report(
         report_lines.append(f"| `{d_id}` | {comp} | {dyn} | {th_val} | #{rank} |")
         rank += 1
 
-    # 4.2 Individual Persona Deliberative Competence
-    ind_thetas = metrics.get("individual_theta", {})
-    ind_endorse = metrics.get("individual_endorsement_rates", {})
+    # 4.2 Individual Persona Deliberative Competence & Success Rates
     if ind_thetas:
         report_lines.extend([
             "",
-            "### 4.2 Individual Persona Deliberative Competence",
-            "Estimated latent ability $\\theta$ for each citizen persona based on independent secret ballots, measuring personal propensity to endorse integrative solutions irrespective of partner agreement:",
+            "### 4.2 Individual Persona Deliberative Competence & Success Rates",
+            "Performance metrics for each citizen persona across independent secret ballots:",
+            "- **Individual Success Rate**: Empirical proportion of secret ballots where the persona voted for the integrative compromise (Option A).",
+            "- **Latent Competence ($\\theta$)**: Standardized 2PL IRT ability score isolating individual deliberative capacity.",
             "",
-            "| Persona ID | Role Title | Option A Endorsement Rate | Latent Competence ($\\theta$) | Relative Ranking |",
+            "| Persona ID | Role Title | Individual Success Rate | Latent Competence ($\\theta$) | Relative Ranking |",
             "| :--- | :--- | :---: | :---: | :---: |"
         ])
         sorted_personas = sorted(ind_thetas.keys(), key=lambda k: ind_thetas[k], reverse=True)
         p_rank = 1
         for p_id in sorted_personas:
             p_th = ind_thetas.get(p_id, 0.0)
-            p_rate = f"{ind_endorse.get(p_id, 0.0) * 100:.1f}%"
+            p_rate = f"{ind_success.get(p_id, 0.0) * 100:.1f}%"
             p_meta = get_persona_metadata(p_id)
             p_name = p_meta.get("name", p_id)
             report_lines.append(f"| `{p_id}` | {p_name} | {p_rate} | {p_th} | #{p_rank} |")
             p_rank += 1
 
     # 4.3 Partner Interaction Effects (Dyadic Conditioning)
-    persona_by_dyad = metrics.get("persona_by_dyad_theta", {})
     if persona_by_dyad:
         report_lines.extend([
             "",
@@ -216,7 +229,7 @@ def generate_markdown_report(
 
     avg_dcr = insights.get("average_dcr_by_distractor", {})
     hardest_key = str(insights.get("hardest_item", ""))
-    hardest_b: object = irt_data[hardest_key]["difficulty_b"] if hardest_key in irt_data else "N/A"
+    hardest_b: object = irt_items[hardest_key]["difficulty_b"] if hardest_key in irt_items else "N/A"
 
     report_lines.extend([
         f"- **Option B (Status Quo Inertia)**: Average DCR = `{avg_dcr.get('B', 0.0)}`",

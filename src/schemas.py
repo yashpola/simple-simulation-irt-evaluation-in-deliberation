@@ -3,7 +3,7 @@
 Simplified benchmark observing latent deliberative competence and item psychometrics across diverse citizen groups.
 """
 
-from typing import TypedDict, List, Dict, Optional, Any, NotRequired
+from typing import TypedDict, List, Dict, Optional, Any
 
 
 class ItemBallot(TypedDict):
@@ -54,8 +54,6 @@ class SystemPrompts(TypedDict, total=False):
 
 
 class UserPrompts(TypedDict, total=False):
-    pre_stance: str
-    post_stance: str
     deliberation_turn: str
     secret_ballot: str
 
@@ -84,8 +82,6 @@ class DeliberationTranscript(TypedDict):
     agents: List[str]
     trial_index: int
     turns: List[DeliberationTurn]
-    pre_stances: NotRequired[Dict[str, str]]
-    post_stances: NotRequired[Dict[str, str]]
 
 
 class BallotVote(TypedDict):
@@ -122,11 +118,19 @@ class IRTMetrics(TypedDict):
     discrimination_a: float
 
 
-class PsychometricResults(TypedDict, total=False):
-    ctt: Dict[str, CTTMetrics]
-    irt: Dict[str, IRTMetrics]
+class IRTDeliberators(TypedDict):
     dyad_theta: Dict[str, float]
     individual_theta: Dict[str, float]
     persona_by_dyad_theta: Dict[str, Dict[str, float]]
-    individual_endorsement_rates: Dict[str, float]
+
+
+class IRTResults(TypedDict):
+    items: Dict[str, IRTMetrics]
+    deliberators: IRTDeliberators
+
+
+class PsychometricResults(TypedDict, total=False):
+    ctt: Dict[str, CTTMetrics]
+    irt: IRTResults
+    individual_success_rates: Dict[str, float]
     insights: Dict[str, Any]

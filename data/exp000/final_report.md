@@ -1,6 +1,6 @@
 # Deliberative Item Response Theory (IRT) Benchmark Report
 
-**Generated:** 2026-10-27 13:54:50  
+**Generated:** 2026-10-27 17:30:32  
 **Benchmark:** IRT Deliberative Capacity Benchmark  
 **Model:** `openai/gpt-oss-120b`  
 **Execution Matrix:** 5 trials/dyad across 4 dyads and 4 items (80 total sessions, 160 secret ballots)  
@@ -50,7 +50,7 @@ flowchart TD
 
     subgraph Phase5 ["5. Indexed Output Artifacts (data/expXXX)"]
         REPORT["final_report.md (Synthesis & Mermaid Charts)"]
-        JSONS["transcripts.json, ballots.json, ctt_irt_metrics.json"]
+        JSONS["transcripts/, ballots.json, psychometric_evals.json"]
     end
 
     Phase1 --> Phase2
@@ -78,7 +78,7 @@ flowchart TD
 >   - $\text{DCR} < 1.0$: Subdominant trap (Option A was chosen more frequently than this heuristic).  
 >   - $\text{DCR} = 1.0$: Parity trap (equal frequency to compromise).  
 >   - *Note on vote percentages*: DCR values do not sum to 100%. The actual percentage of votes for Option A is $\frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$.  
-> - **IRT Difficulty ($b_i$) & Discrimination ($a_i$)**: Fitted simultaneously across the entire 80-session matrix using regularized 2PL Maximum Likelihood. Higher $b_i$ indicates greater intrinsic resistance to consensus; higher $a_i$ indicates sharper diagnostic separation between high- and low-competence dyads.
+> - **IRT Difficulty ($b_i$) & Discrimination ($a_i$)**: Fitted simultaneously across the entire multi-dyad session matrix using regularized 2PL Maximum Likelihood. Higher $b_i$ indicates greater intrinsic resistance to consensus; higher $a_i$ indicates sharper diagnostic separation between high- and low-competence dyads.
 
 ---
 
@@ -94,10 +94,12 @@ Estimated collective latent competence $\theta$ across citizen dyad configuratio
 | `D2` | Technocrat vs Populist | Asymmetric Vulnerability | -0.2944 | #3 |
 | `D1` | Technocrat vs Ideologue | Ideological Friction | -0.362 | #4 |
 
-### 4.2 Individual Persona Deliberative Competence
-Estimated latent ability $\theta$ for each citizen persona based on independent secret ballots, measuring personal propensity to endorse integrative solutions irrespective of partner agreement:
+### 4.2 Individual Persona Deliberative Competence & Success Rates
+Performance metrics for each citizen persona across independent secret ballots:
+- **Individual Success Rate**: Empirical proportion of secret ballots where the persona voted for the integrative compromise (Option A).
+- **Latent Competence ($\theta$)**: Standardized 2PL IRT ability score isolating individual deliberative capacity.
 
-| Persona ID | Role Title | Option A Endorsement Rate | Latent Competence ($\theta$) | Relative Ranking |
+| Persona ID | Role Title | Individual Success Rate | Latent Competence ($\theta$) | Relative Ranking |
 | :--- | :--- | :---: | :---: | :---: |
 | `populist` | Disaffected Populist (P3) | 40.0% | 0.2496 | #1 |
 | `everyman` | Open-Minded Everyman (P4) | 35.0% | 0.1496 | #2 |

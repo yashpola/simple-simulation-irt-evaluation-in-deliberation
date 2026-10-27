@@ -190,16 +190,36 @@ def execute_simulation_run(
                     with open(items_out_dir / src_p.name, "w", encoding="utf-8") as f:
                         json.dump(item_obj, f, indent=2)
 
-    # (c) Deliberation Transcripts
-    with open(exp_dir / "transcripts.json", "w", encoding="utf-8") as f:
-        json.dump(transcripts, f, indent=2)
+    # (c) Item-by-Item Deliberation Transcripts
+    transcripts_out_dir = exp_dir / "transcripts"
+    transcripts_out_dir.mkdir(parents=True, exist_ok=True)
+
+    item_filename_map: Dict[str, str] = {}
+    for item_path in config.get("items", []):
+        src_p = Path(item_path)
+        if src_p.exists():
+            try:
+                with open(src_p, "r", encoding="utf-8") as f:
+                    item_json = json.load(f)
+                    if "item_id" in item_json:
+                        base_stem = src_p.stem.removesuffix("_description")
+                        item_filename_map[item_json["item_id"]] = base_stem
+            except Exception:
+                pass
+
+    for item_id in items.keys():
+        base_stem = item_filename_map.get(item_id, item_id.lower())
+        fname = f"{base_stem}_transcript.json"
+        item_transcripts = [t for t in transcripts if t["item_id"] == item_id]
+        with open(transcripts_out_dir / fname, "w", encoding="utf-8") as f:
+            json.dump(item_transcripts, f, indent=2)
 
     # (d) Secret Ballots
     with open(exp_dir / "ballots.json", "w", encoding="utf-8") as f:
         json.dump(all_ballots, f, indent=2)
 
-    # (e) CTT & IRT Metrics
-    with open(exp_dir / "ctt_irt_metrics.json", "w", encoding="utf-8") as f:
+    # (e) CTT & IRT Psychometric Evaluations
+    with open(exp_dir / "psychometric_evals.json", "w", encoding="utf-8") as f:
         json.dump(psychometric_results, f, indent=2)
 
     # (f) Final Markdown Synthesis Report

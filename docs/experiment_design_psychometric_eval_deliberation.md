@@ -138,7 +138,7 @@ flowchart TD
 
     subgraph Phase5 ["5. Indexed Output Artifacts (data/expXXX)"]
         REPORT["final_report.md (Synthesis & Mermaid Charts)"]
-        JSONS["transcripts.json, ballots.json, ctt_irt_metrics.json"]
+        JSONS["transcripts/, ballots.json, psychometric_evals.json"]
     end
 
     Phase1 --> Phase2
@@ -226,10 +226,10 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
     "secret_ballot": "..."
   },
   "items": [
-    "data/items/item01_school_mergers.json",
-    "data/items/item02_heritage_mrt.json",
-    "data/items/item03_foreign_talent.json",
-    "data/items/item04_transboundary_haze.json"
+    "data/items/item01_school_mergers_description.json",
+    "data/items/item02_heritage_mrt_description.json",
+    "data/items/item03_foreign_talent_description.json",
+    "data/items/item04_transboundary_haze_description.json"
   ],
   "deliberation_config": {
     "turns_per_item": 4,
@@ -295,9 +295,9 @@ Each experiment run generates its outputs in its dedicated indexed directory:
 
 1. `config.json`: Complete snapshot of the configuration used for the run.
 2. `items/`: Full directory snapshot of the policy battery item JSONs evaluated during the run.
-3. `transcripts.json`: Complete record of all dialogue turns across dyads and trials.
+3. `transcripts/`: Directory of item-by-item JSON files containing records of all dialogue turns across dyads and trials.
 4. `ballots.json`: Independent secret ballot choices, randomized letter mappings, and consensus records.
-5. `ctt_irt_metrics.json`: Fitted psychometric parameters ($\theta_j, b_i, a_i, p_i, D_i, \text{DCR}$).
+5. `psychometric_evals.json`: Fitted psychometric parameters ($\theta_j, b_i, a_i, p_i, D_i, \text{DCR}$).
 6. `final_report.md`: Markdown synthesis report containing diagnostic insights, psychometric tables, and Mermaid visualization charts.
 
 ---

@@ -103,19 +103,4 @@ Respond ONLY with the single letter corresponding to your choice (e.g., A, B, C,
 
 ---
 
-## 4. Optional Pre/Post Stance Prompts
 
-Configured in `data/config.json` for optional standalone qualitative profiling:
-
-### Pre-Stance Prompt (`pre_stance`)
-```markdown
-Topic: {title}
-Context: {topic_prompt}
-
-As a citizen participating in this panel, briefly state your initial perspective on this dilemma in 2-3 sentences. Highlight what you believe is most important and what your initial concerns are.
-```
-
-### Post-Stance Prompt (`post_stance`)
-```markdown
-Now that you have concluded deliberation on "{title}", summarize your final consolidated stance in 2-3 sentences. State your concluded view and any compromises or solutions you now support.
-```

@@ -44,12 +44,11 @@ def test_full_experiment_pipeline(tmp_path: Path) -> None:
     # 1. Verify directory exists
     assert result_dir.exists()
 
-    # 2. Verify all 5 required artifact files exist (Guideline 6)
+    # 2. Verify all required artifact files exist (Guideline 6)
     expected_files = [
         "config.json",
-        "transcripts.json",
         "ballots.json",
-        "ctt_irt_metrics.json",
+        "psychometric_evals.json",
         "final_report.md"
     ]
 
@@ -61,16 +60,29 @@ def test_full_experiment_pipeline(tmp_path: Path) -> None:
     # 2b. Verify items directory and item definitions copied
     items_dir = result_dir / "items"
     assert items_dir.is_dir()
-    assert len(list(items_dir.glob("*.json"))) >= 4
+    item_files = list(items_dir.glob("*.json"))
+    assert len(item_files) >= 4
+    for item_file in item_files:
+        assert item_file.name.endswith("_description.json")
 
-    # 3. Verify transcripts contents
-    with open(result_dir / "transcripts.json", "r", encoding="utf-8") as f:
-        transcripts_data = json.load(f)
-    assert len(transcripts_data) > 0
-    first_transcript = transcripts_data[0]
-    assert "item_id" in first_transcript
-    assert "turns" in first_transcript
-    assert len(first_transcript["turns"]) == 4
+    # 3. Verify item-by-item transcripts directory and contents
+    transcripts_dir = result_dir / "transcripts"
+    assert transcripts_dir.is_dir()
+    transcript_files = list(transcripts_dir.glob("*.json"))
+    assert len(transcript_files) >= 4
+    for trans_file in transcript_files:
+        assert trans_file.name.endswith("_transcript.json")
+
+    for t_file in transcript_files:
+        with open(t_file, "r", encoding="utf-8") as f:
+            item_transcripts = json.load(f)
+        assert len(item_transcripts) > 0
+        first_t = item_transcripts[0]
+        assert "item_id" in first_t
+        assert "turns" in first_t
+        assert len(first_t["turns"]) == 4
+        assert "pre_stances" not in first_t
+        assert "post_stances" not in first_t
 
     # 4. Verify ballot contents
     with open(result_dir / "ballots.json", "r", encoding="utf-8") as f:
@@ -81,11 +93,16 @@ def test_full_experiment_pipeline(tmp_path: Path) -> None:
     assert "votes" in first_ballot
 
     # 5. Verify CTT & IRT metrics structure
-    with open(result_dir / "ctt_irt_metrics.json", "r", encoding="utf-8") as f:
+    with open(result_dir / "psychometric_evals.json", "r", encoding="utf-8") as f:
         metrics_data = json.load(f)
     assert "ctt" in metrics_data
     assert "irt" in metrics_data
-    assert "dyad_theta" in metrics_data
+    assert "items" in metrics_data["irt"]
+    assert "deliberators" in metrics_data["irt"]
+    assert "dyad_theta" in metrics_data["irt"]["deliberators"]
+    assert "individual_theta" in metrics_data["irt"]["deliberators"]
+    assert "persona_by_dyad_theta" in metrics_data["irt"]["deliberators"]
+    assert "individual_success_rates" in metrics_data
     assert "insights" in metrics_data
 
     # 6. Verify markdown report contents
@@ -119,6 +136,7 @@ def test_main_cli_execution(tmp_path: Path) -> None:
     assert (output_dir / "final_report.md").exists()
     assert (output_dir / "config.json").exists()
     assert (output_dir / "items").is_dir()
+    assert (output_dir / "transcripts").is_dir()
 
 
 def test_missing_env_credentials_raises_error(monkeypatch: pytest.MonkeyPatch) -> None:

@@ -340,7 +340,7 @@ def analyze_experiment_psychometrics(
         for p_id, d_dict in persona_by_dyad_map.items()
     }
 
-    individual_endorsement_rates = {
+    individual_success_rates = {
         p_id: round(float(np.mean(vals)), 4)
         for p_id, vals in persona_endorsement_map.items()
     }
@@ -363,11 +363,15 @@ def analyze_experiment_psychometrics(
 
     psych_results: PsychometricResults = {
         "ctt": ctt_metrics,
-        "irt": irt_items,
-        "dyad_theta": mean_dyad_thetas,
-        "individual_theta": mean_individual_thetas,
-        "persona_by_dyad_theta": mean_persona_by_dyad,
-        "individual_endorsement_rates": individual_endorsement_rates,
+        "irt": {
+            "items": irt_items,
+            "deliberators": {
+                "dyad_theta": mean_dyad_thetas,
+                "individual_theta": mean_individual_thetas,
+                "persona_by_dyad_theta": mean_persona_by_dyad,
+            },
+        },
+        "individual_success_rates": individual_success_rates,
         "insights": {
             "hardest_item": hardest_item,
             "easiest_item": easiest_item,
