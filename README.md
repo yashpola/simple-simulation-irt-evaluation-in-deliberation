@@ -105,7 +105,7 @@ Classical Test Theory examines observed voting distributions and response proper
 
 #### 1. Item Difficulty / Consensus Rate ($p_i$)
 
-The proportion of deliberative sessions where both participants in the dyad reach consensus by independently selecting the integrative compromise (Option A) on their secret ballots:
+The proportion of deliberative sessions where both participants in the dyad reach consensus by independently selecting the integrative compromise on their secret ballots:
 
 $$
 p_i = \frac{N_{\text{consensus}}}{N_{\text{sessions}}}
@@ -230,9 +230,9 @@ The standardized competence trait of a deliberator, estimated under regularized 
 
 ### C. Individual Deliberative Behavioral Metrics
 
-#### 1. Individual Success Rate (Option A Adoption Rate)
+#### 1. Individual Success Rate
 
-The empirical proportion of secret ballots where persona $p$ voted for the integrative compromise (Option A) across all dilemmas and dyad configurations they deliberated in:
+The empirical proportion of secret ballots where persona $p$ voted for the integrative compromise across all dilemmas and dyad configurations they deliberated in:
 
 $$
 \text{Individual Success Rate}_p = \frac{\sum \mathbf{1}(\text{Vote}_p = \text{Option A})}{N_{\text{trials}}(p)}
@@ -243,24 +243,6 @@ $$
   - $p_i$ is an **item-level consensus metric** requiring _both_ members of a dyad to select Option A simultaneously.
   - Individual Success Rate is a **persona-level behavioral metric** measuring an individual agent's unconstrained willingness to adopt integrative solutions regardless of whether their partner agreed.
 - **Diagnostic Utility**: Isolates whether failure to reach consensus was symmetric (both agents chose cognitive traps) or asymmetric (one agent endorsed the compromise while the other defected).
-
----
-
-### D. Foundational Psychometric References
-
-Direct 1:1 correspondence between each implemented metric and its underlying foundational literature:
-
-- **IRT Parameters ($\theta_j, b_i, a_i$)**:  
-  **[The Basics of Item Response Theory](https://eric.ed.gov/?id=ED458219)** — _Frank B. Baker (ERIC Clearinghouse on Assessment and Evaluation, 2001)_.  
-  Underlying source for the 2-Parameter Logistic (2PL) model, Item Characteristic Curves (ICCs), and the standard discrimination ($a_i$) classification scale.
-
-- **CTT Item Discrimination ($D$)**:  
-  **[The Selection of Upper and Lower Groups for the Validation of Test Items](https://doi.org/10.1037/h0057123)** — _Truman L. Kelley (Journal of Educational Psychology, 1939)_ & **[Essentials of Educational Measurement](https://archive.org/details/essentialsofeduc0000ebel)** — _Robert L. Ebel & David A. Frisbie (Prentice-Hall, 1991)_.  
-  Underlying mathematical proof for the optimal 27% upper-and-lower split and the standard empirical diagnostic thresholds for $D$.
-
-- **Distractor-to-Correct Ratio ($\text{DCR}_k$)**:  
-  **[Developing and Validating Multiple-Choice Test Items](https://www.routledge.com/Developing-and-Validating-Multiple-Choice-Test-Items/Haladyna-Rodriguez/p/book/9780415996075)** — _Thomas M. Haladyna (Routledge, 2004)_.  
-  Underlying methodology for evaluating distractor plausibility, distractor functioning, and calculating selection ratios relative to Option A.
 
 ---
 
