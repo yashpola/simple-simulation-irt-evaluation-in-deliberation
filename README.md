@@ -103,8 +103,12 @@ This framework evaluates deliberative performance across three complementary ana
 Classical Test Theory examines observed voting distributions and response properties directly from the experimental matrix.
 
 #### 1. Item Difficulty / Consensus Rate ($p_i$)
+
 The proportion of deliberative sessions where both participants in the dyad reach consensus by independently selecting the integrative compromise (Option A) on their secret ballots:
-$$p_i = \frac{N_{\text{consensus}}}{N_{\text{total\_sessions}}}$$
+
+$$
+p_i = \frac{N_{\text{consensus}}}{N_{\text{sessions}}}
+$$
 
 - **Practical Range**: $[0.0, 1.0]$.
 - **Diagnostic Interpretation**:
@@ -114,8 +118,13 @@ $$p_i = \frac{N_{\text{consensus}}}{N_{\text{total\_sessions}}}$$
   - *(Note: In psychometrics, higher $p_i$ denotes an easier item).*
 
 #### 2. Item Discrimination Index ($D_i$)
+
 Measures an item's ability to differentiate between high-competence and low-competence dyads using Truman Kelley's optimal upper/lower 27% validation split:
-$$D_i = P_{i,\text{top}} - P_{i,\text{bottom}}$$
+
+$$
+D_i = P_{i,\text{top}} - P_{i,\text{bottom}}
+$$
+
 where $P_{i,\text{top}}$ is the consensus rate of the top 27% deliberative sessions (ranked by total performance across all battery items) and $P_{i,\text{bottom}}$ is the consensus rate of the bottom 27%.
 
 - **Practical Range**: $[-1.0, +1.0]$.
@@ -127,8 +136,13 @@ where $P_{i,\text{top}}$ is the consensus rate of the top 27% deliberative sessi
   - $D < 0.0$: Defective item (vulnerable groups find compromise more readily than skilled groups).
 
 #### 3. Distractor-to-Correct Ratio ($\text{DCR}_k$)
+
 Quantifies the relative cognitive pull of bad-faith heuristic $k$ against the integrative compromise (Option A) across all individual secret ballots cast:
-$$\text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Option A}}$$
+
+$$
+\text{DCR}_k = \frac{\text{Count of selections for Distractor } k}{\text{Count of selections for Option A}}
+$$
+
 Diagnoses whether non-compromise outcomes were driven by **Status Quo Inertia** (Option B), **Technocratic Coldness** (Option C), or **External Scapegoating** (Option D).
 
 - **Practical Range**: $[0.0, +\infty)$.
@@ -138,13 +152,28 @@ Diagnoses whether non-compromise outcomes were driven by **Status Quo Inertia** 
   - $\text{DCR} = 1.0$: Parity trap (heuristic chosen with equal frequency to Option A).
   - $\text{DCR} > 1.0$: Dominant trap (bad-faith heuristic successfully out-competes the integrative compromise).
 - **Vote Share Conversion**: DCR is a relative ratio against Option A, not a raw percentage. To convert DCR into the empirical percentage distribution of votes:
-  $$\% \text{ Option A} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$$
-  $$\% \text{ Distractor } k = \frac{\text{DCR}_k}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%$$
+
+  $$
+  \% \text{ Option A} = \frac{1}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%
+  $$
+
+  $$
+  \% \text{ Distractor } k = \frac{\text{DCR}_k}{1 + \text{DCR}_B + \text{DCR}_C + \text{DCR}_D} \times 100\%
+  $$
 
 #### Sample Size Pooling & Execution Matrix Dynamics
-$$\text{Sessions per Dilemma} = \text{trials\_per\_item} \times N_{\text{dyads}} \quad (\text{e.g., } 5 \times 4 = 20 \text{ sessions})$$
-$$\text{Individual Secret Ballots per Dilemma} = \text{Sessions} \times 2 \text{ agents} \quad (\text{e.g., } 20 \times 2 = 40 \text{ votes})$$
-$$\text{Total Benchmark Matrix} = \text{Sessions per Dilemma} \times N_{\text{items}} \quad (\text{e.g., } 20 \times 4 = 80 \text{ sessions, } 160 \text{ votes})$$
+
+$$
+\text{Sessions per Dilemma} = \text{trials} \times N_{\text{dyads}} \quad (\text{e.g., } 5 \times 4 = 20\text{ sessions})
+$$
+
+$$
+\text{Individual Secret Ballots per Dilemma} = \text{Sessions} \times 2\text{ agents} \quad (\text{e.g., } 20 \times 2 = 40\text{ votes})
+$$
+
+$$
+\text{Total Benchmark Matrix} = \text{Sessions per Dilemma} \times N_{\text{items}} \quad (\text{e.g., } 20 \times 4 = 80\text{ sessions, } 160\text{ votes})
+$$
 
 - **Consensus Rate ($p_i$)** is computed at the **session level** ($N = 20$ per dilemma); an item passes only when both agents independently vote Option A.
 - **Distractor Ratios ($\text{DCR}_k$)** are computed at the **individual secret ballot level** ($N = 40$ per dilemma).
@@ -154,7 +183,10 @@ $$\text{Total Benchmark Matrix} = \text{Sessions per Dilemma} \times N_{\text{it
 ### B. Item Response Theory (IRT) Formulations
 
 Using a **2-Parameter Logistic (2PL) Model** fitted via regularized Maximum Likelihood Estimation (L-BFGS-B with Gaussian priors on $\theta$, $b$, and $a$):
-$$P(Y_{ji} = 1 \mid \theta_j, a_i, b_i) = \frac{1}{1 + e^{-a_i (\theta_j - b_i)}}$$
+
+$$
+P(Y_{ji} = 1 \mid \theta_j, a_i, b_i) = \frac{1}{1 + e^{-a_i (\theta_j - b_i)}}
+$$
 
 where $Y_{ji} \in \{0, 1\}$ is the binary outcome of deliberator $j$ on dilemma $i$.
 
@@ -195,8 +227,12 @@ The standardized competence trait of a deliberator, estimated under regularized 
 ### C. Individual Deliberative Behavioral Metrics
 
 #### 1. Individual Success Rate (Option A Adoption Rate)
+
 The empirical proportion of secret ballots where persona $p$ voted for the integrative compromise (Option A) across all dilemmas and dyad configurations they deliberated in:
-$$\text{Individual Success Rate}_p = \frac{\sum \mathbb{I}(\text{Vote}_{p} = \text{Option A})}{N_{\text{total\_trials}(p)}}$$
+
+$$
+\text{Individual Success Rate}_p = \frac{\sum \mathbf{1}(\text{Vote}_p = \text{Option A})}{N_{\text{trials}}(p)}
+$$
 
 - **Practical Range**: $[0.0, 1.0]$ ($0\% \text{ to } 100\%$).
 - **Distinction from CTT Consensus Rate ($p_i$)**:
