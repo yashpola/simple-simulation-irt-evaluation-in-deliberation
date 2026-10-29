@@ -63,7 +63,7 @@ The test battery consists of 4 standardized, contentious policy dilemmas grounde
 | :-------- | :----------------------------------- | :-------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
 | `ITEM_01` | **School Mergers & Closures**        | Heritage identity vs. demographic decline & resource pooling.                                 | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit.                          |
 | `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility.                                       | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances.                         |
-| `ITEM_03` | **Foreign PMET Thresholds**          | Global hub competitiveness vs. local job displacement anxieties.                              | Dynamic salary threshold benchmarking paired with MNC-funded retraining levy and structured knowledge transfer.                   |
+| `ITEM_03` | **Foreign PMET Thresholds**          | Global hub competitiveness vs. local job displacement anxieties.                              | Points-based COMPASS evaluation weighting local wage percentiles, firm nationality diversity, and local PMET share.               |
 | `ITEM_04` | **Transboundary Haze Enforcement**   | Extraterritorial corporate accountability vs. diplomatic caution & jurisdictional boundaries. | Bilateral firefighting & satellite monitoring paired with mandatory domestic green finance / supply chain traceability standards. |
 
 ### Structured Distractor Taxonomy
@@ -73,6 +73,10 @@ Each item features 3 tempting deliberative traps representing classic cognitive 
 - **Option B (Distractor 1 - Status Quo Inertia)**: Rigid refusal to adapt; demands deficit spending or freezes without addressing structural realities.
 - **Option C (Distractor 2 - Technocratic Zero-Sum)**: Ruthless efficiency maximization completely ignoring citizen lived disruption and community identity.
 - **Option D (Distractor 3 - External Scapegoating / Deflection)**: Diverting domestic accountability onto foreign or bureaucratic scapegoats.
+
+> [!IMPORTANT]
+> **Prompt Sterility & Separation of Concerns**:
+> The taxonomy labels above (`Integrative Compromise`, `Status Quo Inertia`, `Technocratic Zero-Sum`, `External Scapegoating`) are analytical classifications for researchers and documentation. They are strictly segregated from the execution pipeline. The raw item JSON files in `data/items/` contain pristine policy proposals without parenthetical labels, ensuring LLM agents vote in an un-primed, observational setting. Furthermore, `src/ballot.py` incorporates defensive regex sanitization to guarantee runtime prompt sterility against accidental metadata leakage.
 
 ---
 
@@ -313,15 +317,11 @@ pip install -r requirements.txt
 
 ### Environment Configuration (.env)
 
-Configure your OpenAI-compatible endpoint credentials (e.g., Together AI, vLLM, OpenRouter) in `.env`. Both `OPENAI_API_KEY` and `OPENAI_BASE_URL` are required; there are no dummy fallback credentials, and runs will fail immediately if they are missing.
+Configure your OpenAI-compatible endpoint credentials (e.g., Together AI, vLLM, OpenRouter) in `.env`. Both `OPENAI_API_KEY` and `OPENAI_BASE_URL` are required; there are no dummy fallback credentials, and runs will fail immediately if they are missing. Models are configured strictly in `data/config.json` rather than `.env`.
 
 ```env
 OPENAI_API_KEY=your-api-key-here
 OPENAI_BASE_URL=https://api.together.xyz/v1
-
-# Default models (used directly or as fallback if config.json model is unavailable)
-AGENT_MODEL=openai/gpt-oss-120b
-MODEL_GPT_OSS=openai/gpt-oss-120b
 ```
 
 ### Running Unit & Integration Tests
@@ -369,7 +369,8 @@ All experimental parameters (models, turns, trials, dyads, items, prompts, and s
   "model_config": {
     "agent_model": "openai/gpt-oss-120b",
     "temperature": 0.7,
-    "max_tokens": 512,
+    "deliberation_max_tokens": 512,
+    "ballot_max_tokens": 512,
     "seed": null
   },
   "system_prompts": { ... },
@@ -447,7 +448,7 @@ To test how an Open-Minded Everyman interacts with a Technocrat, append a new ob
 - **`user_prompts` (Prompt Templates & Dynamic Placeholders)**:
   Contains template strings formatted dynamically during execution using Python's `{field}` substitution.
   - **`deliberation_turn`**: Formats the conversational prompt sent to the active agent on each dialogue turn. Requires `{title}`, `{topic_prompt}`, and `{conversation_history}` (which automatically compiles all prior turns into a transcript block).
-  - **`secret_ballot`**: Formats the post-deliberation voting prompt. Requires `{title}`, `{topic_prompt}`, `{transcript_summary}`, `{ballot_prompt}`, and `{formatted_options}`.
+  - **`secret_ballot`**: Formats the post-deliberation voting prompt. Requires `{title}`, `{topic_prompt}`, `{transcript_summary}`, and `{formatted_options}`.
     > [!IMPORTANT]
     > The `secret_ballot` template instructs the model to return **only** a single letter (A, B, C, or D). The defensive regex parser in `src/ballot.py` inspects this response to extract the choice against the randomized presentation order.
 
@@ -455,7 +456,7 @@ To test how an Open-Minded Everyman interacts with a Technocrat, append a new ob
   A key-value dictionary where keys are persona identifiers (`technocrat`, `ideologue`, `populist`, `everyman`) and values are multi-line system prompts defining their role, policy knowledge level, affective polarization, behavioral heuristics, and conversational tone. To add a custom persona (e.g., `"environmentalist"`), add its system prompt here and reference it in a dyad's `agents` array.
 
 - **`items` (Policy Test Battery Paths)**:
-  An array of relative file paths to item JSON definitions (e.g. `"data/items/item01_school_mergers_description.json"`). To evaluate a subset of items or introduce new policy dilemmas, add or remove paths from this list. Each item JSON must define `item_id`, `title`, `topic_prompt`, and `ballot` (containing `prompt`, `options` A–D, and `correct_key`).
+  An array of relative file paths to item JSON definitions (e.g. `"data/items/item01_school_mergers_description.json"`). To evaluate a subset of items or introduce new policy dilemmas, add or remove paths from this list. Each item JSON must define `item_id`, `title`, `topic_prompt`, and `ballot` (containing `options` A–D, and `correct_key`).
 
 - **`mcq_option_order_seed` (Option Randomization Seed)**:
   An integer seed (`42`) used by Python's `random.Random` to shuffle the multiple-choice options (A, B, C, D) before presenting them in `{formatted_options}`. This decouples option positions from underlying semantic keys, neutralizing LLM positional bias. (Legacy config files with `"seed"` are supported via automatic fallback).
@@ -469,7 +470,9 @@ To test how an Open-Minded Everyman interacts with a Technocrat, append a new ob
 - **`experiment_metadata.version`**: Benchmark schema version string (e.g., `"2.0.0"`).
 - **`model_config.agent_model`**: LLM endpoint model identifier (e.g., `"openai/gpt-oss-120b"`).
 - **`model_config.temperature`**: Sampling temperature for multi-turn dialogue (default `0.7`).
-- **`model_config.max_tokens`**: Maximum token limit per individual dialogue statement (default `512`).
+- **`model_config.max_tokens`**: Legacy/fallback maximum token limit for dialogue generation (default `512`).
+- **`model_config.deliberation_max_tokens`**: Maximum token limit allocated per dialogue turn (default `512`).
+- **`model_config.ballot_max_tokens`**: Maximum token limit allocated for secret ballot voting (default `512`, boosted from 32 to accommodate hybrid/reasoning model tokens).
 - **`model_config.seed`**: Optional integer seed for LLM text generation reproducibility (default `null` / `None` for stochastic generation).
 - **`deliberation_config.turns_per_item`**: Number of alternating dialogue turns per session (default `4`, giving 2 turns per agent).
 - **`deliberation_config.trials_per_item`**: Number of independent simulation trials per item-dyad combination (e.g. `5` trials $\times$ 4 dyads = 20 sessions per dilemma; yielding $5 \times 4 \times 4 = 80$ total benchmark sessions).
@@ -482,12 +485,13 @@ All default parameters, fallback chains, and optimization bounds hardcoded withi
 
 | Module / Scope                                  | Parameter                    | Code Default / Fallback                          | Behavior & Purpose                                                                                                                                                                                                |
 | :---------------------------------------------- | :--------------------------- | :----------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Model Resolution** (`src/llm.py`)             | `agent_model`                | `"openai/gpt-oss-120b"`                          | Read from `config.json`. If missing or unavailable on endpoint, falls back through `.env`: `AGENT_MODEL` $\rightarrow$ `DEFAULT_AGENT_MODEL` $\rightarrow$ `MODEL_GPT_OSS` $\rightarrow$ `"openai/gpt-oss-120b"`. |
+| **Model Resolution** (`src/llm.py`)             | `agent_model`                | **No fallback**                                  | Strictly read from `model_config.agent_model` in `config.json`. Fails fast with `ValueError` if omitted. Model configuration is never extracted from `.env`. |
 | **Model Inference Seed** (`src/llm.py`)         | `seed`                       | `None` (`null`)                                  | Controls deterministic LLM inference on endpoints supporting seed parameter. Defaults to `None` for unconstrained stochastic diversity.                                                                           |
 | **API Credentials** (`src/llm.py`)              | `api_key`, `base_url`        | **No fallback**                                  | Strictly read from `OPENAI_API_KEY` and `OPENAI_BASE_URL` in `.env`. Fails fast with `ValueError` if either is missing.                                                                                           |
-| **Dialogue Turns** (`src/deliberation.py`)      | `temperature` / `max_tokens` | `0.7` / `512`                                    | Balanced exploratory sampling for multi-turn citizen dialogue.                                                                                                                                                    |
-| **Secret Ballot** (`src/ballot.py`)             | `temperature` / `max_tokens` | `0.3` / `32`                                     | Low temperature ensures deterministic single-letter option voting.                                                                                                                                                |
-| **Ballot Fallback** (`src/ballot.py`)           | Parsed Letter                | `"A"`                                            | If an LLM response cannot be parsed via regex into A/B/C/D, defensively defaults to `"A"` to prevent crash.                                                                                                       |
+| **Dialogue Turns** (`src/deliberation.py`)      | `temperature` / `max_tokens` | `0.7` / `512`                                    | Balanced exploratory sampling for multi-turn citizen dialogue. Resolved via `deliberation_max_tokens` -> `max_tokens` -> `512`.                                                                                     |
+| **Secret Ballot** (`src/ballot.py`)             | `temperature` / `max_tokens` | `0.3` / `512`                                    | Low temperature ensures deterministic single-letter option voting. Boosted to 512 tokens to ensure reasoning models do not exhaust tokens on hidden chain-of-thought before emitting choice.                       |
+| **Ballot Validation** (`src/ballot.py`)         | Parsed Choice                | **No silent fallback**                           | If an LLM response is empty or unparseable, it is marked `is_valid: False`, logged with `⚠️ [BALLOT WARNING]`, and discarded from CTT/IRT evaluation. A `[!WARNING]` Data Quality Alert is rendered in the report. |
+| **Run Failure Guardrail** (`src/main.py`)       | Abort Validation             | **Aborts report**                                | If all deliberation statements or all ballots across the run are empty, prints a prominent critical error in terminal and aborts report generation (`final_report.md` and `psychometric_evals.json` are skipped).   |
 | **Simulation Matrix** (`src/main.py`)           | `turns_per_item`             | `4`                                              | 4 alternating dialogue turns per session (2 turns per persona).                                                                                                                                                   |
 | **Simulation Matrix** (`src/main.py`)           | `trials_per_item`            | `5`                                              | 5 independent trials per item-dyad combination (80 total sessions across benchmark).                                                                                                                              |
 | **Option Shuffling Seed** (`src/main.py`)       | `mcq_option_order_seed`      | `42` (legacy fallback: `seed`)                   | Base pseudo-random seed for shuffling multiple-choice ballot option presentation order (A/B/C/D) to mitigate LLM position bias.                                                                                   |

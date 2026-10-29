@@ -17,8 +17,8 @@ def test_ctt_metrics_calculation():
             "dyad_id": "D1",
             "trial_index": 0,
             "votes": {
-                "p1": {"item_id": "ITEM_01", "dyad_id": "D1", "trial_index": 0, "persona_id": "p1", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "display_mapping": {}},
-                "p2": {"item_id": "ITEM_01", "dyad_id": "D1", "trial_index": 0, "persona_id": "p2", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "display_mapping": {}},
+                "p1": {"item_id": "ITEM_01", "dyad_id": "D1", "trial_index": 0, "persona_id": "p1", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "is_valid": True, "display_mapping": {}},
+                "p2": {"item_id": "ITEM_01", "dyad_id": "D1", "trial_index": 0, "persona_id": "p2", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "is_valid": True, "display_mapping": {}},
             },
             "consensus_reached": True
         },
@@ -27,8 +27,8 @@ def test_ctt_metrics_calculation():
             "dyad_id": "D1",
             "trial_index": 0,
             "votes": {
-                "p1": {"item_id": "ITEM_02", "dyad_id": "D1", "trial_index": 0, "persona_id": "p1", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "display_mapping": {}},
-                "p2": {"item_id": "ITEM_02", "dyad_id": "D1", "trial_index": 0, "persona_id": "p2", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "display_mapping": {}},
+                "p1": {"item_id": "ITEM_02", "dyad_id": "D1", "trial_index": 0, "persona_id": "p1", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "is_valid": True, "display_mapping": {}},
+                "p2": {"item_id": "ITEM_02", "dyad_id": "D1", "trial_index": 0, "persona_id": "p2", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "is_valid": True, "display_mapping": {}},
             },
             "consensus_reached": True
         },
@@ -38,8 +38,8 @@ def test_ctt_metrics_calculation():
             "dyad_id": "D2",
             "trial_index": 0,
             "votes": {
-                "p1": {"item_id": "ITEM_01", "dyad_id": "D2", "trial_index": 0, "persona_id": "p1", "raw_response": "B", "displayed_letter": "B", "selected_key": "B", "is_correct": False, "display_mapping": {}},
-                "p2": {"item_id": "ITEM_01", "dyad_id": "D2", "trial_index": 0, "persona_id": "p2", "raw_response": "C", "displayed_letter": "C", "selected_key": "C", "is_correct": False, "display_mapping": {}},
+                "p1": {"item_id": "ITEM_01", "dyad_id": "D2", "trial_index": 0, "persona_id": "p1", "raw_response": "B", "displayed_letter": "B", "selected_key": "B", "is_correct": False, "is_valid": True, "display_mapping": {}},
+                "p2": {"item_id": "ITEM_01", "dyad_id": "D2", "trial_index": 0, "persona_id": "p2", "raw_response": "C", "displayed_letter": "C", "selected_key": "C", "is_correct": False, "is_valid": True, "display_mapping": {}},
             },
             "consensus_reached": False
         },
@@ -48,8 +48,8 @@ def test_ctt_metrics_calculation():
             "dyad_id": "D2",
             "trial_index": 0,
             "votes": {
-                "p1": {"item_id": "ITEM_02", "dyad_id": "D2", "trial_index": 0, "persona_id": "p1", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "display_mapping": {}},
-                "p2": {"item_id": "ITEM_02", "dyad_id": "D2", "trial_index": 0, "persona_id": "p2", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "display_mapping": {}},
+                "p1": {"item_id": "ITEM_02", "dyad_id": "D2", "trial_index": 0, "persona_id": "p1", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "is_valid": True, "display_mapping": {}},
+                "p2": {"item_id": "ITEM_02", "dyad_id": "D2", "trial_index": 0, "persona_id": "p2", "raw_response": "A", "displayed_letter": "A", "selected_key": "A", "is_correct": True, "is_valid": True, "display_mapping": {}},
             },
             "consensus_reached": True
         },

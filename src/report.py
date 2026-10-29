@@ -50,6 +50,9 @@ def generate_markdown_report(
     total_sessions = trials_per_item * n_items * n_dyads
     total_votes = total_sessions * 2
 
+    discarded_cnt = int(insights.get("discarded_ballot_count", 0))
+    valid_cnt = int(insights.get("valid_votes_count", insights.get("valid_ballot_count", total_votes - discarded_cnt)))
+
     report_lines = [
         "# Deliberative Item Response Theory (IRT) Benchmark Report",
         "",
@@ -63,6 +66,16 @@ def generate_markdown_report(
         "",
         "## 1. Executive Summary & Core Insights",
         "",
+    ]
+
+    if discarded_cnt > 0:
+        report_lines.extend([
+            "> [!WARNING]",
+            f"> **Data Quality Alert**: {discarded_cnt} of {total_votes} secret ballot(s) produced empty or unparseable responses and were discarded from psychometric evaluation. ({valid_cnt} valid ballots evaluated).",
+            "",
+        ])
+
+    report_lines.extend([
         "This psychometric benchmark evaluates **latent deliberative capacity ($\\theta$)** across diverse citizen demographic dyads "
         "and measures **item difficulty ($b$)**, **item discrimination ($a$)**, and **distractor efficiency (DCR)** across standardized Singapore public policy dilemmas.",
         "",
@@ -122,7 +135,7 @@ def generate_markdown_report(
         "",
         "| Item ID | Policy Dilemma Topic | Consensus Rate ($p_i$) | Discrimination ($D_i$) | DCR (B: Inertia) | DCR (C: Zero-Sum) | DCR (D: Scapegoat) |",
         "| :--- | :--- | :---: | :---: | :---: | :---: | :---: |"
-    ]
+    ])
 
     for item_id, item_info in items_data.items():
         title = item_info.get("title", item_id)

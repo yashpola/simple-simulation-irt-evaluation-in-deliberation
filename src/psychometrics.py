@@ -67,8 +67,11 @@ def compute_ctt_metrics(
         opt_counts: Dict[str, int] = {"A": 0, "B": 0, "C": 0, "D": 0}
         for b in item_ballots:
             for vote in b["votes"].values():
-                k = vote["selected_key"].upper()
-                opt_counts[k] = opt_counts.get(k, 0) + 1
+                if not vote.get("is_valid", True) or not vote.get("selected_key") or not vote.get("raw_response", "").strip():
+                    continue
+                k = vote.get("selected_key")
+                if k and k.upper() in opt_counts:
+                    opt_counts[k.upper()] += 1
 
         correct_count = opt_counts.get("A", 0)
         dcr: Dict[str, float] = {}
@@ -328,7 +331,8 @@ def analyze_experiment_psychometrics(
 
     for b in ballots:
         for p_id, v in b["votes"].items():
-            persona_success_map.setdefault(p_id, []).append(1 if v.get("is_correct") else 0)
+            if v.get("is_valid", True) and v.get("selected_key") and v.get("raw_response", "").strip():
+                persona_success_map.setdefault(p_id, []).append(1 if v.get("is_correct") else 0)
 
     mean_individual_thetas = {
         p_id: round(float(np.mean(vals)), 4)
@@ -361,6 +365,14 @@ def analyze_experiment_psychometrics(
 
     most_tempting_trap = max(avg_dcr.keys(), key=lambda k: avg_dcr[k]) if avg_dcr else "N/A"
 
+    total_votes = sum(len(b["votes"]) for b in ballots)
+    total_discarded = sum(
+        1
+        for b in ballots
+        for v in b["votes"].values()
+        if not v.get("is_valid", True) or not v.get("selected_key") or not v.get("raw_response", "").strip()
+    )
+
     psych_results: PsychometricResults = {
         "ctt": ctt_metrics,
         "irt": {
@@ -379,7 +391,10 @@ def analyze_experiment_psychometrics(
             "lowest_competence_dyad": lowest_dyad,
             "highest_competence_dyad": highest_dyad,
             "average_dcr_by_distractor": avg_dcr,
-            "most_tempting_distractor": most_tempting_trap
+            "most_tempting_distractor": most_tempting_trap,
+            "total_votes_cast": total_votes,
+            "valid_votes_count": total_votes - total_discarded,
+            "discarded_ballot_count": total_discarded,
         }
     }
     return psych_results

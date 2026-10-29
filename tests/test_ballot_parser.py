@@ -56,7 +56,6 @@ def test_prepare_randomized_ballot_mappings():
         "title": "Test Item",
         "topic_prompt": "Prompt context",
         "ballot": {
-            "prompt": "Choose one",
             "options": {
                 "A": "Integrative Compromise",
                 "B": "Status Quo",
@@ -81,13 +80,41 @@ def test_prepare_randomized_ballot_mappings():
         assert desc in formatted_text
 
 
+def test_prepare_randomized_ballot_strips_taxonomy_annotations():
+    item: PolicyItem = {
+        "item_id": "TEST_02",
+        "title": "Annotated Test Item",
+        "topic_prompt": "Prompt context",
+        "ballot": {
+            "options": {
+                "A": "Policy Proposal A (Key - Integrative Compromise)",
+                "B": "Policy Proposal B (Distractor 1 - Status Quo Inertia)",
+                "C": "Policy Proposal C (Distractor 2 - Technocratic Zero-Sum)",
+                "D": "Policy Proposal D (Distractor 3 - External Scapegoating/Deflection)",
+            },
+            "correct_key": "A",
+        },
+    }
+
+    rng = random.Random(42)
+    _, _, formatted_text = prepare_randomized_ballot(item, rng)
+
+    # Validate all taxonomy metadata tags are cleanly stripped from prompt payload
+    assert "(Key" not in formatted_text
+    assert "Integrative Compromise" not in formatted_text
+    assert "(Distractor" not in formatted_text
+    assert "Policy Proposal A" in formatted_text
+    assert "Policy Proposal B" in formatted_text
+    assert "Policy Proposal C" in formatted_text
+    assert "Policy Proposal D" in formatted_text
+
+
 def test_administer_dyad_ballot_seed_parameter_compatibility():
     item: PolicyItem = {
         "item_id": "TEST_01",
         "title": "Test Item",
         "topic_prompt": "Prompt context",
         "ballot": {
-            "prompt": "Choose one",
             "options": {
                 "A": "Integrative Compromise",
                 "B": "Status Quo",

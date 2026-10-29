@@ -35,7 +35,7 @@ The battery comprises **4 standardized policy dilemmas** grounded in Singapore p
 | :-------- | :----------------------------------- | :--------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------- |
 | `ITEM_01` | **School Mergers & Closures**        | Heritage identity vs. demographic decline & resource pooling.          | Phased merger pooling specialized teachers/labs while preserving alumni archives and subsidized transit.           |
 | `ITEM_02` | **Heritage Shophouses vs. MRT Line** | Historical conservation vs. mass transit accessibility.                | Deep-tunnel micro-bored engineering with underpinning at modest cost premium + adaptive re-use entrances.          |
-| `ITEM_03` | **Foreign PMET Thresholds**          | Global hub competitiveness vs. local job displacement anxieties.       | Dynamic salary threshold benchmarking paired with MNC-funded retraining levy and structured knowledge transfer.    |
+| `ITEM_03` | **Foreign PMET Thresholds**          | Global hub competitiveness vs. local job displacement anxieties.       | Points-based COMPASS evaluation weighting local wage percentiles, firm nationality diversity, and local PMET share.    |
 | `ITEM_04` | **Transboundary Haze Enforcement**   | Extraterritorial corporate accountability vs. diplomatic caution & jurisdictional boundaries. | Bilateral firefighting & satellite monitoring paired with mandatory domestic green finance / supply chain traceability standards. |
 
 ### Structured Distractor Taxonomy
@@ -45,6 +45,37 @@ Each policy dilemma includes 3 standardized bad-faith cognitive traps:
 - **Option B (Distractor 1 - Status Quo Inertia Trap)**: Rigid refusal to adapt; demands deficit spending or policy freezes regardless of demographic or fiscal reality.
 - **Option C (Distractor 2 - Technocratic Zero-Sum Trap)**: Ruthless efficiency maximization that completely disregards lived disruption, community identity, and human equity.
 - **Option D (Distractor 3 - External Scapegoating / Deflection Trap)**: Deflecting structural domestic challenges onto foreign or elite scapegoats without a viable solution.
+
+### Methodological Lapse Post-Mortem: Prompt Contamination & Data Sterility
+
+> [!WARNING]
+> **Methodological Incident & Prompt Contamination Hazard**:
+> In an earlier iteration of the benchmark repository, evaluative and pedagogical taxonomy annotations—such as `(Key - Integrative Compromise)`, `(Distractor 1 - Status Quo Inertia)`, `(Distractor 2 - Technocratic Zero-Sum)`, and `(Distractor 3 - External Scapegoating/Deflection)`—were mistakenly appended directly to option strings inside the raw item definition JSON files (`data/items/*.json`).
+>
+> When the runtime pipeline interpolated these options into the post-deliberation voting prompt (`{formatted_options}`), these annotations were leaked directly into the prompt payload delivered to the deliberating LLM agents. This created three severe methodological failures:
+> 1. **Evaluative Prompt Leakage**: The model was overtly signaled which option represented the desired "Key" and which were bad-faith "Distractors", transforming an observational psychometric test into a trivial label-following exercise.
+> 2. **Synthetic Consensus & Psychometric Distortion**: Agents were artificially primed to converge on Option A, producing false high consensus rates ($p_i$), artificially inflating item discrimination ($a_i$), and severely distorting latent ability parameter estimation ($\theta_j$).
+> 3. **Violation of Separation of Concerns**: Raw runtime configs and execution items were contaminated with explanatory documentation and analytical classification metadata.
+
+#### Remediation Protocol & Defensive Architecture
+
+To guarantee absolute benchmark validity and prompt sterility, the repository enforces a strict **two-layer defensive architecture**:
+
+1. **Source Decontamination (Sterile Execution Items)**:
+   All raw item JSON definitions (`data/items/*.json`) have been purged of all parenthetical taxonomy tags, editorial notes, and researcher metadata. The `options` dictionary contains exclusively pristine, realistic policy text as would be presented to human voting citizens. Distractor classifications and ground truth keys (`correct_key`) are segregated strictly for post-hoc analysis.
+
+2. **Runtime Defensive Sanitization**:
+   To prevent accidental regression or contamination if third-party or legacy item files are imported, the ballot preparation engine (`src/ballot.py`) incorporates active regex scrubbing:
+   ```python
+   # Defensive sanitization: strip any parenthetical metadata or taxonomy annotations
+   clean_desc = re.sub(
+       r"\s*\((?:Key|Distractor)[^)]*\)\s*$",
+       "",
+       option_desc,
+       flags=re.IGNORECASE,
+   ).strip()
+   ```
+   This ensures that even if unsterilized item files are ingested by the pipeline, the prompt context delivered to the language model is guaranteed to be sterile.
 
 ---
 
@@ -188,7 +219,7 @@ flowchart TD
 
 ## 7. Strict Coding Guidelines for Reproduction
 
-To allow autonomous agents or researchers to reproduce this codebase reliably, the repository strictly enforces seven architectural guidelines:
+To allow autonomous agents or researchers to reproduce this codebase reliably, the repository strictly enforces eight architectural guidelines:
 
 ### Guideline 1: Strict Typing with Built-in Types (No Pydantic)
 
@@ -202,7 +233,7 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
 - `src/ballot.py`: Secret ballot runner with randomized display order and defensive regex parsing.
 - `src/psychometrics.py`: CTT and 2PL IRT numerical optimization engine.
 - `src/personas.py`: Persona registry and prompt resolution.
-- `src/llm.py`: Production `OpenAIClient` reading `.env` credentials with model fallbacks.
+- `src/llm.py`: Production `OpenAIClient` reading `.env` credentials (`OPENAI_API_KEY`, `OPENAI_BASE_URL`) with model configuration strictly from `config.json`.
 - `src/report.py`: Markdown synthesis report generator.
 
 ### Guideline 3: Single-Responsibility Functions
@@ -228,6 +259,27 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
 - Any default configurations, parameter values, or fallback behaviors embedded in Python logic (e.g., fallback model `openai/gpt-oss-120b` in `src/llm.py`, default inference temperature/max_tokens, option shuffling seeds like `mcq_option_order_seed`, or fallback directory resolutions) MUST be explicitly mentioned in `README.md`.
 - No hidden or undocumented assumptions: If code logic assumes or falls back to a specific default value when an environment variable or config field is omitted, that default must be documented prominently in the README setup instructions to maintain clean engineering hygiene and reproducibility.
 
+### Guideline 8: Decoupling Execution Payloads from Documentation & Evaluative Metadata (Data & Prompt Sterility)
+
+- **Absolute Prohibition on Metadata Contamination in Execution Artifacts**: Raw runtime configuration files (`data/config.json`), test battery items (`data/items/*.json`), and prompt templates MUST NEVER contain documentation-related text, taxonomy labels, editorial commentary, or developer notes.
+- **Strict Boundary Between Execution Payloads and Documentation**:
+  - *Execution Payloads* (what the model or simulation runtime consumes): Must contain strictly the minimal, unannotated operational text required for task execution.
+  - *Documentation & Analysis Schemas* (what researchers and engineers consume): Theoretical justifications, distractor taxonomy assignments, evaluation keys, and pedagogical context must live exclusively in markdown documentation (`docs/`, `README.md`) or separate evaluation/reporting schemas.
+- **Two-Layer Defense-in-Depth for Data Ingestion**:
+  1. *Layer 1 (Authoring Hygiene)*: Data and config files are created and maintained in a pristine, sterilized format without parenthetical annotations (e.g., stripping `(Key...)` and `(Distractor...)`).
+  2. *Layer 2 (Runtime Sanitization)*: Pipeline components that format prompts (e.g., `src/ballot.py`) must defensively parse, sanitize, and strip any potential contamination, metadata tags, or accidental annotations before serializing prompt payloads to the LLM client.
+- **Zero-Tolerance Invariant for Verification**: Unit tests (`tests/test_ballot_parser.py`) must explicitly assert that presented options and deliberation inputs are thoroughly stripped of any evaluative annotations or metadata markers.
+
+### Guideline 9: Non-Silent Failure Guardrails & Explicit Context Token Limits
+
+- **Explicit Token Allocation**: The benchmark separates dialogue token context (`deliberation_max_tokens`, default 512) from ballot token context (`ballot_max_tokens`, default 512). Ballot context is specifically boosted to 512 (from legacy 32) to prevent hybrid/reasoning models (e.g., Qwen-3.5, DeepSeek-R1) from exhausting token budgets on internal reasoning before emitting the final single-letter decision.
+- **Zero Silent Fallbacks on Invalid Ballots**: An empty or unparseable raw response from an LLM agent must NEVER silently default to an arbitrary option (such as "A"). Doing so would introduce deterministic position-seed artifacts and corrupt psychometrics. Instead:
+  1. Emit an explicit terminal warning (`⚠️ [BALLOT WARNING]`).
+  2. Mark the ballot record with `is_valid: False` and `selected_key: None`.
+  3. Discard the invalid ballot from CTT distractor frequency ratios and individual success calculations.
+  4. Display a prominent `[!WARNING]` Data Quality Alert banner in `final_report.md`.
+- **Abort on Total Run Failure**: If all deliberation turn statements or all secret ballots across the benchmark run are empty, the orchestrator MUST NOT generate synthetic or contaminated psychometric outputs. It displays a prominent critical error box in the terminal, saves raw execution artifacts (`config.json`, `items/`, `transcripts/`, `ballots.json`) for diagnostic post-mortems, and cleanly aborts without creating `final_report.md` or `psychometric_evals.json`.
+
 ---
 
 ## 8. Configuration Specification (`data/config.json`)
@@ -242,7 +294,8 @@ To allow autonomous agents or researchers to reproduce this codebase reliably, t
   "model_config": {
     "agent_model": "openai/gpt-oss-120b",
     "temperature": 0.7,
-    "max_tokens": 512,
+    "deliberation_max_tokens": 512,
+    "ballot_max_tokens": 512,
     "seed": null
   },
   "system_prompts": {
@@ -319,8 +372,6 @@ python3 -m src.main --help
 ```env
 OPENAI_API_KEY=your-api-key
 OPENAI_BASE_URL=https://api.together.xyz/v1
-AGENT_MODEL=openai/gpt-oss-120b
-MODEL_GPT_OSS=openai/gpt-oss-120b
 ```
 
 ---

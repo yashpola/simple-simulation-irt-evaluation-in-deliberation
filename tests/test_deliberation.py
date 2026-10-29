@@ -51,7 +51,7 @@ def test_conduct_deliberation_turn_structure():
         "item_id": "ITEM_01",
         "title": "Test Policy",
         "topic_prompt": "Deliberate on policy",
-        "ballot": {"prompt": "Vote", "options": {"A": "Key", "B": "Trap"}, "correct_key": "A"}
+        "ballot": {"options": {"A": "Key", "B": "Trap"}, "correct_key": "A"}
     }
 
     client = TestLLMClient()
@@ -107,7 +107,7 @@ def test_conduct_deliberation_forwards_model_seed():
         "item_id": "ITEM_01",
         "title": "Test Policy",
         "topic_prompt": "Deliberate on policy",
-        "ballot": {"prompt": "Vote", "options": {"A": "Key", "B": "Trap"}, "correct_key": "A"}
+        "ballot": {"options": {"A": "Key", "B": "Trap"}, "correct_key": "A"}
     }
     recorder = RecordingLLMClient()
     conduct_deliberation(

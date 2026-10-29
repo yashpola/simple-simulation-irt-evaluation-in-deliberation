@@ -3,13 +3,13 @@
 Simplified benchmark observing latent deliberative competence and item psychometrics across diverse citizen groups.
 """
 
-from typing import TypedDict, List, Dict, Optional, Any
+from typing import TypedDict, List, Dict, Optional, Any, NotRequired
 
 
 class ItemBallot(TypedDict):
-    prompt: str
     options: Dict[str, str]
     correct_key: str
+    prompt: NotRequired[str]
 
 
 class PolicyItem(TypedDict):
@@ -38,6 +38,10 @@ class ModelConfig(TypedDict, total=False):
     agent_model: str
     temperature: float
     max_tokens: int
+    deliberation_max_tokens: int
+    deliberation_max_new_tokens: int
+    ballot_max_tokens: int
+    ballot_max_new_tokens: int
     seed: Optional[int]
 
 
@@ -91,9 +95,10 @@ class BallotVote(TypedDict):
     trial_index: int
     persona_id: str
     raw_response: str
-    displayed_letter: str
-    selected_key: str
+    displayed_letter: Optional[str]
+    selected_key: Optional[str]
     is_correct: bool
+    is_valid: bool
     display_mapping: Dict[str, str]
 
 

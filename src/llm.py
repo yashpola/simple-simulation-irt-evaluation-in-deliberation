@@ -5,7 +5,7 @@ Adheres to:
 - Guideline 2: Functional split for LLM inference execution.
 - Strictly uses OpenAIClient (mock provider removed).
 - Base URL and API key loaded strictly from environment (.env).
-- Default models fallback from environment (AGENT_MODEL, JUDGE_MODEL, MODEL_LLAMA, MODEL_GEMMA, DEFAULT_AGENT_MODEL).
+- Model identifier configured strictly in config.json (model_config.agent_model).
 """
 
 import abc
@@ -42,14 +42,13 @@ class BaseLLMClient(abc.ABC):
 class OpenAIClient(BaseLLMClient):
     """Client for OpenAI and OpenAI-compatible endpoints (Together AI, vLLM, Ollama, OpenRouter).
 
-    If the primary model specified in config.json is not available on the endpoint,
-    it automatically falls back to default models configured in the environment (.env).
+    Model is configured strictly in config.json.
+    API key and base URL credentials are loaded strictly from the environment (.env).
     """
 
     def __init__(
         self,
         model: str,
-        fallback_model: Optional[str] = None
     ):
         api_key = os.environ.get("OPENAI_API_KEY")
         if not api_key:
@@ -65,8 +64,13 @@ class OpenAIClient(BaseLLMClient):
                 "Please configure your base URL in .env as instructed in README.md."
             )
 
+        if not model:
+            raise ValueError(
+                "Missing required model configuration: 'agent_model' in model_config of config.json. "
+                "The model must be specified in config.json."
+            )
+
         self.model: str = model
-        self.fallback_model: Optional[str] = fallback_model
         self.client: OpenAI = OpenAI(
             api_key=api_key,
             base_url=base_url
@@ -85,65 +89,30 @@ class OpenAIClient(BaseLLMClient):
             messages.append({"role": "system", "content": system_prompt})
         messages.append({"role": "user", "content": prompt})
 
-        try:
-            if seed is not None:
-                response = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=messages,
-                    temperature=temperature,
-                    max_tokens=max_tokens,
-                    seed=seed,
-                )
-            else:
-                response = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=messages,
-                    temperature=temperature,
-                    max_tokens=max_tokens,
-                )
-            return response.choices[0].message.content or ""
-        except Exception as primary_err:
-            err_str = str(primary_err).lower()
-            # If primary model is unavailable / not found, fall back to environment default model
-            if (
-                self.fallback_model
-                and self.fallback_model != self.model
-                and any(keyword in err_str for keyword in ["not found", "does not exist", "invalid model", "model", "404", "400"])
-            ):
-                print(f"⚠️ Model '{self.model}' not available on endpoint ({primary_err}). Falling back to '{self.fallback_model}' from environment...")
-                try:
-                    if seed is not None:
-                        fallback_response = self.client.chat.completions.create(
-                            model=self.fallback_model,
-                            messages=messages,
-                            temperature=temperature,
-                            max_tokens=max_tokens,
-                            seed=seed,
-                        )
-                    else:
-                        fallback_response = self.client.chat.completions.create(
-                            model=self.fallback_model,
-                            messages=messages,
-                            temperature=temperature,
-                            max_tokens=max_tokens,
-                        )
-                    return fallback_response.choices[0].message.content or ""
-                except Exception as fallback_err:
-                    print(f"❌ Fallback model '{self.fallback_model}' also failed: {fallback_err}")
-                    raise fallback_err
-            raise primary_err
-
-
-def resolve_fallback_model(is_judge: bool = False) -> Optional[str]:
-    """Retrieve fallback default model from environment variables (.env)."""
-    return (
-        os.environ.get("AGENT_MODEL")
-        or os.environ.get("DEFAULT_AGENT_MODEL")
-        or os.environ.get("MODEL_GPT_OSS")
-        or os.environ.get("MODEL_LLAMA")
-        or os.environ.get("MODEL_GEMMA")
-        or "openai/gpt-oss-120b"
-    )
+        if seed is not None:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                seed=seed,
+            )
+        else:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=messages,
+                temperature=temperature,
+                max_tokens=max_tokens,
+            )
+        choice = response.choices[0]
+        msg = choice.message
+        content = msg.content or ""
+        if not content:
+            # Fallback for reasoning models that place thinking/tokens in reasoning_content
+            reasoning = getattr(msg, "reasoning_content", None) or getattr(msg, "reasoning", None)
+            if reasoning:
+                content = str(reasoning)
+        return content
 
 
 def get_llm_client(
@@ -151,10 +120,11 @@ def get_llm_client(
     is_judge: bool = False
 ) -> OpenAIClient:
     """Factory function returning configured OpenAIClient reading endpoint credentials directly from .env."""
-    fallback_model = resolve_fallback_model(is_judge=is_judge)
-    model = config.get("agent_model") or fallback_model or "openai/gpt-oss-120b"
+    model = config.get("agent_model")
+    if not model:
+        raise ValueError(
+            "Missing required configuration: 'agent_model' in model_config of config.json. "
+            "The model must be specified in config.json."
+        )
 
-    return OpenAIClient(
-        model=model,
-        fallback_model=fallback_model
-    )
+    return OpenAIClient(model=model)

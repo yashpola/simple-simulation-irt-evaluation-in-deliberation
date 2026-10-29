@@ -76,6 +76,60 @@ def load_policy_battery_items(item_paths: List[str]) -> Dict[str, PolicyItem]:
     return items
 
 
+def _save_base_artifacts(
+    exp_dir: Path,
+    config: MasterConfig,
+    items: Dict[str, PolicyItem],
+    transcripts: List[DeliberationTranscript],
+    all_ballots: List[DyadBallotRecord],
+) -> None:
+    """Save base simulation artifacts (config, items, transcripts, ballots) for diagnostics and analysis."""
+    # (a) Config Snapshot
+    with open(exp_dir / "config.json", "w", encoding="utf-8") as f:
+        json.dump(config, f, indent=2)
+
+    # (b) Battery Items Snapshot
+    items_out_dir = exp_dir / "items"
+    items_out_dir.mkdir(parents=True, exist_ok=True)
+    for item_path in config.get("items", []):
+        src_p = Path(item_path)
+        if src_p.exists():
+            shutil.copy2(src_p, items_out_dir / src_p.name)
+        else:
+            for item_id, item_obj in items.items():
+                if item_id in src_p.name or item_obj.get("item_id") in src_p.name:
+                    with open(items_out_dir / src_p.name, "w", encoding="utf-8") as f:
+                        json.dump(item_obj, f, indent=2)
+
+    # (c) Item-by-Item Deliberation Transcripts
+    transcripts_out_dir = exp_dir / "transcripts"
+    transcripts_out_dir.mkdir(parents=True, exist_ok=True)
+
+    item_filename_map: Dict[str, str] = {}
+    for item_path in config.get("items", []):
+        src_p = Path(item_path)
+        if src_p.exists():
+            try:
+                with open(src_p, "r", encoding="utf-8") as f:
+                    item_json = json.load(f)
+                    if "item_id" in item_json:
+                        base_stem = src_p.stem.removesuffix("_description")
+                        item_filename_map[item_json["item_id"]] = base_stem
+            except Exception:
+                pass
+
+    for item_id in items.keys():
+        base_stem = item_filename_map.get(item_id, item_id.lower())
+        fname = f"{base_stem}_transcript.json"
+        item_transcripts = [t for t in transcripts if t["item_id"] == item_id]
+        with open(transcripts_out_dir / fname, "w", encoding="utf-8") as f:
+            json.dump(item_transcripts, f, indent=2)
+
+    # (d) Secret Ballots
+    with open(exp_dir / "ballots.json", "w", encoding="utf-8") as f:
+        json.dump(all_ballots, f, indent=2)
+
+
 def execute_simulation_run(
     config_path: str = "data/config.json",
     output_dir: Optional[Union[str, Path]] = None
@@ -91,8 +145,7 @@ def execute_simulation_run(
     # 1. Load configuration
     config = load_master_configuration(config_path)
 
-    # Apply environment variable defaults if present
-    model_cfg = config.setdefault("model_config", {})
+    model_cfg = config.get("model_config", {})
 
     # 2. Output directory resolution (Guideline 6)
     target_output_dir = output_dir or config.get("output_dir")
@@ -116,7 +169,7 @@ def execute_simulation_run(
 
     print(f"🚀 Initializing Deliberative IRT Simulation Benchmark")
     print(f"📁 Output Directory: {exp_dir}")
-    print(f"🤖 LLM Model: {client.model} (Fallback: {client.fallback_model})")
+    print(f"🤖 LLM Model: {client.model}")
     print(f"📊 Policy Items: {list(items.keys())}")
     print(f"👥 Citizen Dyads: {[d.get('id') for d in dyads]}")
     print(f"🔄 Trials per item: {trials_per_item}")
@@ -163,66 +216,62 @@ def execute_simulation_run(
                 )
                 all_ballots.append(ballot_record)
 
-    # 6. Psychometrics Analysis (CTT & IRT)
+    # 6. Save Base Simulation Artifacts for Inspection & Diagnostics
+    _save_base_artifacts(exp_dir, config, items, transcripts, all_ballots)
+
+    # 7. Quality Assurance Validation: Non-Silent Failure Detection
+    total_statements = sum(len(t.get("turns", [])) for t in transcripts)
+    empty_statements = sum(
+        1 for t in transcripts for turn in t.get("turns", []) if not turn.get("statement", "").strip()
+    )
+    all_deliberations_empty = bool(total_statements > 0 and empty_statements == total_statements)
+
+    total_ballots = sum(len(b.get("votes", {})) for b in all_ballots)
+    empty_ballots = sum(
+        1
+        for b in all_ballots
+        for v in b.get("votes", {}).values()
+        if not v.get("is_valid", False) or not v.get("raw_response", "").strip()
+    )
+    all_ballots_empty = bool(total_ballots > 0 and empty_ballots == total_ballots)
+
+    if all_deliberations_empty or all_ballots_empty:
+        causes: List[str] = []
+        if all_deliberations_empty:
+            causes.append("All deliberation turn statements were empty")
+        if all_ballots_empty:
+            causes.append("All secret ballots produced empty or unparseable responses")
+        failure_summary = " and ".join(causes)
+
+        border = "=" * 80
+        print(f"\n{border}")
+        print("🚨 CRITICAL ERROR: RUN FAILURE DETECTED — ABORTING FINAL REPORT 🚨")
+        print(border)
+        print(f"Cause: {failure_summary}.")
+        print("Model generation tokens may have been exhausted by model reasoning,")
+        print("or the endpoint returned empty completions across all agents.")
+        print("\nDiagnostics:")
+        print(f"  • Deliberation Statements: {empty_statements}/{total_statements} empty")
+        print(f"  • Secret Ballots: {empty_ballots}/{total_ballots} empty/invalid")
+        print(f"\nBase diagnostics (config, item definitions, raw transcripts, raw ballots)")
+        print(f"have been saved to: {exp_dir}")
+        print("Psychometric evaluation (psychometric_evals.json) and synthesis report (final_report.md)")
+        print("have been ABORTED to avoid presenting contaminated or artificial data.")
+        print(f"{border}\n")
+        return exp_dir
+
+    # 8. Psychometrics Analysis (CTT & IRT)
     print("📈 Fitting CTT and 2PL IRT Psychometric Models...")
     psychometric_results: PsychometricResults = analyze_experiment_psychometrics(
         ballots=all_ballots,
         item_ids=list(items.keys())
     )
 
-    # 7. Persist All Experiment Artifacts (Guideline 6)
-    print("💾 Saving experiment artifacts to indexed output directory...")
-
-    # (a) Config Snapshot
-    with open(exp_dir / "config.json", "w", encoding="utf-8") as f:
-        json.dump(config, f, indent=2)
-
-    # (b) Battery Items Snapshot
-    items_out_dir = exp_dir / "items"
-    items_out_dir.mkdir(parents=True, exist_ok=True)
-    for item_path in config.get("items", []):
-        src_p = Path(item_path)
-        if src_p.exists():
-            shutil.copy2(src_p, items_out_dir / src_p.name)
-        else:
-            for item_id, item_obj in items.items():
-                if item_id in src_p.name or item_obj.get("item_id") in src_p.name:
-                    with open(items_out_dir / src_p.name, "w", encoding="utf-8") as f:
-                        json.dump(item_obj, f, indent=2)
-
-    # (c) Item-by-Item Deliberation Transcripts
-    transcripts_out_dir = exp_dir / "transcripts"
-    transcripts_out_dir.mkdir(parents=True, exist_ok=True)
-
-    item_filename_map: Dict[str, str] = {}
-    for item_path in config.get("items", []):
-        src_p = Path(item_path)
-        if src_p.exists():
-            try:
-                with open(src_p, "r", encoding="utf-8") as f:
-                    item_json = json.load(f)
-                    if "item_id" in item_json:
-                        base_stem = src_p.stem.removesuffix("_description")
-                        item_filename_map[item_json["item_id"]] = base_stem
-            except Exception:
-                pass
-
-    for item_id in items.keys():
-        base_stem = item_filename_map.get(item_id, item_id.lower())
-        fname = f"{base_stem}_transcript.json"
-        item_transcripts = [t for t in transcripts if t["item_id"] == item_id]
-        with open(transcripts_out_dir / fname, "w", encoding="utf-8") as f:
-            json.dump(item_transcripts, f, indent=2)
-
-    # (d) Secret Ballots
-    with open(exp_dir / "ballots.json", "w", encoding="utf-8") as f:
-        json.dump(all_ballots, f, indent=2)
-
-    # (e) CTT & IRT Psychometric Evaluations
+    # 9. Persist Evaluative Artifacts (Guideline 6)
+    print("💾 Saving psychometric evaluation results and final synthesis report...")
     with open(exp_dir / "psychometric_evals.json", "w", encoding="utf-8") as f:
         json.dump(psychometric_results, f, indent=2)
 
-    # (f) Final Markdown Synthesis Report
     report_path = exp_dir / "final_report.md"
     generate_markdown_report(
         config=config,

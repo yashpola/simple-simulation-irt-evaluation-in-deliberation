@@ -91,8 +91,6 @@ Dilemma Context:
 Deliberation Summary / Transcript:
 {transcript_summary}
 
-{ballot_prompt}
-
 Options (in randomized order):
 {formatted_options}
 

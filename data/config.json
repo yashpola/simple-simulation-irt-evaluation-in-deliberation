@@ -2,12 +2,13 @@
   "experiment_metadata": {
     "name": "IRT Deliberative Capacity Benchmark",
     "description": "Observing latent deliberative competence and item psychometrics across diverse citizen groups and Singapore policy dilemmas",
-    "version": "2.0.0"
+    "version": "3"
   },
   "model_config": {
-    "agent_model": "openai/gpt-oss-120b",
+    "agent_model": "Qwen/Qwen3.5-9B",
     "temperature": 0.7,
-    "max_tokens": 512,
+    "deliberation_max_tokens": 512,
+    "ballot_max_tokens": 512,
     "seed": null
   },
   "system_prompts": {
@@ -18,7 +19,7 @@
   },
   "user_prompts": {
     "deliberation_turn": "You are in a structured policy deliberation with another citizen regarding:\n\"{title}\"\n\nDilemma Context:\n{topic_prompt}\n\nConversation History:\n{conversation_history}\n\nNow it is your turn to speak. In 3-5 sentences, reply directly to the other participant. Express your perspective, respond constructively to their arguments, and work toward a viable policy compromise that balances competing legitimate values.",
-    "secret_ballot": "You have completed a structured policy deliberation on:\n\"{title}\"\n\nDilemma Context:\n{topic_prompt}\n\nDeliberation Summary / Transcript:\n{transcript_summary}\n\n{ballot_prompt}\n\nOptions (in randomized order):\n{formatted_options}\n\nInstructions:\nSelect the single resolution that best resolves the policy tension.\nRespond ONLY with the single letter corresponding to your choice (e.g., A, B, C, or D) and nothing else."
+    "secret_ballot": "You have completed a structured policy deliberation on:\n\"{title}\"\n\nDilemma Context:\n{topic_prompt}\n\nDeliberation Summary / Transcript:\n{transcript_summary}\n\nOptions (in randomized order):\n{formatted_options}\n\nInstructions:\nSelect the single resolution that best resolves the policy tension.\nRespond ONLY with the single letter corresponding to your choice (e.g., A, B, C, or D) and nothing else."
   },
   "items": [
     "data/items/item01_school_mergers_description.json",

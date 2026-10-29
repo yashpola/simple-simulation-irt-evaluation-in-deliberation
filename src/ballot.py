@@ -82,7 +82,8 @@ def prepare_randomized_ballot(
         display_to_canonical[disp_letter] = canon_key
         canonical_to_display[canon_key] = disp_letter
         option_desc = options_dict.get(canon_key, "")
-        options_text_lines.append(f"{disp_letter}. {option_desc}")
+        clean_desc = re.sub(r"\s*\((?:Key|Distractor)[^)]*\)\s*$", "", option_desc, flags=re.IGNORECASE).strip()
+        options_text_lines.append(f"{disp_letter}. {clean_desc}")
 
     formatted_options = "\n".join(options_text_lines)
     return display_to_canonical, canonical_to_display, formatted_options
@@ -115,21 +116,43 @@ def administer_agent_ballot(
 
     model_cfg = config.get("model_config", {})
     model_seed = model_cfg.get("seed", None)
+    ballot_max_tokens = (
+        model_cfg.get("ballot_max_tokens")
+        or model_cfg.get("ballot_max_new_tokens")
+        or 512
+    )
     system_prompt = resolve_persona_system_prompt(persona_id, config)
     raw_response = client.generate(
         prompt=ballot_prompt,
         system_prompt=system_prompt,
         temperature=0.3,
-        max_tokens=32,
+        max_tokens=ballot_max_tokens,
         seed=model_seed
     )
 
-    parsed_display_letter = parse_ballot_choice(raw_response, list(display_to_canon.keys()))
-    if not parsed_display_letter:
-        parsed_display_letter = "A"
+    raw_clean = raw_response.strip()
+    parsed_display_letter = parse_ballot_choice(raw_clean, list(display_to_canon.keys()))
 
-    selected_canonical_key = display_to_canon.get(parsed_display_letter, "A")
-    is_correct = bool(selected_canonical_key == correct_key)
+    if not raw_clean:
+        print(
+            f"⚠️  [BALLOT WARNING] Agent '{persona_id}' (dyad {dyad_id}, trial {trial_index}) on '{item.get('item_id')}' "
+            f"produced an EMPTY raw response. This ballot vote is discarded."
+        )
+        selected_canonical_key: Optional[str] = None
+        is_correct = False
+        is_valid = False
+    elif not parsed_display_letter:
+        print(
+            f"⚠️  [BALLOT WARNING] Agent '{persona_id}' (dyad {dyad_id}, trial {trial_index}) on '{item.get('item_id')}' "
+            f"produced unparseable ballot response: {repr(raw_clean[:60])}. This ballot vote is discarded."
+        )
+        selected_canonical_key = None
+        is_correct = False
+        is_valid = False
+    else:
+        selected_canonical_key = display_to_canon.get(parsed_display_letter)
+        is_correct = bool(selected_canonical_key == correct_key)
+        is_valid = True
 
     vote: BallotVote = {
         "item_id": item["item_id"],
@@ -140,6 +163,7 @@ def administer_agent_ballot(
         "displayed_letter": parsed_display_letter,
         "selected_key": selected_canonical_key,
         "is_correct": is_correct,
+        "is_valid": is_valid,
         "display_mapping": display_to_canon
     }
     return vote
@@ -178,8 +202,8 @@ def administer_dyad_ballot(
         )
         votes[persona_id] = vote
 
-    # Consensus reached if ALL agents in dyad chose the integrative compromise (target key)
-    consensus = bool(all(v["is_correct"] for v in votes.values()))
+    # Consensus reached if ALL agents in dyad had valid votes and chose the integrative compromise (target key)
+    consensus = bool(all(v.get("is_valid", False) and v.get("is_correct", False) for v in votes.values()))
 
     ballot_record: DyadBallotRecord = {
         "item_id": item["item_id"],

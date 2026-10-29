@@ -44,7 +44,11 @@ def conduct_deliberation(
     prompt_template = user_prompts.get("deliberation_turn", "")
     model_cfg = config.get("model_config", {})
     temperature = model_cfg.get("temperature", 0.7)
-    max_tokens = model_cfg.get("max_tokens", 512)
+    max_tokens = (
+        model_cfg.get("deliberation_max_tokens")
+        or model_cfg.get("deliberation_max_new_tokens")
+        or model_cfg.get("max_tokens", 512)
+    )
     model_seed = model_cfg.get("seed", None)
 
     for turn_idx in range(turns_per_item):

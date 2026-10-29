@@ -12,8 +12,7 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}
 \usepackage{float}
-\usepackage[table]{xcolor}
-\usepackage[dvipsnames]{xcolor}
+\usepackage[table,dvipsnames]{xcolor}
 \usepackage{longtable}
 \usepackage{booktabs}
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}
@@ -61,18 +60,24 @@
 \rule{\textwidth}{0.4pt}
 
 \subsection{Aim}
-The aim of the experiment is simulating \textbf{dyadic} civic deliberation on a range of topics, and thereafter judging the deliberative ability of LLMs relative both to their assigned citizen personas, and to the topic itself.
+The aim of the experiment is simulating \textbf{dyadic} civic deliberation on a range of topics, and thereafter judging the deliberative ability of LLMs relative both to their assigned citizen personas, and to the topic itself.\\
+
+Broadly, this experiment explores the evaluation of deliberative quality using \textbf{psychometric theory}, by appending to the deliberation a confidential policy vote for each deliberative agent. While this is done primarily to challenge popular alternative metrics like semantic convergence and DQI\footnote{Susceptible to the quirks of the underlying RLHF chatbot-training of LLMs; one example being the conversational technique such as mirroring.}, there is empirical basis to suggest that deliberation and voting should be combined to optimize democratic outcomes.\\
+
+Specifically, \texttt{Yang and Bachmann 2025} argue that deliberation and voting are complementary rather than conflicting democratic mechanisms. Post-deliberative voting serves as an essential ``fair closure mechanism'' that guarantees equal standing, encourages authentic preference revelation, and preserves legitimate dissent. Furthermore, \texttt{Yang and Bachmann 2025} suggest that administering this ballot privately as a secret vote is essential to prevent social conformity pressure and prevailing-opinion bias.\\
+
+This experiment defaults to 4 currently relevant issues in Singapore, spanning social, economic, and environmental axes\footnote{As will be emphasised later however, the user can configure as many topics as they wish to simulate deliberations for.}.
 
 \subsubsection{Topic 1: School Closures}
 \begin{sidequote}
     \emph{Due to declining birth rates, the Ministry of Education (MOE) regularly merges or closes primary and secondary schools. This is a highly emotional topic, pitting practical resource allocation and diverse social mixing against heritage, alumni loyalty, and localized community disruption.}
 \end{sidequote}
 
-Reference: \href{https://www.channelnewsasia.com/singapore/italian-man-jail-caning-trafficking-singaporean-woman-dubai-6438696}{CNA, 2021}.
+Reference: \href{https://www.channelnewsasia.com/singapore/nine-pairs-schools-merge-2022-amid-falling-birth-rates-changing-demographics-5650006}{CNA, 2021}.
 
 \subsubsection{Topic 2: Heritage Shophouses vs New MRT Lines}
 \begin{sidequote}
-    LTA initially announced that three shophouse units (numbers 235, 237, and 239) of the 1924 conserved Ellison Building would be completely demolished to clear the way for underground excavation works, with plans to reconstruct them after the tunnel's completion. This drew strong objections from organizations like the Singapore Heritage Society and ICOMOS Singapore. They argued that tearing down and rebuilding a gazetted structure undermines the core principles of heritage conservation
+    LTA initially announced that three shophouse units (numbers 235, 237, and 239) of the 1924 conserved Ellison Building would be completely demolished to clear the way for underground excavation works, with plans to reconstruct them after the tunnel's completion. This drew strong objections from organizations like the Singapore Heritage Society and ICOMOS Singapore. They argued that tearing down and rebuilding a gazetted structure undermines the core principles of heritage conservation.
 \end{sidequote}
 
 Reference:
@@ -99,13 +104,13 @@ Reference:
 
 The experiment defaults to $N = 4$ different citizen personas:
 \begin{itemize}
-    \item $\boldsymbol{P}_1$: The Technocratic Pragmatic; Calm, analytical, focused on feasibility, data, and institutional mechanisms.
-    \item$\boldsymbol{P}_2$: The Ideological Advocate; Articulate, morally committed to preservation and equity; skeptical of technocratic coldness.
+    \item $\boldsymbol{P}_1$: The Technocratic Pragmatist; Calm, analytical, focused on feasibility, data, and institutional mechanisms.
+    \item $\boldsymbol{P}_2$: The Ideological Advocate; Articulate, morally committed to preservation and equity; skeptical of technocratic coldness.
     \item $\boldsymbol{P}_3$: The Disaffected Populist; Emotive, candid, feels sidelined by elites; defensive and prone to scapegoating heuristics.
     \item $\boldsymbol{P}_4$: The Open-Minded Everyman; Plainspoken, humble, constructive; seeks common-sense harmony.
 \end{itemize}
 
-The choice of $N = 4$ personas are based on the matrix below crossing \textit{Knowledge} $\times$ \textit{Polarization}. \textbf{In general however, the experiment allows for any variable number of $N$ personas.}
+The choice of $N = 4$ personas is based on the matrix below crossing \textit{Knowledge} $\times$ \textit{Polarization}. \textbf{In general however, the experiment allows for any variable number of $N$ personas.}
 
 \begin{table}[h!]
 \centering
@@ -128,66 +133,112 @@ The choice of $N = 4$ personas are based on the matrix below crossing \textit{Kn
 
 \subsection{Dyadic Configurations}
 
-The deliberations are structured around pairs of above personas. The number and choices of dyadic configurations are user-configurable (with a theoretical maximum of $\frac{N(N-1)}{2}$). Some examples of configurations are:
+The deliberations are structured around pairs of the above personas. The number and choices of dyadic configurations are user-configurable (with a theoretical maximum of $\frac{N(N-1)}{2}$). The benchmark defaults to $M = 4$ canonical dyad configurations:
 
 \begin{itemize}
-    \item Technocrat vs Ideologue: focused on friction between personal convictions of what governance looks like.
-    \item Ideologue vs Populist: focused on agent vulnerability due to information-asymmetry.
+    \item $\boldsymbol{D}_1$ (Technocrat vs Ideologue): focused on friction between personal convictions of what governance looks like (\textit{Ideological Friction}).
+    \item $\boldsymbol{D}_2$ (Technocrat vs Populist): focused on agent vulnerability due to information asymmetry (\textit{Asymmetric Vulnerability}).
+    \item $\boldsymbol{D}_3$ (Ideologue vs Populist): focused on intractable deadlock between two polarized stances (\textit{Polarized Stalemate}).
+    \item $\boldsymbol{D}_4$ (Ideologue vs Everyman): focused on the dynamic between articulate advocacy and common-sense grounding (\textit{Rhetorical Dominance}).
 \end{itemize}
 
-\subsection{Execution Flow}
+\subsection{Procedure}
 \begin{enumerate}
-    \item User prepares a \texttt{data/items/} with individual \texttt{itemXX\_\{topic\}\_description.json} files, each populated with required information about the topic to be deliberated.
-    \item User prepares a \texttt{data/config.json} and loads-in an API key and/or Base URL in \texttt{.env}.
+    \item User prepares a \texttt{data/items/} folder with individual \texttt{itemXX\_\{topic\}\_description.json} files. The user can specify any number of topics, so long as each config is populated with the required information about the topic to be deliberated.
+    \item User prepares a \texttt{data/config.json} file and loads-in an API key and/or Base URL in \texttt{.env}.
     \item User executes \texttt{python3 -m src.main --config "path\_to\_config.json"}.
-    \item Script programmatically extracts config details and initializes client for compute service.
-    \item For each topic, a deliberation is conducted between the configured dyadic pairs for the configured number of turns.
-    \item The deliberation is then repeated from scratch over the configured number of trials, for a representative outcome.
-    \item The agents vote, independently and privately, on a 4-option MCQ for their policy of choice after deliberation.
-    \item Raw JSON transcripts for each topic are saved in separate files in \texttt{data/expXXX/transcripts/} in the format \texttt{itemXX\_\{topic\}\_transcript.json}, where the \texttt{expXXX} folder is dynamically generated. The ballots are also saved in \texttt{data/expXXX/ballots.json}. 
+    \item Script programmatically extracts the config details and initializes client for compute service.
+    \item For each topic item, a deliberation is conducted between the user-configured dyadic pairs for the user-configured number of turns.
+    \item After the agents have concluded all turns, they vote - privately - on a 4-option MCQ for their policy of choice.
+    \item Steps 5 and 6 are repeated for the user-configured number of trials, to produce a more representative outcome for the topic and deliberation configuration.
+    \item Raw transcripts for each topic are saved in separate JSON files in the folder \texttt{data/expXXX/transcripts/}, with the naming format \texttt{itemXX\_\{topic\}\_transcript.json}\footnote{The experiment-run indexed \texttt{expXXX} folder is dynamically generated.}. The secret ballots are saved in \texttt{data/expXXX/ballots.json}, alongside snapshots of the configuration (\texttt{config.json}) and battery item definitions (\texttt{items/}) used for the run. 
     \item Raw JSON metrics over all topics over all trials are saved in a single file \texttt{data/expXXX/psychometric\_evals.json}.
-    \item A separate `final\_report.md` summarizing the run outcome is also programmatically generated. 
+    \item A separate \texttt{final\_report.md} file summarizing the run outcome is also programmatically generated. 
 \end{enumerate}
+
+\subsection{Outcome}
 
 In essence, the contract of the repo is:
 \begin{sidequote}
     \textbf{IF} the user specifies the \texttt{data/items/} and \texttt{data/config.json} properly and loads in a valid API key and/or Base URL in \texttt{.env},\\
 
-    \textbf{THEN} the pipeline will run an $N$-turn deliberation between every user-specified pair of agent personas using the user-specified LLM(s) over $M$-trials, with a final policy vote, and output the chat histories and voting outcomes of all trials for each topic in \texttt{JSON} files. The pipeline will also output a \texttt{psychometric\_evals.json} with a series of psychometric evaluation figures and overall conclusions. All outputs will be saved in an automatically created \& indexed experiment run sub-directory of \texttt{data}.
+    \textbf{THEN} the pipeline will run an $N$-turn deliberation between $M$ user-specified dyads of agent personas over $W$ topics, replicated for $T$-trials; each trial ends with a final policy vote, and then the chat histories and voting outcomes of the trials are recorded in topic-specific \texttt{JSON} files. The pipeline will also output a \texttt{psychometric\_evals.json} with a series of psychometric evaluation figures and overall conclusions. All outputs will be saved in an automatically created \& indexed experiment run sub-directory of \texttt{data}.
 \end{sidequote}
+
+In general, if the user requests $W$ topics of deliberation between $M$-configurations of dyads to be replicated for $T$-trials, then there will be a total of $W \times M \times T$ deliberations generated, and $W \times M \times T \times 2$ ballots conducted (since each of the 2 agents in each deliberation vote independently).\\
 
 A sample \texttt{itemXX\_\{topic\}\_transcript.json} looks like:
 
 \begin{verbatim}
-{
-    "item_id": "ITEM_04",
-    "item_title": "Transboundary Haze Enforcement and Corporate Accountability",
+[
+    {
+        "item_id": "ITEM_01",
+        "item_title": "School Closures and Mergers in Singapore",
+        "dyad_id": "D1",
+        "agents": [
+          "technocrat",
+          "ideologue"
+        ],
+        "trial_index": 0,
+        "turns": [
+          {
+            "turn_index": 0,
+            "speaker": "Technocratic Pragmatist (P1)",
+            "persona_id": "technocrat",
+            "statement": "..."
+          },
+          {
+            "turn_index": 1,
+            "speaker": "Ideological Advocate (P2)",
+            "persona_id": "ideologue",
+            "statement": "..."
+          }
+        ]
+    },
+    {
+        ....
+    },
+]
+\end{verbatim}
+
+A sample \texttt{ballots.json} looks like:
+\begin{verbatim}
+[
+  {
+    "item_id": "ITEM_01",
     "dyad_id": "D1",
-    "agents": [
-      "technocrat",
-      "ideologue"
-    ],
     "trial_index": 0,
-    "turns": [
-      {
-        "turn_index": 0,
-        "speaker": "Technocratic Pragmatist (P1)",
+    "votes": {
+      "technocrat": {
+        "item_id": "ITEM_01",
+        "dyad_id": "D1",
+        "trial_index": 0,
         "persona_id": "technocrat",
-        "statement": "..."
+        "raw_response": "A",
+        "displayed_letter": "A",
+        "selected_key": "C",
+        "is_correct": false,
+        "is_valid": true,
+        "display_mapping": {
+          "A": "C",
+          "B": "D",
+          "C": "A",
+          "D": "B"
+        }
       },
-      {
-        "turn_index": 1,
-        "speaker": "Ideological Advocate (P2)",
-        "persona_id": "ideologue",
-        "statement": "..."
-      },
-    ]
-}
+      "ideologue": {
+        ...
+      }
+    },
+    "consensus_reached": false
+  },
+  ...
+]
 \end{verbatim}
 
 A sample \texttt{psychometric\_evals.json} looks like:
 \begin{verbatim}
-    {
+{
   "ctt": {
     "ITEM_01": {
       "item_id": "ITEM_01",
@@ -262,157 +313,295 @@ A sample \texttt{psychometric\_evals.json} looks like:
 
 Optionally, the user can enlist an agent to output a \texttt{itemXX\_\{topic\}\_transcript.pdf} for an easier textual analysis or review of the agents' generated arguments.
 
-\subsection{Indicators}
+\subsection{Evaluation}
 \subsubsection{Variables}
 \textbf{Independent variables}: 
 \begin{itemize}
     \item The topic of deliberation.
     \item The citizen persona.
-\end{itemize}\\
+\end{itemize}
 
 \textbf{Dependent variables}: 
-The dependent variables are \textbf{psychometric} variables, influenced by Item Response Theory and Classical Test Theory. In this context, the \texttt{item} is the topic of deliberation. 
+The dependent variables are \textbf{psychometric} variables, influenced by Classical Test Theory (CTT) and Item Response Theory (IRT). In this context, the \texttt{item} is the topic of deliberation and the following metrics are evaluated mostly based on the secret ballots that the agents place after deliberation.\\
+
+\underline{CTT Metrics:}
 \begin{enumerate}
-    \item \textbf{Item Difficulty}: The rate of 
-    \item \textbf{Self-Shift}
-    \item \textbf{Plurality/CovD}
-    \item \textbf{DQI}
+    \item \textbf{Consensus Rate}: The proportion of the $W \times M$ deliberations (averaged over $T$ trials) where both participants in the dyad reach consensus by independently selecting the right integrative compromise on their secret ballots as would be expected after deliberation.
+    \item \textbf{CTT Item Discrimination Index}: Measures an item's ability to differentiate between high-competence and low-competence dyads by taking the difference of the Item Difficulty/Consensus Rate of the top and bottom 27\% of the cohort.
+    \item \textbf{Distractor-to-Correct Ratio}: Quantifies the relative cognitive pull of a bad-faith option against a good integrative compromise option across all $W \times M \times 2$ individual secret ballots cast by agents, averaged over $T$ trials.
 \end{enumerate}
 
-\subsection{Interpretation}
+\underline{IRT Metrics:}
 \begin{enumerate}
-    \item \textbf{Convergence}: The larger the convergence metric, the stronger the deliberation consensus.
-    \item \textbf{Self-Shift}: The larger the self-shift metric, the more all agents' willingness to change their stances.
-    \item \textbf{Plurality/CovD}: The higher the CovD, the higher the diversity of opinions (plurality) and the weaker the consensus.
-    \item \textbf{DQI}: The higher the DQI, the better the discourse quality.
+    \item \textbf{Item Difficulty}: The latent deliberative ability threshold required for a deliberator to have a 50\% probability of adopting the integrative compromise option in the secret ballot.
+    \item \textbf{IRT Item Discrimination}: The slope of the Item Characteristic Curve (ICC) at the Item Difficulty, reflecting how sharply the dilemma differentiates between differing ability levels.
+    \item \textbf{Latent Deliberative Ability}: The standardized competence trait of a deliberator, estimated under regularized maximum likelihood. 
+    \begin{itemize}
+        \item Dyadic ability: Joint consensus convergence where both agents in the dyad simultaneously vote for the integrative compromise.
+        \item Individual ability: Persona's marginal baseline propensity to vote for the integrative compromise across all topics.
+        \item Partner Interaction Effects: Persona's latent ability conditioned on the specific dyadic partner, isolating communicative synergy and polarization shifts.
+    \end{itemize}
 \end{enumerate}
+
+\subsubsection{Interpretation}
+\begin{enumerate}
+    \item Consensus Rate: Measured between [0.0, 1.0]; the larger this metric, the stronger the political consensus.
+    \item CTT Item Discrimination: Measured between [-1.0, +1.0]; the larger this metric, the greater the ability of the topic to discriminate deliberators.
+    \item Distractor-to-Correct Ratio (DCR): Measured between [0.0, $+\infty$]; the larger this metric, the stronger the power of the distractor in out-competing the integrative compromise.
+    \item Item Difficulty: Measured between [-4.0, +4.0] under Gaussian prior; the larger this metric, the greater the difficulty of the topic.
+    \item IRT Item Discrimination: Measured between [0.1, 4.0]; the larger this metric, the greater the ability of the topic to discriminate deliberators by ability.
+    \item Latent Ability: Measured between [-4.0, +4.0]; the larger this metric, the greater the deliberative ability of the agent or dyad.
+\end{enumerate}
+
+\subsubsection{Theoretical/Empirical Basis}
+The application of psychometric theory to LLM-simulated deliberation was motivated by \texttt{Ke et al. 2026}, which applied CTT/IRT to evaluate LLM responses to assessments meant for students, to judge the quality of such assessments.\\
+
+\texttt{Bächtiger et al. 2022} also suggest that the very popular quantitative metric, DQI, which has been used to judge LLM-deliberative quality in \texttt{Zhang et al. 2026}, may also be reformed using IRT; making deliberative quality a latent instead of absolute variable.
 
 \newpage
 
-\section{Experiment Specifics}
+\section{Pilot Experiment Specifics}
 \label{sec:taskdescription}
 \rule{\textwidth}{0.4pt}
 
 \subsection{Repo Architecture}
 \dirtree{%
-.1 simple-simulation-school-closure/.
+.1 simple-simulation-psychometric-eval-of-deliberation/.
 .2 data/.
+.3 config.json \DTcomment{Master simulation configuration (models, dyads, items, IRT priors)}.
+.3 items/.
+.4 item01\_school\_mergers\_description.json \DTcomment{School Mergers policy item}.
+.4 item02\_heritage\_mrt\_description.json \DTcomment{Heritage Shophouses vs. MRT Line item}.
+.4 item03\_foreign\_talent\_description.json \DTcomment{Foreign PMET Thresholds item}.
+.4 item04\_transboundary\_haze\_description.json \DTcomment{Transboundary Haze Enforcement item}.
 .3 exp000/ \DTcomment{Indexed directory for experiment artifacts (auto-increments)}.
-.4 config.json \DTcomment{Master configuration specific to this run (models, prompts, params)}.
-.4 results\_control.json \DTcomment{Auto-generated transcript and stances for Control}.
-.4 results\_control\_transcript.pdf \DTcomment{Document-form transcript and stances for Control}.
-.4 results\_treatment.json \DTcomment{Auto-generated transcript and stances for Treatment}.
-.4 results\_treatment\_transcript.pdf \DTcomment{Document-form transcript and stances for Treatment}.
-.4 evals.json \DTcomment{Compiled evaluation metrics (Cosine, CovD, DQI)}.
-.4 final\_report.md \DTcomment{Synthesized markdown report of the experiment results}.
-.3 config.json \DTcomment{General dir-level configuration which should be edited before a run and will be copied over after}.
+.4 config.json \DTcomment{Snapshot of master configuration used for this run}.
+.4 items/ \DTcomment{Snapshot of standardized battery items evaluated in run}.
+.4 transcripts/ \DTcomment{Item-by-item multi-turn deliberation transcripts}.
+.4 ballots.json \DTcomment{Post-deliberation secret votes and parsed selections}.
+.4 psychometric\_evals.json \DTcomment{Computed CTT ($p, D, \text{DCR}$) and 2PL IRT ($\theta, b, a$) metrics}.
+.4 final\_report.md \DTcomment{Synthesized markdown report of benchmark results with Mermaid diagrams}.
 .2 docs/.
-.3 coding\_guidelines.md.
-.3 experiment\_design\_school\_closures.md.
-.3 experiment\_report.pdf.
+.3 coding\_guidelines.md \DTcomment{Architectural rules, typing standards, and testing protocols}.
+.3 experiment\_details.tex \DTcomment{Comprehensive formal experimental documentation in \LaTeX}.
+.3 experiment\_design\_psychometric\_eval\_deliberation.md \DTcomment{Psychometric benchmark evaluation framework}.
+.3 prompt\_templates.md \DTcomment{Citizen persona system prompts and ballot templates}.
 .2 src/.
-.3 main.py \DTcomment{Entry point. Loads config and coordinates modules.}.
-.3 deliberation.py \DTcomment{Simulation engine, agent prompting, and chat loops.}.
-.3 evaluation.py \DTcomment{Metrics computation (Cosine, CovD, DQI LLM Judge).}.
-.3 schemas.py \DTcomment{TypedDict definitions enforcing strict Python typing.}.
+.3 main.py \DTcomment{Master orchestrator (\texttt{execute\_simulation\_run}) and CLI entry point}.
+.3 deliberation.py \DTcomment{Multi-turn dyadic deliberation chat loop engine}.
+.3 ballot.py \DTcomment{Secret ballot administrator with option randomization and robust parser}.
+.3 psychometrics.py \DTcomment{Classical Test Theory and 2PL IRT regularized L-BFGS-B estimation engine}.
+.3 personas.py \DTcomment{Citizen persona system prompts, traits, and metadata resolution}.
+.3 report.py \DTcomment{Synthesis markdown and Mermaid workflow diagram generator}.
+.3 schemas.py \DTcomment{TypedDict structural definitions enforcing static type safety}.
+.3 llm.py \DTcomment{OpenAI-compatible client with environment credential validation}.
 .2 tests/.
-.3 test\_api\_check.py \DTcomment{Unit tests to verify LLM endpoint connectivity}.
-.3 test\_sanity.py \DTcomment{Unit tests for the private scratchpad regex parser}.
+.3 test\_ballot\_parser.py \DTcomment{Unit tests for ballot option extraction and presentation randomization}.
+.3 test\_psychometrics.py \DTcomment{Unit tests for CTT formulas, 2PL IRT monotonicity, and prior bounds}.
+.3 test\_deliberation.py \DTcomment{Unit tests for dialogue turn structure and history assembly}.
+.3 test\_pipeline.py \DTcomment{Full end-to-end dry-run pipeline and CLI execution tests}.
+.3 test\_model\_availability.py \DTcomment{Integration test verifying configured LLM availability on endpoint}.
+.2 pyproject.toml \DTcomment{Pytest, mypy, and build configurations}.
+.2 requirements.txt \DTcomment{Pinned runtime dependencies (numpy, scipy, openai, pytest)}.
+.2 README.md \DTcomment{Repository documentation, psychometric guide, and execution tutorial}.
 }
 
 \subsection{Overall User Configurability}
+
+\underline{\texttt{itemXX\_\{topic\}\_description.json}:}
 \begin{itemize}
-    \item Model config: Model assignments (mapping personas to LLMs\footnote{Example, ``MOE Official: \texttt{LLama-3.3-70B-Instruct-Turbo}"}) and model settings (seed, temperatures, context window).
-    \item System prompts' texts: Topic Setting, Stance Generation, Deliberator and Judge Personas.
-    \item User prompts' texts: Turn Signal.
-    \item Deliberation config: turns per agent, control/treatment specification, and chosen evaluation metrics.
+    \item \texttt{item\_id}
+    \item \texttt{title}
+    \item \texttt{topic\_prompt} (user prompt)
+    \item \texttt{ballot}: \texttt{options}, \texttt{correct\_key}
+\end{itemize}
+
+\underline{\texttt{config.json}:}
+\begin{itemize}
+    \item \texttt{experiment\_metadata}: name, description, version
+    \item \texttt{model\_config}: model assignment (mapping the agent model to the desired LLM)\footnote{Example, \texttt{agent\_model}: \texttt{openai/gpt-oss-120b}"}) and model settings (\texttt{temperature, max\_tokens, deliberation\_max\_tokens, ballot\_max\_tokens, seed}).
+    \item \texttt{system\_prompts}: agent persona prompts
+    \item \texttt{user\_prompts}: deliberation turn signal, secret ballot invitation.
+    \item \texttt{deliberation\_config}: turns per session (\texttt{turns\_per\_item}), trials per topic (\texttt{trials\_per\_item}), MCQ option order randomization seed (\texttt{mcq\_option\_order\_seed}), and dyad configurations (\texttt{dyads}).
 \end{itemize}
 
 \subsection{Model Config}
-\texttt{LLama-3.3-70B-Instruct-Turbo} was chosen for both agents and the DQI Judge for the trivial reason that this experiment used \href{https://www.together.ai/}{together.ai} for easy access to compute, and this service has a limited selection of models that could be used without a dedicated persistent instance. However, there is general precedent for the use of \texttt{LLama-3} models as can be seen in \textbf{Nguyen et al. 2025} for the task of conversation derailment forecasting\footnote{They use \texttt{Llama-3.1-8B.}}, and in \textbf{Hayati et al. 2024} for the task of diversity maximization in LLM outputs\footnote{They use \texttt{LLama-3-70B}.}.\\
+\texttt{gpt-oss-120b} was chosen for all persona agents for the trivial reason that this experiment used \href{https://www.together.ai/}{together.ai} for easy access to compute, and this service has a limited selection of larger models that could be used without a dedicated persistent instance. However, there is extensive precedent for the use of general \texttt{gpt}-series models in LLM-social simulation literature.\\
 
-The default \texttt{temperature} of the deliberation agents was set at 0.7 following \textbf{Argyle et al's (2023)} and \textbf{Wang et al's (2025)} methodologies, to promote the diversity of the model's responses and better approximate a population-representative range of outcomes. However, this introduces nondeterminism that complicates experiment reruns in terms of baseline figures for Convergence, and CovD. This issue can be mitigated by running the experiment once to establish a single baseline, and then executing $N+1$ reruns against that baseline.\\
+The default \texttt{temperature} of the deliberation agents was set at 0.7 following \textbf{Argyle et al's (2023)} and \textbf{Wang et al's (2025)} methodologies, to promote the diversity of the model's responses and better approximate a population-representative range of outcomes. This does introduce nondeterminism in textual output which complicates experiment reruns in terms of fairly comparing evaluation metrics, which hinge on the specific flow of deliberation. However, as argued by \texttt{Veri 2026}, replicability in AI-deliberation should not be judged by textual identity but by the stability of analytically relevant structural and cognitive metrics under a fully documented configuration. \\
 
-The default \texttt{seed} of the agents was set to \texttt{None}\footnote{Which means the model elects its own random seed at each point of inference.}, which further boosts outcome variability and mitigates replication covariance, and seed hacking.\\
+The default \texttt{seed} of the agents was set to \texttt{None}\footnote{Which means the model elects its own random seed at every new point of inference.}, which further boosts outcome variability and mitigates replication covariance, and seed hacking.\\
 
-The context window of the model of 128000 tokens is more than enough for the prompts we feed it.
+The \texttt{deliberation\_max\_tokens} (or general \texttt{max\_tokens}) of 512 (3-5 sentences) is appropriate for the level of verbosity we expect from agents in a short deliberation. Likewise, \texttt{ballot\_max\_tokens} is explicitly allocated at 512 tokens to guarantee that hybrid and reasoning models (e.g., Qwen-3.5, DeepSeek-R1) do not exhaust their token limits on internal reasoning traces before emitting their single-letter voting decision. As for input prompts, the 128K context window of \texttt{gpt-oss-120b} more than suffices.
 
 \subsection{Prompts}
 \subsubsection{Topic Setting}
+The topics were chosen with the same philosophy in mind as the dyad configurations: to promote the representation of diverse tensions that are frequently encountered in local policy discussions.\\
 
+\underline{Topic 1:}
 \begin{sidequote}
-    The MOE is proposing to merge your local heritage primary school with a newer school 3km away due to falling enrollment. Discuss the impacts and try to reach a consensus on a recommendation to the MOE.\\
-
-    Keep in mind you are engaging in deliberation, not a debate or casual discussion. Deliberation is a core mechanism of democratic politics, emphasizing reason-giving, justification, and openness to revision. Through communicative processes that privilege equality and reciprocity, deliberation transforms private preferences into collectively reasoned judgments, grounding legitimacy in argument rather than authority.
+    Due to falling birth rates, MOE is merging schools with falling enrollment. One participant prioritizes community heritage and alumni identity, while the other prioritizes educational resource efficiency and modern facilities. Deliberate to find common ground.
 \end{sidequote}
 
-The latter half of the prompt is as such because we want to boost the likelihood of the discussion being constructive with respect to an actionable consensus. The definition of deliberation as above is taken verbatim from \textbf{Zhuang et al. (2026)}.
-
-\subsubsection{Control/Treatment Modifiers}
-Control:
+\underline{Topic 2:}
 \begin{sidequote}
-    Respond directly to the previous speakers in character.
+    A planned underground MRT transit line intersects a historic district of conserved pre-war shophouses. One participant argues that preserving architectural identity and cultural heritage is non-negotiable, while the other argues that thousands of daily commuters need fast, affordable, and direct public transit connectivity. Deliberate to find common ground.
 \end{sidequote}
 
-Treatment:
+\underline{Topic 3:}
 \begin{sidequote}
-    Before responding, you MUST write your internal thoughts inside \texttt{private\_scratchpad} tags. Analyze what others said, how it affects your persona's goals, and where you might compromise. Then, write your verbal response inside \texttt{public\_response} tags.
+    Singapore balances its role as a regional corporate and tech headquarters hub requiring specialized global talent against domestic mid-career PMET anxieties over fair hiring, wage suppression, and leadership pipelines. One participant champions economic openness and global talent access, while the other prioritizes citizen worker protection and knowledge transfer. Deliberate to find common ground.
 \end{sidequote}
 
-The precedent for including a private scratchpad/internal reflection on simulated personas is in \textbf{Park et al. 2023}: ``Refection was an advantage for generative agents when making decisions that required a deeper synthesis of their experiences". In the Treatment run, the other agent \textbf{only} sees the \texttt{public\_response}; the \texttt{private\_scratchpad} is stripped from the context window before passing the chat history to the next agent.
+\underline{Topic 4:}
+\begin{sidequote}
+    Following the severe 2026 transboundary haze crisis that drove air quality across Singapore into the Very Unhealthy range (PSI $>$ 200) and prompted NEA to issue Section 10 notices under the Transboundary Haze Pollution Act (THPA), intense debate has erupted over the government's response. While the THPA empowers Singapore to hold errant entities liable extraterritorially, direct prosecution is stalled by foreign concession map secrecy and cross-border jurisdictional limits. One participant demands aggressive unilateral legal prosecution and punitive financial retaliation against regional plantation conglomerates, while the other emphasizes diplomatic caution, sovereign non-interference, and cooperative firefighting assistance. Deliberate to find common ground.
+\end{sidequote}
+
+\subsubsection{Ballot Setting}
+
+\underline{General Prompt:}
+\begin{sidequote}
+    You have completed a structured policy deliberation on: \texttt{title}.\\
+    Dilemma Context: \texttt{topic\_prompt}.\\ 
+    Deliberation Summary/Transcript: \texttt{transcript\_summary}\\
+    Options (in randomized order): \texttt{formatted\_options}\\
+    Instructions:\\ 
+    Select the single resolution that best resolves the policy tension.\\ 
+    Respond ONLY with the single letter corresponding to your choice (e.g., A, B, C, or D) and nothing else.
+\end{sidequote}
+
+Below are the policy options presented for each topic. \textbf{Before randomization}\footnote{Which means the following order is not necessarily the order of the options presented to the agent in any trial.}, the options are in the order of:
+\begin{enumerate}
+    \item Integrative Compromise (ideal post-deliberation choice).
+    \item Status Quo Inertia; rigid refusal to adapt (distractor 1).
+    \item Technocratic Zero-Sum; ruthless efficiency maximization (distractor 2).
+    \item External Scapegoating; diverting domestic accountability onto foreign or bureaucratic scapegoats (distractor 3).
+\end{enumerate}
+
+The Integrative Compromises for each topic were constructed based on real-world policies and resolutions after the underlying issue had undergone several iterations of public \& parliamentary discussion/feedback. The real-world references are given as footnotes.\\
+
+\underline{Topic 1 Options:}
+\begin{enumerate}
+    \item Proceed with mergers to optimize facilities and teacher allocation, while preserving alumni heritage through dedicated on-campus archives, co-named buildings, and free shuttle transit for displaced students.\footnote{\href{https://www.channelnewsasia.com/singapore/moe-school-merger-stamford-telok-kurau-pioneer-200791}{CNA, 2021}.}
+    \item Immediately freeze all school mergers indefinitely, funding empty classrooms with deficit spending regardless of cohort sizes.
+    \item Aggressively shutter all under-enrolled schools within 12 months with no heritage concessions, redirecting all saved funds purely to top-performing institutions.
+    \item Halt local mergers and instead mandate foreign student intake quotas to artificially fill classroom vacancies.
+\end{enumerate}
+
+\underline{Topic 2 Options:}
+\begin{enumerate}
+    \item Adopt deep-tunnel micro-bored engineering with foundation underpinning at a higher initial construction cost, combined with adaptive re-use ground entrances embedded within conserved shophouse facades.\footnote{\href{https://www.straitstimes.com/singapore/bigger-portion-of-conserved-ellison-building-to-be-kept}{ST, 2018}.}
+    \item Cancel or indefinitely postpone the MRT station in the area to leave all shophouses undisturbed, leaving residents and commuters reliant on congested road transit.
+    \item Demolish the historical shophouses along the alignment via compulsory acquisition to execute the cheapest surface-level cut-and-cover construction, treating heritage as secondary to throughput.
+    \item Halt the rail extension and blame foreign conservation advocates and tourists for stalling urban progress, deflecting the infrastructure challenge onto external interests.
+\end{enumerate}
+
+\underline{Topic 3 Options:}
+\begin{enumerate}
+    \item Implement a transparent points-based framework (COMPASS) that evaluates candidate salary benchmarks against local PMET percentiles while scoring firms on nationality diversity and local PMET employment share, balancing global talent access with safeguards for a strong local core\footnote{\href{https://www.channelnewsasia.com/singapore/employment-pass-jobs-foreign-workers-mom-budget-2022-debate-parliament-2538966}{CNA, 2022}.}.
+    \item Immediately freeze all Employment Pass issuances and cap existing foreign talent renewal quotas, prioritizing status-quo job protection even if multinational corporations relocate regional operations.
+    \item Completely abolish salary benchmarks and hiring ratios to let unfettered market supply determine labor costs, dismissing local worker anxieties as unavoidable frictions of globalization.
+    \item Mandate invasive public naming-and-shaming of foreign HR managers and blame multinational hiring syndicates entirely for domestic wage stagnation without improving local training pipelines.
+\end{enumerate}
+
+\underline{Topic 4 Options:}
+\begin{enumerate}
+    \item Combine bilateral firefighting assistance and ASEAN satellite data-sharing with domestic regulatory leverage: enforce strict MAS/SGX sustainable finance taxonomies and mandatory supply-chain traceability that cut off Singapore-based bank lending, capital market access, and public procurement for agribusinesses linked to burning\footnote{\href{https://www.straitstimes.com/singapore/why-cant-singapores-anti-haze-law-get-indonesian-companies-to-stop-the-fires}{ST, 2026}.}.
+    \item Rely exclusively on diplomatic appeals and routine offers of regional firefighting assistance through ASEAN channels, accepting periodic transboundary haze as an unavoidable meteorological condition without pursuing corporate accountability.
+    \item Unilaterally issue extraterritorial arrest warrants and freeze Singapore-based bank accounts of regional plantation executives regardless of diplomatic fallout, prioritizing punitive optics over bilateral environmental cooperation.
+    \item Impose blanket retaliatory tariffs on all agricultural imports from neighboring countries and deflect domestic public health obligations by blaming external governments entirely.
+\end{enumerate}
 
 \subsubsection{Personas}
-MOE Official: 
+
+\underline{Technocratic Pragmatist ($\boldsymbol{P}_1$):}
 \begin{sidequote}
-    You are a Ministry of Education official. Your main concern is efficiency, falling birth rates, and ensuring every school has a critical mass of students for diverse social mixing and viability. You strongly support the school merger.
+    You are participating in a citizen policy deliberation panel in Singapore.\\
+    Role: Technocratic Pragmatist (High Policy Knowledge, Low Affective Polarization)\\[4pt]
+    Core characteristics:
+    \begin{itemize}
+        \item You approach public policy dilemmas with analytical rigor, fiscal awareness, and institutional realism.
+        \item You reference policy mechanisms, economic incentives, operational feasibility, and data-driven constraints.
+        \item Your tone is calm, professional, and objective. You avoid emotional escalation.
+        \item You prioritize structural viability, but you are willing to compromise on tactical details if core policy efficiency and fiscal sustainability are preserved.
+    \end{itemize}
 \end{sidequote}
 
-School teacher: 
+\underline{Ideological Advocate ($\boldsymbol{P}_2$):}
 \begin{sidequote}
-    You are a teacher at the heritage school. You are deeply opposed to the merger because it disrupts the local community, threatens job security, and destroys the school's heritage.
+    You are participating in a citizen policy deliberation panel in Singapore.\\
+    Role: Ideological Advocate (High Policy Knowledge, High Affective Polarization)\\[4pt]
+    Core characteristics:
+    \begin{itemize}
+        \item You have deep policy knowledge but strong, principled moral commitments (e.g., social equity, cultural heritage, climate justice).
+        \item You are deeply skeptical of bureaucratic expediency and technocratic cost-benefit calculations that sacrifice community values.
+        \item Your tone is articulate, passionate, and firm.
+        \item You vigorously challenge technocratic complacency, though you can recognize solutions that genuinely uphold your core principles.
+    \end{itemize}
+\end{sidequote}
+
+\underline{Disaffected Populist ($\boldsymbol{P}_3$):}
+\begin{sidequote}
+    You are participating in a citizen policy deliberation panel in Singapore.\\
+    Role: Disaffected Populist (Low Policy Knowledge, High Affective Polarization)\\[4pt]
+    Core characteristics:
+    \begin{itemize}
+        \item You feel everyday Singaporeans are left behind by out-of-touch elites, sterile policies, and rising costs.
+        \item You lack interest in technical jargon; you care about bread-and-butter struggles, gut fairness, and perceived double standards.
+        \item Your tone is emotive, candid, sometimes skeptical or defensive.
+        \item You are prone to status-quo inertia, zero-sum distrust, or scapegoating heuristics unless someone takes your personal anxieties seriously.
+    \end{itemize}
+\end{sidequote}
+
+\underline{Open-Minded Everyman ($\boldsymbol{P}_4$):}
+\begin{sidequote}
+    You are participating in a citizen policy deliberation panel in Singapore.\\
+    Role: Open-Minded Everyman (Low Policy Knowledge, Low Affective Polarization)\\[4pt]
+    Core characteristics:
+    \begin{itemize}
+        \item You represent the average citizen navigating daily life without deep policy expertise.
+        \item You speak plainly, listen actively, and respect differing viewpoints.
+        \item Your tone is humble, constructive, and warm.
+        \item You look for common-sense, harmonious solutions that help people get along and solve problems practically.
+    \end{itemize}
 \end{sidequote}
 
 These personas were engineered as inspired by \textbf{Zhuang et al. 2026}'s suggestion that ``role-specific prompts [which] simulate distinct institutional positions and value commitments...[ensure] that deliberations were grounded in plausible conflicts of interest and institutional trade-offs rather than abstract argumentation".
 
-\subsubsection{Stance Generation}
-Pre-deliberation stance:
-\begin{sidequote}
-    You are participating in a democratic deliberation. Based on your persona, write a 1-paragraph stance on the following topic:
-\end{sidequote}
-
-Post-deliberation stance:
-\begin{sidequote}
-    You have just concluded a deliberation with other citizens. Based on the discussion, write your final 1-paragraph stance.
-\end{sidequote}
-
 \subsubsection{Turn Signal}
 \begin{sidequote}
-    It is your turn to speak. Provide your response.
+    You are in a structured policy deliberation with another citizen regarding: \texttt{title}.\\
+    Dilemma Context:\texttt{topic\_prompt}.\\
+    Conversation History:\texttt{conversation\_history}.\\
+    Now it is your turn to speak. In 3-5 sentences, reply directly to the other participant. Express your perspective, respond constructively to their arguments, and work toward a viable policy compromise that balances competing legitimate values.
 \end{sidequote}
-
-\subsubsection{DQI LLM-Judge Prompt}
-
-The rest of the metrics can be evaluated programmatically but DQI is subjective and hence requires a nuanced judge. In the style of \textbf{Zhuang et al. 2026}, we appoint another LLM (in our case, \texttt{LLama-3.3-70B}) agent as a Judge. And prompt it as such:
-
-\begin{sidequote}
-    You are an expert Discourse Quality Index (DQI) evaluator. Your task is to evaluate a SINGLE conversational turn in a deliberation. For each dimension, score it from 1 to 3 based ONLY on the provided turn. Use the following operational definitions and examples to strictly calibrate your scores:
-\end{sidequote}
-
-The actual operational definitions can be found in Appendix C of \textbf{Zhuang et al. 2026}. Listing them here would be space-consuming\footnote{Note that Zhuang et al. did not expose the prompt for their LLM judge. The one used in this experiment is original.}.
 
 \subsection{Deliberation Config}
 
 \subsubsection{Number of Turns}
-The choice of a fixed 3 turns per agent is arbitrary for this small-scale, time-efficient experiment.
+The choice of a fixed $N=4$ total alternating dialogue turns per session (2 turns per agent) is arbitrary for this conservative experiment (both in terms of compute and time).
 
-\subsubsection{Evaluation Metrics}
-\begin{itemize}
-    \item The use of cosine similarity and CovD\footnote{The mathematical intuition behind the CovD metric is that it computes the determinant of the $n \times n$ Gram matrix (pairwise dot products of embeddings), rather than the covariance across embedding dimensions. For a dyad ($n=2$), this produces a $2 \times 2$ matrix whose determinant represents the squared volume of the space spanned by the agents' stances ($1 - \cos^2(\theta)$). The higher the determinant, the wider the divergence of opinions.} to measure intra-agent stance shift, and inter-agent convergence/consensus is inspired by the use of these metrics in \textbf{Wang et al. 2025}. The embeddings for the stances of the agents are generated by SBERT (specifically the \texttt{all-MiniLM-L6-v2} checkpoint, which has a 256-token limit, though single-paragraph stances generally fit within this without truncation, and embeddings are normalized).
-    \begin{itemize}
-        \item There is precedent for the use of SBERT:\texttt{all-MiniLM-L6-v2} in \textbf{Wang et al. 2025} and in \textbf{Hayati et al. 2024}, both for the topic of evaluating diversity/plurality in LLM opinion-generation. SBERT is based on \textbf{Reimers \& Gurevych et al. 2019} which is designed, finetuned, evaluated for argument facet similarity/semantic similarity instead of pure vocabulary/embedding similarity.
-    \end{itemize}
-    \item The use of DQI is inspired by \textbf{Zhuang et al. 2026} who quote \textbf{Steenbergen et al. 2003}. 
-\end{itemize}
+\subsubsection{Trials per Topic}
+The choice of $T=5$ replication trials per deliberation is arbitrary for this conservative experiment.
+
+\subsubsection{MCQ Option Order Seed}
+The choice of seed 42 for the randomized ordering of the ballot options presented to the deliberative agent is arbitrary.
+
+\subsubsection{Dyad Configurations}
+$M=4$ dyad configurations were chosen based on observing a limited but diverse set of tensions that often crop up in democratic deliberation conducted by heterogeneous groups.\\
+
+\underline{$\boldsymbol{D}_1$: Technocrat vs Ideologue:}\\
+This configuration was chosen because it represents impersonal \textit{Ideological Friction} regarding what governance should look like. The Technocrat optimizes for fiscal viability and mechanism feasibility, while the Ideologue optimizes for moral purity, social justice, or heritage continuity.\\
+
+\underline{$\boldsymbol{D}_2$: Technocrat vs Populist:}\\
+This configuration was chosen because it represents a \textit{Vulnerability due to Information-Asymmetry}. The Populist may feel vulnerable to being patronized, out-argued, or minimized by the Technocrat's abstract or institutional manner of speaking, possibly stoking defensive backlash.\\
+
+\underline{$\boldsymbol{D}_3$: Ideologue vs Populist:}\\
+This configuration was chosen because it represents a \textit{Polarized Stalemate}. When two high-polarization agents interact, neither will concede ground. Without an analytical bridge, the dialogue may reach an ideological impasse where both are likely to retreat into status-quo preservation or scapegoating.\\
+
+\underline{$\boldsymbol{D}_4$: Ideologue vs Everyman:}\\
+This configuration was chosen because it represents \textit{Rhetorical Dominance}. The articulate Ideologue is likely to drive the agenda and set the terms of debate, with the consequence of the Everyman either getting steamrolled or managing to anchor the discussion in practical common sense \& underserved concerns.
 
 \newpage{}
 
@@ -583,7 +772,11 @@ A sample test result looks like:
 
 Argyle, Lisa P., et al. "Out of one, many: Using language models to simulate human samples." Political Analysis 31.3 (2023): 337-351.\\
 
+Bächtiger, André, et al. "Deliberative democracy and its measures." Oxford Handbook of Deliberative Democracy. Oxford University Press, 2022.\\
+
 Hayati, Shirley Anugrah, et al. "How far can we extract diverse perspectives from large language models?." Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing. 2024.\\
+
+Ke, Zhisheng, et al. "Applying item response theory and classical test theory to evaluate large language models on standardized assessments." Proceedings of the International Conference on Learning Representations (ICLR). 2026.\\
 
 Nguyen, Vivian, Lillian Lee, and Cristian Danescu-Niculescu-Mizil. "Hanging in the balance: pivotal moments in crisis counseling conversations." Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). 2025.\\
 
@@ -593,7 +786,11 @@ Reimers, Nils, and Iryna Gurevych. "Sentence-bert: Sentence embeddings using sia
 
 Steenbergen, Marco R., et al. "Measuring political deliberation: A discourse quality index." Comparative European Politics 1.1 (2003): 21-48.\\
 
+Veri, Francesco. "Replicability in AI-driven deliberation: Measuring latent structural stability over textual identity." Journal of Artificial Societies and Social Simulation (2026).\\
+
 Wang, Angelina, Jamie Morgenstern, and John P. Dickerson. "Large language models that replace human participants can harmfully misportray and flatten identity groups." Nature Machine Intelligence 7.3 (2025): 400-411.\\
+
+Yang, Yi-Heng, and Götz Bachmann. "Deliberation and voting in democratic decision-making: Complementary mechanisms for collective choice." arXiv preprint arXiv:2502.05017 (2025).\\
 
 Zhuang, Kaiyao, Yuheng Wang, and Weiyu Zhang. "Can AI Deliberate? Evaluating Deliberative Quality and Stance Flow in Multi-Agent LLMs." Proceedings of the Extended Abstracts of the 2026 CHI Conference on Human Factors in Computing Systems. 2026.
 
